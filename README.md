@@ -1,12 +1,66 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🚀 QUICKSTART - GitHub Flow دليل العمل الجماعي
 
-Currently, two official plugins are available:
+هذا الملف يرشد أعضاء الفريق لكيفية البدء باستخدام GitHub Flow في المشروع، خطوة بخطوة.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📥 1. استنساخ المشروع (Clone Repository)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+git clone https://github.com/<team-name>/<repo-name>.git
+cd <repo-name>
+```
+
+---
+
+## 🔄 2. تحديث الفرع الرئيسي (main)
+
+```bash
+git checkout main
+git pull origin main
+```
+
+---
+
+## 🌿 3. إنشاء فرع جديد للمهمة
+
+```bash
+git checkout -b feature/اسم-المهمة
+```
+
+---
+
+## 🧠 4. تنفيذ التعديلات والرفع
+
+```bash
+git add .
+git commit -m "feat: وصف قصير لما تم"
+git push origin feature/اسم-المهمة
+```
+
+---
+
+## 🔃 5. فتح Pull Request
+
+- من GitHub: افتح PR من `feature/...` إلى `main`.
+- ضع عنوان ووصف واضح.
+- انتظر المراجعة من القائد أو الزملاء.
+
+---
+
+## 🌱 قواعد تسمية الفروع
+
+| النوع       | الصيغة                        |
+|------------|-------------------------------|
+| ميزة جديدة | `feature/login-page`          |
+| إصلاح خطأ  | `bugfix/fix-button-alignment` |
+| تعديل طارئ | `hotfix/deploy-issue`         |
+
+---
+
+✅ **تذكير مهم**:
+- لا تعدل على `main` مباشرة.
+- كل مهمة يجب أن تكون في فرع منفصل.
+- لا تدمج Pull Request قبل مراجعته من الآخرين.
+
