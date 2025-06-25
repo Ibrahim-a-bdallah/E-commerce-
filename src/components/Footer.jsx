@@ -1,9 +1,8 @@
-import React from "react";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
-import coupon from "../assets/img/footer/coupon.png.png"
-import app from "../assets/img/footer/app-store.png.png"
-import goggle from "../assets/img/footer/google-play.png.png"
-import payments from "../assets/img/footer/payments.jpg.png"
+import coupon from "../assets/img/footer/coupon.png.png";
+import app from "../assets/img/footer/app-store.png.png";
+import goggle from "../assets/img/footer/google-play.png.png";
+import payments from "../assets/img/footer/payments.jpg.png";
 export default function Footer() {
   const categories = [
     {
