@@ -2,7 +2,7 @@ import React from "react";
 import { FaPhoneVolume } from "react-icons/fa6";
 import { BsEnvelope } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
-import "./Contact.css"
+// z
 
 export default function Contact()
 {
