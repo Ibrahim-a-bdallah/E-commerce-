@@ -1,6 +1,9 @@
 import React from "react";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
-
+import coupon from "../assets/img/footer/coupon.png.png"
+import app from "../assets/img/footer/app-store.png.png"
+import goggle from "../assets/img/footer/google-play.png.png"
+import payments from "../assets/img/footer/payments.jpg.png"
 export default function Footer() {
   const categories = [
     {
@@ -114,7 +117,7 @@ export default function Footer() {
           </div>
           <div className="w-full flex justify-center h-full -mb-9 lg:-mb-40  ">
             <img
-              src={"/images/footer/coupon.png.png"}
+              src={coupon}
               alt="Coupon"
               className=" w-full h-full md:min-w-[200px] md:h-[277px]  "
             />
@@ -124,7 +127,7 @@ export default function Footer() {
 
       {/* Features Section */}
       <div className="bg-[#F7F8FD] py-[35px] w-full">
-        <div className="container mx-auto px-4">
+        <div className=" mx-auto px-4 md:px-[180px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 ">
             {[
               {
@@ -264,7 +267,7 @@ export default function Footer() {
 
       {/* Categories Section */}
       <div className="bg-[#F7F8FD] w-full">
-        <div className="container mx-auto px-4 py-[50px] md:py-[100px] border-t border-[#E4E5EE]">
+        <div className="mx-auto px-4 md:px-[150px] py-[50px] md:py-[100px] border-t border-[#E4E5EE]">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {categories.map((category, index) => (
               <div key={index} className="flex flex-col gap-5">
@@ -289,7 +292,7 @@ export default function Footer() {
 
       {/* Contact & Info Section */}
       <div className="bg-[#ffffff] w-full">
-        <div className="container mx-auto px-4">
+        <div className=" mx-auto px-4 md:px-[150px]">
           <div className="py-8 md:py-11 w-full flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex gap-4 items-center">
               <div>
@@ -345,12 +348,12 @@ export default function Footer() {
               </div>
               <div className="flex gap-2">
                 <img
-                  src={"/images/footer/google-play.png.png"}
+                  src={goggle}
                   alt="Google Play"
                   className="w-28 h-10 object-contain"
                 />
                 <img
-                  src={"/images/footer/app-store.png.png"}
+                  src={app}
                   alt="App Store"
                   className="w-28 h-10 object-contain"
                 />
@@ -395,7 +398,7 @@ export default function Footer() {
                 ))}
               </div>
               <img
-                src={"/images/footer/payments.jpg.png"}
+                src={payments}
                 alt="Payment Methods"
                 className="w-full md:w-[320px] h-auto"
               />
