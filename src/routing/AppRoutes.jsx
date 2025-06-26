@@ -9,6 +9,7 @@ const Home = lazy(() => import("../pages/home/Home"))
 const Blog = lazy(() => import("../pages/Blog/BlogPage"))
 const CheckOut = lazy(() => import("../pages/Checkout"))
 const Contect = lazy(() => import("../pages/contact/Contact"))
+const About = lazy(() => import("../pages/About/AboutUs"))
 
 import Error from "../pages/Error";
 import LoadingSpinner from "../components/feedback/lottieHandler/SuspenseHandler";
@@ -39,11 +40,11 @@ const router = createBrowserRouter([
         element:
         <Blog/>
       },
-      // {
-      //   path: "about",
-      //   element:
-      //     <About />
-      // },
+      {
+        path: "about",
+        element:
+          <About />
+      },
       {
         path: "contact",
         element:

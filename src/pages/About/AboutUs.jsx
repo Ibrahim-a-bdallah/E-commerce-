@@ -1,6 +1,5 @@
-import React from 'react';
-import AboutUs1 from "../assets/img/AboutUs1.png";
-import AboutUs2 from "../assets/img/AboutUs2.png";
+import AboutUs1 from "../../assets/img/AboutUs1.png";
+import AboutUs2 from "../../assets/img/AboutUs2.png";
 
 export default function AboutUs() {
 
