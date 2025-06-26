@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BiHome } from "react-icons/bi";
 import logo from "../assets/img/nav/logo.png";
 
-export default function Nav() {
+export default function Header() {
   const [language, setlanguage] = useState("English");
   const [currency, setCurrency] = useState("USD");
   const [items, setItems] = useState(0);
