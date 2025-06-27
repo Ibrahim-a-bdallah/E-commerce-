@@ -7,7 +7,6 @@ const actGetProducts = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await axios.get("https://dummyjson.com/products");
-      console.log(response.data.products);
       return response.data.products;
     } catch (error) {
       return rejectWithValue(
