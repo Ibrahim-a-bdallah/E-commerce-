@@ -1,8 +1,9 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { BiHome } from "react-icons/bi";
 import logo from "../assets/img/nav/logo.png";
+import { getCategories } from "../utils";
 
 export default function Header() {
   const [language, setlanguage] = useState("English");
@@ -11,7 +12,9 @@ export default function Header() {
   const [toltal, setTotal] = useState(0.0);
   const [activeroute, setActiveroute] = useState("home");
   const [products, setProducts] = useState(50);
-
+  const [categories, setCategories] = useState([]);
+  const [showCategories, setShowCategories,] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const routes = [
     {
       name: "home",
@@ -114,7 +117,22 @@ export default function Header() {
       icon: null,
     },
   ];
-
+  {/* fetch Categoriesr data*/}
+  const fetchCategories = async () => {
+    try {
+      const res = await getCategories();
+      if (res.status === 200) {
+        setCategories(res.data);
+      } else {
+        console.error("Failed to fetch categories");
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   return (
     <div className="flex flex-col justify-center items-center w-full">
       {/* Notification Banner */}
@@ -278,7 +296,7 @@ export default function Header() {
             </div>
 
             <div className="order-2 md:order-3 flex gap-4 items-center">
-              <div className="">
+              <div className="cursor-pointer relative" onClick={() => setShowUserMenu((prev) => !prev)} >
                 <svg
                   width="43"
                   height="43"
@@ -311,6 +329,10 @@ export default function Header() {
                     </clipPath>
                   </defs>
                 </svg>
+                <div className={`absolute top-full left-0 bg-[#F3F4F7] text-black text-[10px] font-[400] w-40 h-20 text-center flex flex-col gap-2 align-center justify-center rounded-md ${showUserMenu ? 'block' : 'hidden'}`}>
+                  <Link to={'./login'} className="text-base font-medium pb-2">Log In</Link>
+                  <Link to={'./signup'} className="text-base font-medium pb-2">Sign Up</Link>
+                </div>
               </div>
               <div className="flex gap-1 items-center">
                 <h1 className="font-[600] text-[16px] text-[#3E445A] dosis">
@@ -359,8 +381,8 @@ export default function Header() {
 
         {/* Main Navigation */}
         <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
-          <div className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto">
-            <div className="flex gap-2 md:gap-4 items-center">
+          <div className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto" onClick={() => setShowCategories((prev) => !prev)}>
+            <div className="flex gap-2 md:gap-4 items-center ">
               <svg
                 width="13"
                 height="14"
@@ -407,6 +429,22 @@ export default function Header() {
                 </defs>
               </svg>
             </div>
+            <ul className={`mt-4 space-y-2 absolute left-0 top-full bg-white shadow-lg rounded-lg py-4 h-[400px] overflow-y-auto z-8 ${showCategories ? 'opacity-100 block' : 'opacity-0  hidden'}` } >
+              {categories.map((category) => (
+                <li key={category.slug} className="p-2 border-b border-[#E3E4E6] flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" className="w-3 h-3 text-[#35AFA0] " >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                  </svg>
+
+                  <Link
+                    to={`/category/${category.slug}`}
+                    className="block text-sm hover:text-[#1773B0] cursor-pointer"
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="w-full md:w-auto overflow-x-auto">
@@ -414,11 +452,10 @@ export default function Header() {
               {routes.map((item, index) => (
                 <li
                   key={index}
-                  className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${
-                    activeroute == item.link
-                      ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF]"
-                      : ""
-                  }`}
+                  className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${activeroute == item.link
+                    ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF]"
+                    : ""
+                    }`}
                 >
                   {item.icon}
                   <a href={item.link}>
