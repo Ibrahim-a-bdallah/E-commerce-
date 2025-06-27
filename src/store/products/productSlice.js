@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import actGetProducts from "./actGetProduct";
 
 const initialState = {
-  product: [],
+  products: [],
   loading: "idle",
   error: null,
 };
@@ -15,7 +15,7 @@ const productSlice = createSlice({
   reducers: {
     getProducts(state, action) {
       state.loading = "succeeded";
-      state.product = action.payload;
+      state.products = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -24,7 +24,7 @@ const productSlice = createSlice({
     });
     builder.addCase(actGetProducts.fulfilled, (state, action) => {
       state.loading = "success";
-      state.product = action.payload;
+      state.products = action.payload;
     });
     builder.addCase(actGetProducts.rejected, (state, action) => {
       state.loading = "failed";
