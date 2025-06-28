@@ -1,11 +1,4 @@
 
-import React from "react"
-import "./home.css"
-import poster from "../../assets/img/Home/poster.png"
-import img from "../../assets/img/Home/933df39cffb1e5272e9216abaea18d1e2ad18cd9.png"
-import img2 from "../../assets/img/Home/Water.png"
-
-
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/ui/ProductCard";
 import ProductCarousel from "../../components/ui/ProductCarousel";
@@ -21,7 +14,6 @@ import product6 from "./../../assets/img/product/6.png";
 import product7 from "./../../assets/img/product/7.png";
 import { useEffect } from "react";
 import actGetProducts from "../../store/products/actGetProduct";
-
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -299,4 +291,3 @@ function Mistake()
 };
 
 export default Home;
-
