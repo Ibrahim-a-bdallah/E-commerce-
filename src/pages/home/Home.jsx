@@ -12,9 +12,17 @@ import product4 from "./../../assets/img/product/4.png";
 import product5 from "./../../assets/img/product/5.png";
 import product6 from "./../../assets/img/product/6.png";
 import product7 from "./../../assets/img/product/7.png";
+import { useEffect } from "react";
+import actGetProducts from "../../store/products/actGetProduct";
 
 const Home = () => {
   const dispatch = useDispatch();
+  
+  useEffect(() =>
+  {
+    dispatch(actGetProducts());
+    }, [dispatch]);
+
 
   const products = useSelector((state) => state.products);
   console.log(products);
