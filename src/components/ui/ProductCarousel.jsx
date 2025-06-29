@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import ProductCard from "./ProductCard";
+import ProductCard from "./ProductMain";
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,43 +11,86 @@ const ProductCarousel = ({ title, products }) => {
   return (
     <div className="mb-12">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={20}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-          },
-          768: {
-            slidesPerView: 3,
-          },
-          1024: {
-            slidesPerView: 4,
-          },
-          1280: {
-            slidesPerView: 5,
-          },
-        }}
-        className="product-carousel"
-      >
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <ProductCard
-              image={product.image}
-              title={product.title}
-              price={product.price}
-              originalPrice={product.originalPrice}
-              rating={product.rating}
-              discount={product.discount}
-              isNew={product.isNew}
-              size="medium"
+      <div className="relative w-full">
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={20}
+          slidesPerView={1}
+          navigation={{
+            nextEl: ".custom-next",
+            prevEl: ".custom-prev",
+          }}
+          breakpoints={{
+            480: {
+              slidesPerView: 2,
+            },
+            640: {
+              slidesPerView: 3,
+            },
+            768: {
+              slidesPerView: 4,
+            },
+            1024: {
+              slidesPerView: 5,
+            },
+            1280: {
+              slidesPerView: 6,
+            },
+          }}
+          className="product-carousel "
+        >
+          {products.map((product) => (
+            <SwiperSlide className="py-2" key={product.id}>
+              <ProductCard
+                image={product?.images[0]}
+                title={product?.title}
+                price={product?.price}
+                originalPrice={product?.discountPercentage}
+                rating={product?.rating}
+                availabilityStatus={product?.availabilityStatus}
+                discount={product?.discount}
+                isNew={product?.isNew}
+                size="medium"
+                showAddButton={true}
+                addQuantity={false}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <button className="custom-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-gray-700"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
             />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+          </svg>
+        </button>
+
+        <button className="custom-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-gray-700"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };
