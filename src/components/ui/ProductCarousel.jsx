@@ -48,7 +48,7 @@ const ProductCarousel = ({ title, products }) => {
                 originalPrice={product?.discountPercentage}
                 rating={product?.rating}
                 availabilityStatus={product?.availabilityStatus}
-                discount={product?.discount}
+                discount={product?.discountPercentage}
                 isNew={product?.isNew}
                 size="medium"
                 showAddButton={true}

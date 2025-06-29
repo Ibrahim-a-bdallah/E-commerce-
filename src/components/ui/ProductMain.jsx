@@ -1,4 +1,4 @@
-import { Star, Plus } from "lucide-react";
+import { Star } from "lucide-react";
 
 const ProductMain = ({
   image,
@@ -27,7 +27,7 @@ const ProductMain = ({
       <div className="absolute top-2 left-2 flex flex-col space-y-1 z-10">
         {discount && (
           <div className="bg-red-500 text-white text-xs px-2 py-1 rounded-full whitespace-nowrap">
-            {discount}
+            {discount}%
           </div>
         )}
         {isNew && (

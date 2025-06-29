@@ -1,3 +1,11 @@
+import ProductMain from "../ui/ProductMain";
+import poster1 from "../../assets/img/product/1.png";
+import poster2 from "../../assets/img/product/2.png";
+import poster3 from "../../assets/img/product/3.png";
+import poster4 from "../../assets/img/product/4.png";
+import poster5 from "../../assets/img/product/5.png";
+import poster6 from "../../assets/img/product/6.png";
+
 export function Top() {
   return (
     <>
@@ -9,69 +17,44 @@ export function Top() {
     </>
   );
 }
-export function Products({ Pimg }) {
+export function Products({ featuredProducts }) {
   return (
     <>
-      <div className="border-[1px] border-[#EDEEF5] rounded-2xl mb-[50px] flex flex-wrap ">
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-        <Product Pimg={Pimg} />
-      </div>
-    </>
-  );
-}
-export function Product({ Pimg }) {
-  return (
-    <>
-      <div className="product  p-[30px] md:p-[15px] lg:flex-1/5 md:flex-1/2    m-auto">
-        <div className="img relative">
-          <img src={Pimg} alt="product imge" />
-          <div className="bg-[#35AFA0] px-[10px] py-[5px] absolute top-0 left-0 rounded-[10px] text-white">
-            25%
-          </div>
-        </div>
-        <ProductDetails />
-      </div>
-    </>
-  );
-}
-export function ProductDetails() {
-  return (
-    <>
-      <div className="text pl-[15px]">
-        <p className="my-[15px] ">
-          Zevia Kidz Strawberry Lemonade Zero Calorie…
-        </p>
-        <p className="uppercase font-[500] text-[15px] text-[#00B853]">
-          In stock
-        </p>
-        <div className="flex gap-[15px] items-center my-[12px]">
-          <span>stars</span>
-          <span className="text-gray-500 font-[500]">1 review</span>
-        </div>
-        <div className="flex gap-[20px] items-center">
-          <span className="text-gray-300 text-[15.3px] font-[600] ">$7.95</span>
-          <span className="text-[#D51243] font-[600] text-[18px]">$5.95</span>
+      <div className="border border-[#EDEEF5] rounded-2xl mb-12 overflow-hidden">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-0 ">
+          {featuredProducts.slice(16, 26).map((product) => (
+            <div
+              key={product?.id}
+              className="p-4 sm:p-3 border-r border-b border-[#EDEEF5] last:border-r-0  hover:bg-gray-50 transition-colors"
+            >
+              <ProductMain
+                image={product?.images[0]}
+                title={product?.title}
+                price={product?.price}
+                availabilityStatus={product?.availabilityStatus}
+                originalPrice={product?.discountPercentage}
+                rating={product?.rating}
+                discount={product?.discount}
+                isNew={product?.isNew}
+                size="medium"
+                showAddButton={false}
+                addQuantity={false}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </>
   );
 }
 
-export function Posters({ posterImg }) {
+export function Posters() {
   return (
     <>
       <div className="flex mb-[50px] m-auto gap-[20px] flex-wrap ">
-        <Poster posterImg={posterImg} />
-        <Poster posterImg={posterImg} />
-        <Poster posterImg={posterImg} />
+        <Poster posterImg={poster1} />
+        <Poster posterImg={poster2} />
+        <Poster posterImg={poster3} />
       </div>
     </>
   );
@@ -80,7 +63,7 @@ export function Poster({ posterImg }) {
   return (
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
-        <img src={posterImg} alt="poster image" />
+        <img className="w-full h-full" src={posterImg} alt="poster image" />
         <div className="absolute top-[20px] lg:top-[28px] left-0  p-[20px] ">
           <p className="text-[#00B853] md:font-[500] md:text-[14px] ">
             Weekend Discount 40%
@@ -98,13 +81,13 @@ export function Poster({ posterImg }) {
   );
 }
 
-export function Mistakes({ mistageImg }) {
+export function Mistakes() {
   return (
     <>
       <div className="flex gap-[20px] flex-wrap mb-[100px]">
-        <Mistake mistageImg={mistageImg} />
-        <Mistake mistageImg={mistageImg} />
-        <Mistake mistageImg={mistageImg} />
+        <Mistake mistageImg={poster4} />
+        <Mistake mistageImg={poster5} />
+        <Mistake mistageImg={poster6} />
       </div>
     </>
   );
@@ -114,7 +97,7 @@ export function Mistake({ mistageImg }) {
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
         <div className="mb-[10px] rounded-b-2xl overflow-hidden">
-          <img src={mistageImg} alt="water photo" />
+          <img className="w-full h-full" src={mistageImg} alt="water photo" />
         </div>
         <div>
           <p className="text-[#9B9BB4] text-[13px] font-[300] uppercase my-[10px]">
