@@ -25,9 +25,11 @@ import {
 const Home = () => {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(actGetProducts());
   }, [dispatch]);
+
 
   const products = useSelector((state) => state.products);
   const featuredProducts = products.products;
@@ -111,12 +113,16 @@ const Home = () => {
         <Posters posterImg={posterImg} />
         <Mistakes mistageImg={mistageImg} />
       </div>
+      <div className=" lg:px-[150px] m-auto md:px-[80px] px-[30px]">
+        <Top />
+        <Products />
+        <Posters />
+        <Mistakes />
+      </div>
     </>
   );
 };
 
 
 export default Home;
-
-
 
