@@ -21,8 +21,8 @@ export default function Header() {
       icon: null,
     },
     {
-      name: "shope",
-      link: "shope",
+      name: "shop",
+      link: "shop",
       icon: null,
     },
     {
