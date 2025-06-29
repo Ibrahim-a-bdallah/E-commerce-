@@ -68,38 +68,49 @@ const CategoriesSection = () => {
   ];
 
   return (
-    <div className="py-16 bg-gray-50 m-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-2 m-auto">
-        <div className="m-auto">
-          <div className="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-            <div
-              className={` w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}
-            >
-              <img src={fixedCategory?.image} alt={fixedCategory?.name} />
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-1">
-              {fixedCategory?.name}
-            </h3>
-            <p className="text-sm text-gray-500">{fixedCategory?.items}</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              className="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group"
-            >
-              <div
-                className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}
-              >
-                <img src={category?.image} alt={category?.name} />
+    <div className="py-8 md:py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row  ">
+          <div className=" md:w-auto md:flex-[0_0_240px]  my-auto">
+            <div className="bg-white text-center hover:shadow-lg transition-shadow cursor-pointer border border-gray-300 rounded-lg p-4 h-full">
+              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
+                <img
+                  className="w-full h-full object-cover"
+                  src={fixedCategory?.image}
+                  alt={fixedCategory?.name}
+                />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1">
-                {category?.name}
+              <h3 className="font-semibold text-gray-900 text-lg mb-1">
+                {fixedCategory?.name}
               </h3>
-              <p className="text-sm text-gray-500">{category?.items}</p>
+              <p className="text-sm text-gray-500">{fixedCategory?.items}</p>
             </div>
-          ))}
+          </div>
+
+          <div className="flex-1 border border-[#EDEEF5] rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-0 hover:shadow-lg transition-shadow cursor-pointer ">
+              {categories.map((category) => (
+                <div
+                  key={category.id}
+                  className="p-4 sm:p-3 bg-white hover:shadow-lg  transition-shadow border border-gray-200 "
+                >
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full overflow-hidden mb-3">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={category?.image}
+                      alt={category?.name}
+                    />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base text-center mb-1">
+                    {category?.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-500 text-center">
+                    {category?.items}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
