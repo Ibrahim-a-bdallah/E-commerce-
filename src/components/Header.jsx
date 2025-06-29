@@ -17,17 +17,17 @@ export default function Header() {
   const routes = [
     {
       name: "home",
-      link: "/  ",
+      link: "/",
       icon: null,
     },
     {
-      name: "shope",
-      link: "shope",
+      name: "shop",
+      link: "shop",
       icon: null,
     },
     {
       name: "meats & seafood",
-      link: "meats",
+      link: "/category/meats",
       icon: (
         <svg
           width="23"
@@ -47,7 +47,7 @@ export default function Header() {
     },
     {
       name: "Bakery",
-      link: "bakery",
+      link: "/category/bakery",
       icon: (
         <svg
           width="23"
@@ -77,7 +77,7 @@ export default function Header() {
     },
     {
       name: "Beverages",
-      link: "beverages",
+      link: "/category/beverages",
       icon: (
         <svg
           width="23"
@@ -147,7 +147,7 @@ export default function Header() {
                   key={index}
                   className="font-[400] text-[#3E445A] text-sm text-nowrap"
                 >
-                  <a href={item.link}>{item.name}</a>
+                  <Link to={item.link}>{item.name}</Link>
                 </li>
               ))}
             </ul>
@@ -422,8 +422,8 @@ export default function Header() {
               <ul className={`mt-4 space-y-2 absolute left-0 top-full bg-white shadow-lg rounded-lg py-4 h-[400px] overflow-y-auto z-8 ${showCategories ? 'opacity-100 block' : 'opacity-0  hidden'}`} >
                 {categories.map((category) => (
                   <li key={category.slug} className="p-2 border-b border-[#E3E4E6] flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" className="w-3 h-3 text-[#35AFA0] " >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"  className="w-3 h-3 size-6 text-[#35AFA0] " >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>
 
                     <Link
@@ -449,7 +449,7 @@ export default function Header() {
                     }`}
                 >
                   {item.icon}
-                  <a href={item.link}>
+                  <Link to={item.link}>
                     {item.name == "home" ? (
                       <div className="flex items-center gap-2">
                         {item.name}
@@ -481,7 +481,7 @@ export default function Header() {
                     ) : (
                       item.name
                     )}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

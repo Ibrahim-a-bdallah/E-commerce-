@@ -1,9 +1,8 @@
-import React from "react";
+
 import "./home.css";
 import poster from "../../assets/img/Home/poster.png";
 import img from "../../assets/img/Home/933df39cffb1e5272e9216abaea18d1e2ad18cd9.png";
 import img2 from "../../assets/img/Home/Water.png";
-
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/ui/ProductCard";
 import ProductCarousel from "../../components/ui/ProductCarousel";
@@ -23,9 +22,11 @@ import actGetProducts from "../../store/products/actGetProduct";
 const Home = () => {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(actGetProducts());
   }, [dispatch]);
+
 
   const products = useSelector((state) => state.products);
   console.log(products);
@@ -155,6 +156,12 @@ const Home = () => {
           {/* Product Carousel */}
           <ProductCarousel title="Hot Deals" products={featuredProducts} />
         </main>
+      </div>
+      <div className=" lg:px-[150px] m-auto md:px-[80px] px-[30px]">
+        <Top />
+        <Products />
+        <Posters />
+        <Mistakes />
       </div>
       <div className=" lg:px-[150px] m-auto md:px-[80px] px-[30px]">
         <Top />
@@ -303,4 +310,3 @@ function Mistake() {
 
 
 export default Home;
-

@@ -10,6 +10,8 @@ const Blog = lazy(() => import("../pages/Blog/BlogPage"))
 const CheckOut = lazy(() => import("../pages/Checkout"))
 const Contect = lazy(() => import("../pages/contact/Contact"))
 const About = lazy(() => import("../pages/About/AboutUs"))
+const Category = lazy(() => import("../pages/catogaries/[catogary]/index"))
+const Shop = lazy(() => import("../pages/catogaries/[catogary]/index"))
 
 import Error from "../pages/Error";
 import LoadingSpinner from "../components/feedback/lottieHandler/SuspenseHandler";
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <LoadingSpinner type="loading"   >
+      <LoadingSpinner type="loading">
         <MainLayout />
       </LoadingSpinner>
     
@@ -54,6 +56,16 @@ const router = createBrowserRouter([
         path: "checkout",
         element:
           <CheckOut />
+      },
+      {
+        path: "shop",
+        element:
+          <Shop />
+      },
+      {
+        path: "category/:category",
+        element:
+          <Category />
       },
       
     ],
