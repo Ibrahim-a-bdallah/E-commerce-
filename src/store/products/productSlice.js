@@ -34,4 +34,7 @@ const productSlice = createSlice({
 });
 
 // Export the generated reducer function
+
+export const { getProducts } = productSlice.actions;
+
 export default productSlice.reducer;
