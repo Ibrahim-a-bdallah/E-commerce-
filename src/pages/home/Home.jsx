@@ -23,8 +23,7 @@ const Home = () => {
 
   const products = useSelector((state) => state.products);
   const featuredProducts = products.products;
-  console.log(products.products);
-
+ 
   return (
     <>
       <div className="min-h-screen bg-gray-50">
@@ -35,12 +34,6 @@ const Home = () => {
       <div className=" lg:px-[150px] m-auto md:px-[80px] px-[30px]">
         <Top />
         <Products featuredProducts={featuredProducts} />
-        <Posters />
-        <Mistakes />
-      </div>
-      <div className=" lg:px-[150px] m-auto md:px-[80px] px-[30px]">
-        <Top />
-        <Products />
         <Posters />
         <Mistakes />
       </div>
