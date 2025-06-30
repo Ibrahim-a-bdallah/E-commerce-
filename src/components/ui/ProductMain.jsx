@@ -1,6 +1,10 @@
 import { Star } from "lucide-react";
+import { useDispatch } from "react-redux"
+import { openPopup } from "../../store/popBob/popBobSlice"
+
 
 const ProductMain = ({
+  id,
   image,
   title,
   price,
@@ -18,10 +22,14 @@ const ProductMain = ({
     medium: "w-48",
     large: "w-56",
   };
-
+  const dispatch = useDispatch()
+  const handleOpenPopup = () => {
+    dispatch(openPopup(id))
+  }
   return (
     <div
       className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden cursor-pointer`}
+      onClick={() => handleOpenPopup()}
     >
       {/* Badges */}
       <div className="absolute top-2 left-2 flex flex-col space-y-1 z-10">

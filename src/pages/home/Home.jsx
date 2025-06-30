@@ -23,7 +23,7 @@ const Home = () => {
 
   const products = useSelector((state) => state.products);
   const featuredProducts = products.products;
- 
+
   return (
     <>
       <div className="min-h-screen bg-gray-50">
@@ -36,7 +36,7 @@ const Home = () => {
         <Products featuredProducts={featuredProducts} />
         <Posters />
         <Mistakes />
-      </div>
+      </div> 
     </>
   );
 };

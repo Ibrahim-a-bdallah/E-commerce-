@@ -14,8 +14,10 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     getProducts(state, action) {
+      console.log(state.products);
       state.loading = "succeeded";
       state.products = action.payload;
+      console.log(state.products);
     },
   },
   extraReducers: (builder) => {
@@ -33,5 +35,6 @@ const productSlice = createSlice({
   },
 });
 
+export const { getProducts } = productSlice.actions;
 // Export the generated reducer function
 export default productSlice.reducer;
