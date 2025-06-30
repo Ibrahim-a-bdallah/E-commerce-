@@ -8,7 +8,10 @@ import { fetchCategories } from "../store/categories/actGetCategories";
 
 import { getCategories } from "../utils";
 import axios from "axios";
-import Search from "../pages/Search/Search";
+// import Search from "../pages/Search/Search";
+import PopBob from "@/components/popbob"
+import { closePopup } from "@/store/popBob/popBobSlice"
+
 
 export default function Header() {
   const [language, setlanguage] = useState("English");
@@ -20,6 +23,9 @@ export default function Header() {
   const [showCategories, setShowCategories,] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [search,setSearch] = useState('');
+  const {open,selectedProductId} = useSelector((state) => state.popup)
+  let {id} = useParams();
+  
 
   const routes = [
     {
@@ -133,22 +139,21 @@ export default function Header() {
 
 
 {/* search*/}
-  async function searchProducts() {
-    let {id} = useParams();
-    try {
-      const resp = await axios.get(
-        `https://dummyjson.com/products/search?${id}`
-      );
-      setSearch(resp.products);
-      setSearch(
-        products.filter((product) =>
-          product.title.toLowerCase().includes(value.toLowerCase())
-        )
-      );
-    } catch (error) {
-      console.log(error);
-    } 
-  }
+  // async function searchProducts() {
+  //   try {
+  //     const resp = await axios.get(
+  //       `https://dummyjson.com/products/search?${id}`
+  //     );
+  //     setSearch(resp.products);
+  //     setSearch(
+  //       products.filter((product) =>
+  //         product.title.toLowerCase().includes(value.toLowerCase())
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   } 
+  // }
 
   return (
     <div className="flex flex-col justify-center items-center w-full">
@@ -292,7 +297,7 @@ export default function Header() {
 
             <div className="order-3 md:order-2 w-full" 
              >
-            <form onSubmit={(e) => searchProducts(e.target.value)}>
+            <form>
               <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full" >
                 <input
                 onChange={(e) => searchProducts(e.target.value)}
