@@ -20,7 +20,7 @@ function Shop() {
               <p className='text-[#9B9BB4] text-[12px]'>Fully prepared & delivered nationwide.</p>
             </div>
           </div>
-          <div className='flex justify-between items-center mt-6 bg-[#F5F5F5] px-4 py-4 rounded-md'>
+          <div className='flex justify-between items-center mt-6 bg-[#F5F5F5] px-4 py-4 rounded-md flex-wrap gap-2'>
             <span className='text-[#9B9BB4] text-[12px]'>{countProducts} products</span>
             <p className='text-[#9B9BB4] Inter text-[12px]'>Sort by: <span className='text-[#202435]'>Alphabetically, A-Z</span></p>
           </div>

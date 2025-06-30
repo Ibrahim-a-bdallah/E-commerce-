@@ -425,9 +425,8 @@ export default function Header() {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"  className="w-3 h-3 size-6 text-[#35AFA0] " >
                       <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>
-
                     <Link
-                      to={`/category/${category.slug}`}
+                      to={`/shop?category=${category.slug}`}
                       className="block text-sm hover:text-[#1773B0] cursor-pointer"
                     >
                       {category.name}

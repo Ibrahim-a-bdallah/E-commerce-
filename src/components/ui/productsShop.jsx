@@ -2,15 +2,29 @@ import React, { useEffect } from 'react'
 import ProductMain from './ProductMain'
 import { useDispatch, useSelector } from 'react-redux';
 import actGetProducts from '../../store/products/actGetProduct';
-function ProductsShop({setCountProducts}) {
+import { useLocation } from 'react-router-dom';
+function ProductsShop({ setCountProducts }) {
+  const location = useLocation();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(actGetProducts());
-    
-  }, [dispatch]);
+   {/* Get the search query from the URL */ }
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get('category');
   const products = useSelector((state) => state.products);
   const featuredProducts = products.products;
-  setCountProducts(featuredProducts.length);// Update the count of products in the shop
+  {/*Update the count of products in the shop*/}
+  setCountProducts(featuredProducts.length);
+  {/* Fetch products data */ }
+  useEffect(() => {
+    if(searchQuery) {
+      {/*If a search query is present (filter products based on the category)*/}
+      dispatch(actGetProducts(searchQuery));
+    }else {
+      {/*If no search query (fetch all products)*/}
+      dispatch(actGetProducts());
+    }
+  }, [dispatch , searchQuery]);
+
+
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-6 justify-items-center'>
       {featuredProducts.map((product) => (
