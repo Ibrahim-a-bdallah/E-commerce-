@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import ButtonQuantityCounter from "./ButtonQuantityCounter";
 
 const ProductMain = ({
   image,
@@ -90,19 +91,7 @@ const ProductMain = ({
               Add to Cart
             </button>
           )}
-          {addQuantity && (
-            <div className=" flex items-center rounded-5xl py-2 ">
-              <button className=" bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-l-lg ">
-                -
-              </button>
-              <span className="bg-white px-4 py-1 text-gray-800 ps-8 pe-8">
-                1
-              </span>
-              <button className="bg-amber-400 hover:bg-amber-500 text-gray-800 px-3 py-1 rounded-r-lg">
-                +
-              </button>
-            </div>
-          )}
+          {addQuantity && <ButtonQuantityCounter />}
         </div>
       </div>
     </div>
