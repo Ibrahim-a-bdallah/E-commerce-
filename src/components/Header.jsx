@@ -5,6 +5,7 @@ import { BiHome } from "react-icons/bi";
 import logo from "../assets/img/nav/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../store/categories/actGetCategories";
+
 export default function Header() {
   const [language, setlanguage] = useState("English");
   const [currency, setCurrency] = useState("USD");
@@ -331,6 +332,7 @@ export default function Header() {
                   <div className="absolute top-0 right-0 bg-[#EA2B0F] text-white text-[10px] font-[400] w-4 h-4 rounded-full text-center">
                     {items}
                   </div>
+                  <Link className="cursor-pointer" to="cart" >
                   <svg
                     width="42"
                     height="43"
@@ -361,7 +363,8 @@ export default function Header() {
                         />
                       </clipPath>
                     </defs>
-                  </svg>
+                    </svg>
+                    </Link>
                 </div>
               </div>
             </div>

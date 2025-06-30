@@ -11,6 +11,7 @@ const CheckOut = lazy(() => import("../pages/Checkout"))
 const Contect = lazy(() => import("../pages/contact/Contact"))
 const About = lazy(() => import("../pages/About/AboutUs"))
 const Shop = lazy(() => import("../pages/Shop"))
+const Cart = lazy(() => import("../pages/Cart/Cart"))
 const Category = lazy(() => import("../pages/catogaries/[catogary]/index"))
 
 import Error from "../pages/Error";
@@ -67,7 +68,12 @@ const router = createBrowserRouter([
         path: "category/:category",
         element:
           <Category />
-      },      
+      },    
+      {
+        path: "cart",
+        element:
+          <Cart />
+      },    
     ],
   },
 ])
