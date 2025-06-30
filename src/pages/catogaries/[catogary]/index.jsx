@@ -1,3 +1,4 @@
+import PopBob from "@/components/popbob/index";
 import { useParams } from "react-router-dom"
 
 
@@ -6,7 +7,7 @@ const Category = () => {
   
     console.log(category)
   return (
-    <div>Category</div>
+    <div><PopBob/></div> 
   )
 }
 

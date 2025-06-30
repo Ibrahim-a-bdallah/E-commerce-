@@ -65,6 +65,7 @@ const ProductSlider = ({ featuredProducts }) => {
           {featuredProducts.slice(6, 12).map((product) => (
             <ProductMain
               key={product?.id}
+              id ={product?.id}
               image={product?.images[0]}
               title={product?.title}
               price={product?.price}
