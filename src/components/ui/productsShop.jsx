@@ -3,6 +3,8 @@ import ProductMain from './ProductMain'
 import { useDispatch, useSelector } from 'react-redux';
 import actGetProducts from '../../store/products/actGetProduct';
 import { useLocation } from 'react-router-dom';
+
+
 function ProductsShop({ setCountProducts }) {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -30,6 +32,7 @@ function ProductsShop({ setCountProducts }) {
       {featuredProducts.map((product) => (
         <ProductMain
           key={product.id}
+          id={product.id}
           image={product.images[0]}
           title={product.title}
           price={product.price}

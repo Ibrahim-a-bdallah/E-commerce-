@@ -325,7 +325,7 @@ export default function Header() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>
                     <Link
-                      to={`/shop?category=${category.slug}`}
+                      to={`/?category=${category.slug}`}
                       className="block text-sm hover:text-[#1773B0] cursor-pointer"
                     >
                       {category.name}
