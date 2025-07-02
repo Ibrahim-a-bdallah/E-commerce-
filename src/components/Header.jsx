@@ -13,7 +13,7 @@ export default function Header() {
   const [toltal, setTotal] = useState(0.0);
   const [activeroute, setActiveroute] = useState("home");
   const [products, setProducts] = useState(50);
-  const [showCategories, setShowCategories,] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const routes = [
     {
@@ -117,9 +117,13 @@ export default function Header() {
       icon: null,
     },
   ];
-  {/* fetch Categoriesr data*/ }
+  {
+    /* fetch Categoriesr data*/
+  }
   const dispatch = useDispatch();
-  const { categories, loading, error } = useSelector((state) => state.categories);
+  const { categories, loading, error } = useSelector(
+    (state) => state.categories
+  );
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -286,7 +290,10 @@ export default function Header() {
             </div>
 
             <div className="order-2 md:order-3 flex gap-4 items-center">
-              <div className="cursor-pointer relative" onClick={() => setShowUserMenu((prev) => !prev)} >
+              <div
+                className="cursor-pointer relative"
+                onClick={() => setShowUserMenu((prev) => !prev)}
+              >
                 <svg
                   width="43"
                   height="43"
@@ -319,9 +326,17 @@ export default function Header() {
                     </clipPath>
                   </defs>
                 </svg>
-                <div className={`absolute top-full left-0 bg-[#F3F4F7] text-black text-[10px] font-[400] w-40 h-20 text-center flex flex-col gap-2 align-center justify-center rounded-md ${showUserMenu ? 'block' : 'hidden'}`}>
-                  <Link to={'./login'} className="text-base font-medium pb-2">Log In</Link>
-                  <Link to={'./signup'} className="text-base font-medium pb-2">Sign Up</Link>
+                <div
+                  className={`absolute top-full left-0 bg-[#F3F4F7] text-black text-[10px] font-[400] w-40 h-20 text-center flex flex-col gap-2 align-center justify-center rounded-md ${
+                    showUserMenu ? "block" : "hidden"
+                  }`}
+                >
+                  <Link to={"./login"} className="text-base font-medium pb-2">
+                    Log In
+                  </Link>
+                  <Link to={"./signup"} className="text-base font-medium pb-2">
+                    Sign Up
+                  </Link>
                 </div>
               </div>
               <div className="flex gap-1 items-center">
@@ -332,39 +347,39 @@ export default function Header() {
                   <div className="absolute top-0 right-0 bg-[#EA2B0F] text-white text-[10px] font-[400] w-4 h-4 rounded-full text-center">
                     {items}
                   </div>
-                  <Link className="cursor-pointer" to="cart" >
-                  <svg
-                    width="42"
-                    height="43"
-                    viewBox="0 0 42 43"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      y="0.25"
+                  <Link className="cursor-pointer" to="cart">
+                    <svg
                       width="42"
-                      height="42"
-                      rx="21"
-                      fill="#FFF1EE"
-                    />
-                    <g clipPath="url(#clip0_1_3013)">
-                      <path
-                        d="M21.0342 14.161C20.5242 14.161 20.0511 14.2885 19.6147 14.5435C19.1784 14.7985 18.8327 15.1442 18.5777 15.5805C18.3227 16.0168 18.1952 16.49 18.1952 17H16.7502C16.7502 16.2293 16.9401 15.5182 17.3197 14.8665C17.6994 14.2148 18.2151 13.6992 18.8667 13.3195C19.5184 12.9398 20.2296 12.75 21.0002 12.75C21.7709 12.75 22.4821 12.9398 23.1337 13.3195C23.7854 13.6992 24.3011 14.2148 24.6807 14.8665C25.0604 15.5182 25.2502 16.2293 25.2502 17H28.0382C28.4462 17 28.7919 17.1445 29.0752 17.4335C29.3586 17.7225 29.5002 18.0767 29.5002 18.496C29.5002 18.5867 29.4946 18.6717 29.4832 18.751L27.9022 27.897C27.8116 28.4297 27.5622 28.8717 27.1542 29.223C26.7462 29.5743 26.2759 29.75 25.7432 29.75H16.2572C15.7246 29.75 15.2542 29.5743 14.8462 29.223C14.4382 28.8717 14.1889 28.4297 14.0982 27.897L12.5172 18.768C12.4492 18.36 12.5314 17.986 12.7637 17.646C12.9961 17.306 13.3106 17.0963 13.7072 17.017C13.7866 17.0057 13.8716 17 13.9622 17H23.8732C23.8732 16.49 23.7457 16.0168 23.4907 15.5805C23.2357 15.1442 22.8901 14.7985 22.4537 14.5435C22.0174 14.2885 21.5442 14.161 21.0342 14.161ZM28.0382 18.411H13.9622C13.9509 18.411 13.9339 18.4337 13.9112 18.479V18.513L15.4922 27.659C15.5262 27.8403 15.6056 27.9933 15.7302 28.118C15.8549 28.2427 16.0022 28.3107 16.1722 28.322L16.2572 28.339H25.7432C25.9132 28.339 26.0691 28.2852 26.2107 28.1775C26.3524 28.0698 26.4459 27.9253 26.4912 27.744L28.0892 18.496C28.0892 18.4507 28.0779 18.428 28.0552 18.428L28.0382 18.411Z"
-                        fill="#EA2B0F"
+                      height="43"
+                      viewBox="0 0 42 43"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        y="0.25"
+                        width="42"
+                        height="42"
+                        rx="21"
+                        fill="#FFF1EE"
                       />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_1_3013">
-                        <rect
-                          width="17"
-                          height="17"
-                          fill="white"
-                          transform="matrix(1 0 0 -1 12.5 29.75)"
+                      <g clipPath="url(#clip0_1_3013)">
+                        <path
+                          d="M21.0342 14.161C20.5242 14.161 20.0511 14.2885 19.6147 14.5435C19.1784 14.7985 18.8327 15.1442 18.5777 15.5805C18.3227 16.0168 18.1952 16.49 18.1952 17H16.7502C16.7502 16.2293 16.9401 15.5182 17.3197 14.8665C17.6994 14.2148 18.2151 13.6992 18.8667 13.3195C19.5184 12.9398 20.2296 12.75 21.0002 12.75C21.7709 12.75 22.4821 12.9398 23.1337 13.3195C23.7854 13.6992 24.3011 14.2148 24.6807 14.8665C25.0604 15.5182 25.2502 16.2293 25.2502 17H28.0382C28.4462 17 28.7919 17.1445 29.0752 17.4335C29.3586 17.7225 29.5002 18.0767 29.5002 18.496C29.5002 18.5867 29.4946 18.6717 29.4832 18.751L27.9022 27.897C27.8116 28.4297 27.5622 28.8717 27.1542 29.223C26.7462 29.5743 26.2759 29.75 25.7432 29.75H16.2572C15.7246 29.75 15.2542 29.5743 14.8462 29.223C14.4382 28.8717 14.1889 28.4297 14.0982 27.897L12.5172 18.768C12.4492 18.36 12.5314 17.986 12.7637 17.646C12.9961 17.306 13.3106 17.0963 13.7072 17.017C13.7866 17.0057 13.8716 17 13.9622 17H23.8732C23.8732 16.49 23.7457 16.0168 23.4907 15.5805C23.2357 15.1442 22.8901 14.7985 22.4537 14.5435C22.0174 14.2885 21.5442 14.161 21.0342 14.161ZM28.0382 18.411H13.9622C13.9509 18.411 13.9339 18.4337 13.9112 18.479V18.513L15.4922 27.659C15.5262 27.8403 15.6056 27.9933 15.7302 28.118C15.8549 28.2427 16.0022 28.3107 16.1722 28.322L16.2572 28.339H25.7432C25.9132 28.339 26.0691 28.2852 26.2107 28.1775C26.3524 28.0698 26.4459 27.9253 26.4912 27.744L28.0892 18.496C28.0892 18.4507 28.0779 18.428 28.0552 18.428L28.0382 18.411Z"
+                          fill="#EA2B0F"
                         />
-                      </clipPath>
-                    </defs>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_1_3013">
+                          <rect
+                            width="17"
+                            height="17"
+                            fill="white"
+                            transform="matrix(1 0 0 -1 12.5 29.75)"
+                          />
+                        </clipPath>
+                      </defs>
                     </svg>
-                    </Link>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -373,7 +388,10 @@ export default function Header() {
 
         {/* Main Navigation */}
         <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
-          <div className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto" onClick={() => setShowCategories((prev) => !prev)}>
+          <div
+            className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto"
+            onClick={() => setShowCategories((prev) => !prev)}
+          >
             <div className="flex gap-2 md:gap-4 items-center ">
               <svg
                 width="13"
@@ -421,12 +439,30 @@ export default function Header() {
                 </defs>
               </svg>
             </div>
-            <loading loading={loading} error={error} >
-              <ul className={`mt-4 space-y-2 absolute left-0 top-full bg-white shadow-lg rounded-lg py-4 h-[400px] overflow-y-auto z-8 ${showCategories ? 'opacity-100 block' : 'opacity-0  hidden'}`} >
+            <loading loading={loading} error={error}>
+              <ul
+                className={`mt-4 space-y-2 absolute left-0 top-full bg-white shadow-lg rounded-lg py-4 h-[400px] overflow-y-auto z-8 ${
+                  showCategories ? "opacity-100 block" : "opacity-0  hidden"
+                }`}
+              >
                 {categories.map((category) => (
-                  <li key={category.slug} className="p-2 border-b border-[#E3E4E6] flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"  className="w-3 h-3 size-6 text-[#35AFA0] " >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                  <li
+                    key={category.slug}
+                    className="p-2 border-b border-[#E3E4E6] flex items-center gap-2"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-3 h-3 size-6 text-[#35AFA0] "
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                      />
                     </svg>
                     <Link
                       to={`/shop?category=${category.slug}`}
@@ -445,10 +481,11 @@ export default function Header() {
               {routes.map((item, index) => (
                 <li
                   key={index}
-                  className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${activeroute == item.link
-                    ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF]"
-                    : ""
-                    }`}
+                  className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${
+                    activeroute == item.link
+                      ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF]"
+                      : ""
+                  }`}
                 >
                   {item.icon}
                   <Link to={item.link}>
