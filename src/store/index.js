@@ -4,6 +4,8 @@ import productsReducer from "./products/productSlice";
 import categoriesReducer from "./categories/categoriesSlice";
 import popupReducer from "./popBob/popBobSlice";
 import carouselReducer from "./carouselProducts/carouselProductsSlice";
+import categoriesProductsReducer from "./categoryProducts/categoryProductsSlice";
+
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,7 @@ const store = configureStore({
     categories: categoriesReducer,
     popup: popupReducer,
     carousel: carouselReducer,
+    categoriesProducts: categoriesProductsReducer,
   },
 });
 
