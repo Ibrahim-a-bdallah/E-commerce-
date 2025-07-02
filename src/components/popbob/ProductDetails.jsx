@@ -60,15 +60,15 @@ const ProductDetails = ({ product }) => {
         Add to Cart
       </button>
 
-      <div className="flex gap-3">
-        <button className="border px-4 py-1 rounded-lg">
-          <img src={heart} alt="heart" width={26} height={26} />
-          Wishlist
+      <div className="flex gap-3 ">
+        <button className="flex w-[50%] justify-center items-center gap-2 hover:bg-[#f5f5f5] border px-4 py-1 rounded-lg cursor-pointer">
+          <img src={heart} alt="heart" width={20} height={20} />
+          <span>Wishlist</span>
         </button>
         <ShareDialog product={product} />
       </div>
 
-      <div className="flex flex-wrap gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 ">
         {(product.tags || []).map((tag, i) => (
           <span key={i} className="bg-gray-100 text-xs px-2 py-1 rounded-full">
             {tag}
@@ -76,10 +76,13 @@ const ProductDetails = ({ product }) => {
         ))}
       </div>
 
-      <div>
-        <h3 className="font-semibold text-sm mb-1">Product Details:</h3>
+      {/* <div>
+        <h3 className=" mb-1">
+          <h3 className="font-semibold text-[16px]">Product Details:</h3>
+          <span className="text-[14px] ">{product.description}</span>
+        </h3>
         <p className="text-sm text-gray-600 line-clamp-4">{product.details}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

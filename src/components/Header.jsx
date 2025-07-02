@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
-
-
-import Logo from "./header/Logo";
-import Navigation from "./header/Navigation";
-
-
+import { BiHome } from "react-icons/bi";
+import logo from "../assets/img/nav/logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories } from "../store/categories/actGetCategories";
 export default function Header() {
   const [language, setlanguage] = useState("English");
   const [currency, setCurrency] = useState("USD");
@@ -129,9 +126,6 @@ export default function Header() {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
- 
-
-
   return (
     <div className="flex flex-col justify-center items-center w-full">
       {/* Notification Banner */}
@@ -141,7 +135,6 @@ export default function Header() {
           processing
         </h1>
       </div>
-
       {/* Main Header Content */}
       <div className="bg-white w-full">
         {/* Top Navigation */}
@@ -162,7 +155,6 @@ export default function Header() {
               ))}
             </ul>
           </div>
-
           <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
             <div className="flex items-center justify-center gap-3">
               <svg
@@ -189,19 +181,16 @@ export default function Header() {
                   </clipPath>
                 </defs>
               </svg>
-
               <h3 className="font-[400] text-[#3E445A] text-sm text-center w-full lg:text-nowrap">
                 100% Secure delivery without contacting the courier
               </h3>
             </div>
-
             <div className="py-3 text-center">
               <h1 className="font-[700] text-[#3E445A] text-sm border-l-0 md:border-l border-[#EDEEF5] lg:px-2 xl:pl-5 w-full lg:text-nowrap">
                 Need help? Call Us:
                 <span className="text-[#35afa0]"> + 0020 500</span>
               </h1>
             </div>
-
             <div className="py-3 border-t md:border-t-0 md:border-l border-[#EDEEF5] flex gap-4 lg:px-2 xl:px-5 font-[400] text-[#3E445A] text-sm w-full justify-center">
               <button className="flex gap-1 items-center cursor-pointer">
                 <h1>{language}</h1>
@@ -260,12 +249,8 @@ export default function Header() {
             </div>
           </div>
         </div>
-
         {/* Logo, Search, and Cart Section */}
-
-        <Logo/>
-
-        {/* <div className="pt-8 w-full  px-4 xl:px-[150px]">
+        <div className="pt-8 w-full  px-4 xl:px-[150px]">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <a href="/" className="order-1">
               <img
@@ -274,7 +259,6 @@ export default function Header() {
                 className="w-[120px] md:w-[165px] h-auto"
               />
             </a>
-
             <div className="order-3 md:order-2 w-full">
               <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full">
                 <input
@@ -392,19 +376,14 @@ export default function Header() {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
         {/* Main Navigation */}
-
         <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
           <div
             className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto"
             onClick={() => setShowCategories((prev) => !prev)}
           >
-        <Navigation/>
-        {/* <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
-          <div className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto" onClick={() => setShowCategories((prev) => !prev)}>
-
             <div className="flex gap-2 md:gap-4 items-center ">
               <svg
                 width="13"
@@ -418,7 +397,6 @@ export default function Header() {
                   fill="white"
                 />
               </svg>
-
               <h1 className="font-[600] text-sm md:text-[15px] text-[#FFFFFF] w-full text-nowrap">
                 ALL CATEGORIES
               </h1>
@@ -478,7 +456,7 @@ export default function Header() {
                       />
                     </svg>
                     <Link
-                      to={`/?category=${category.slug}`}
+                      to={`/shop?category=${category.slug}`}
                       className="block text-sm hover:text-[#1773B0] cursor-pointer"
                     >
                       {category.name}
@@ -488,7 +466,6 @@ export default function Header() {
               </ul>
             </loading>
           </div>
-
           <div className="w-full md:w-auto overflow-x-auto">
             <ul className="flex gap-2 md:gap-0">
               {routes.map((item, index) => (
@@ -538,7 +515,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

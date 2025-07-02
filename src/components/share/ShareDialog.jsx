@@ -19,8 +19,8 @@ import {
 import { useState } from "react";
 
 const ShareDialog = ({ product }) => {
-  const shareUrl = `https://your-site.com/products/${product.id}`;
-  const shareTitle = `شاهد هذا المنتج: ${product.title}`;
+  const shareUrl = `https://e-commerce-websit.vercel.app/category/${product.category}`;
+  const shareTitle = `View this product: ${product.title}`;
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -33,7 +33,9 @@ const ShareDialog = ({ product }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">🔗 Share</Button>
+        <Button variant="outline" className="cursor-pointer w-[50%]">
+          🔗 Share
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
