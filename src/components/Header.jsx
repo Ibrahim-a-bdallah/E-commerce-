@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { BiHome } from "react-icons/bi";
-import logo from "../assets/img/nav/logo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../store/categories/actGetCategories";
+
+
+
+import Logo from "./header/Logo";
+import Navigation from "./header/Navigation";
+
 
 export default function Header() {
   const [language, setlanguage] = useState("English");
@@ -127,6 +129,9 @@ export default function Header() {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+ 
+
+
   return (
     <div className="flex flex-col justify-center items-center w-full">
       {/* Notification Banner */}
@@ -257,7 +262,10 @@ export default function Header() {
         </div>
 
         {/* Logo, Search, and Cart Section */}
-        <div className="pt-8 w-full  px-4 xl:px-[150px]">
+
+        <Logo/>
+
+        {/* <div className="pt-8 w-full  px-4 xl:px-[150px]">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <a href="/" className="order-1">
               <img
@@ -384,14 +392,19 @@ export default function Header() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Main Navigation */}
+
         <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
           <div
             className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto"
             onClick={() => setShowCategories((prev) => !prev)}
           >
+        <Navigation/>
+        {/* <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
+          <div className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto" onClick={() => setShowCategories((prev) => !prev)}>
+
             <div className="flex gap-2 md:gap-4 items-center ">
               <svg
                 width="13"
@@ -465,7 +478,7 @@ export default function Header() {
                       />
                     </svg>
                     <Link
-                      to={`/shop?category=${category.slug}`}
+                      to={`/?category=${category.slug}`}
                       className="block text-sm hover:text-[#1773B0] cursor-pointer"
                     >
                       {category.name}
@@ -525,7 +538,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
