@@ -11,7 +11,7 @@ const PopBob = ({ open, onOpenChange, selectedProductId }) => {
   if (!product) return null;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="popupContent max-h-[90vh] overflow-y-auto  p-4">
+      <DialogContent className="popupContent max-h-[92vh] overflow-y-auto gap-0  p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ProductImageCarousel images={product.images} />
           <ProductDetails product={product} />

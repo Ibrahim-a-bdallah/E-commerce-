@@ -19,8 +19,8 @@ const ProductDetails = ({ product }) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-2  md:max-h-[400px] ">
-      <div className="flex md:flex-col justify-between items-center md:items-start gap-4">
+    <div className="w-full flex flex-col gap-2 md:max-h-[400px] ">
+      <div className="flex md:flex-col justify-between items-center md:items-start">
         <h2 className="text-[16px] font-bold">{product.title}</h2>
         <p className="text-[14px] md:text-lg font-semibold">
           {product.priceRange ||
@@ -98,8 +98,8 @@ const ProductDetails = ({ product }) => {
         ))}
       </div>
 
-      <div className="w-full p-2">
-        <h3 className="font-semibold text-[16px] mb-1">Product Details:</h3>
+      <div className="w-full">
+        <h3 className="font-semibold text-[14px] mb-1">Product Details:</h3>
         <span
           className={`text-sm text-gray-600 ${
             readmore ? "line-clamp-1 md:line-clamp-1" : ""
