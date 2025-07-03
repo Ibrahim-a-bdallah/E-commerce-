@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { BiHome } from "react-icons/bi";
 import logo from "../assets/img/nav/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../store/categories/actGetCategories";
+
+// import { getCategories } from "../utils";
+import axios from "axios";
+// import Search from "../pages/Search/Search";
+// import PopBob from "@/components/popbob"
+// import { closePopup } from "@/store/popBob/popBobSlice"
+
 export default function Header() {
   const [language, setlanguage] = useState("English");
   const [currency, setCurrency] = useState("USD");
@@ -14,6 +21,11 @@ export default function Header() {
   const [products, setProducts] = useState(50);
   const [showCategories, setShowCategories] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [search, setSearch] = useState("");
+  const [Filter, setFilter] = useState("");
+  // const {open,selectedProductId} = useSelector((state) => state.popup)
+  let { id } = useParams();
+
   const routes = [
     {
       name: "home",
@@ -120,12 +132,34 @@ export default function Header() {
     /* fetch Categoriesr data*/
   }
   const dispatch = useDispatch();
+
+  const x = useSelector((state) => state.cartSlice);
+
+  const productsCount = useMemo(() => {
+    let totalNumbers = 0;
+    x.forEach((object) => {
+      totalNumbers += object.count;
+    });
+    return totalNumbers;
+  }, [x]);
+  const totalPrice = useMemo(() => {
+    let totalNumbers = 0;
+    x.forEach((object) => {
+      totalNumbers += object.totalPrice;
+    });
+    return totalNumbers;
+  }, [x]);
+
   const { categories, loading, error } = useSelector(
     (state) => state.categories
   );
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+  useEffect(() => {
+    console.log(x);
+  }, [x]);
+
   return (
     <div className="flex flex-col justify-center items-center w-full">
       {/* Notification Banner */}
@@ -260,25 +294,29 @@ export default function Header() {
               />
             </a>
             <div className="order-3 md:order-2 w-full">
-              <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full">
-                <input
-                  type="text"
-                  placeholder="Search for Products, fruit, meat, eggs .etc..."
-                  className="font-[400] text-[#9595A9] text-sm w-full"
-                />
-                <svg
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21.8261 20.554L18.1301 16.858C18.7541 16.074 19.2341 15.21 19.5701 14.266C19.9381 13.274 20.1221 12.266 20.1221 11.242C20.1221 9.61 19.7141 8.09 18.8981 6.682C18.1141 5.32199 17.0421 4.25 15.6821 3.466C14.2901 2.65 12.7741 2.24199 11.1341 2.24199C9.49407 2.24199 7.97007 2.65 6.56207 3.466C5.21807 4.266 4.14607 5.338 3.34607 6.682C2.53007 8.09 2.12207 9.614 2.12207 11.254C2.12207 12.894 2.53007 14.41 3.34607 15.802C4.13007 17.162 5.20207 18.234 6.56207 19.018C7.97007 19.834 9.49007 20.242 11.1221 20.242C12.1781 20.242 13.1901 20.07 14.1581 19.726C15.1261 19.382 15.9861 18.89 16.7381 18.25L20.4341 21.946C20.5301 22.042 20.6421 22.118 20.7701 22.174C20.8981 22.23 21.0181 22.258 21.1301 22.258C21.2421 22.258 21.3621 22.23 21.4901 22.174C21.6181 22.118 21.7301 22.042 21.8261 21.946C22.0341 21.754 22.1381 21.526 22.1381 21.262C22.1381 20.998 22.0341 20.762 21.8261 20.554ZM4.13807 11.242C4.13807 9.962 4.45007 8.786 5.07407 7.714C5.69807 6.658 6.53807 5.818 7.59407 5.19399C8.66607 4.57 9.84207 4.258 11.1221 4.258C12.4021 4.258 13.5861 4.57 14.6741 5.19399C15.7301 5.818 16.5701 6.662 17.1941 7.726C17.8181 8.79 18.1301 9.962 18.1301 11.242C18.1301 12.17 17.9501 13.066 17.5901 13.93C17.2301 14.794 16.7461 15.53 16.1381 16.138C15.4981 16.794 14.7581 17.294 13.9181 17.638C13.0781 17.982 12.1861 18.154 11.2421 18.154C9.93007 18.186 8.72207 17.89 7.61807 17.266C6.54607 16.674 5.69807 15.842 5.07407 14.77C4.45007 13.698 4.13807 12.522 4.13807 11.242Z"
-                    fill="#3E445A"
+              <form onSubmit={"/"}>
+                <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full">
+                  <input
+                    onChange={(e) => searchProducts(e.target.value)}
+                    id="search"
+                    type="text"
+                    placeholder="Search for Products, fruit, meat, eggs .etc..."
+                    className="font-[400] text-[#9595A9] text-sm w-full"
                   />
-                </svg>
-              </div>
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.8261 20.554L18.1301 16.858C18.7541 16.074 19.2341 15.21 19.5701 14.266C19.9381 13.274 20.1221 12.266 20.1221 11.242C20.1221 9.61 19.7141 8.09 18.8981 6.682C18.1141 5.32199 17.0421 4.25 15.6821 3.466C14.2901 2.65 12.7741 2.24199 11.1341 2.24199C9.49407 2.24199 7.97007 2.65 6.56207 3.466C5.21807 4.266 4.14607 5.338 3.34607 6.682C2.53007 8.09 2.12207 9.614 2.12207 11.254C2.12207 12.894 2.53007 14.41 3.34607 15.802C4.13007 17.162 5.20207 18.234 6.56207 19.018C7.97007 19.834 9.49007 20.242 11.1221 20.242C12.1781 20.242 13.1901 20.07 14.1581 19.726C15.1261 19.382 15.9861 18.89 16.7381 18.25L20.4341 21.946C20.5301 22.042 20.6421 22.118 20.7701 22.174C20.8981 22.23 21.0181 22.258 21.1301 22.258C21.2421 22.258 21.3621 22.23 21.4901 22.174C21.6181 22.118 21.7301 22.042 21.8261 21.946C22.0341 21.754 22.1381 21.526 22.1381 21.262C22.1381 20.998 22.0341 20.762 21.8261 20.554ZM4.13807 11.242C4.13807 9.962 4.45007 8.786 5.07407 7.714C5.69807 6.658 6.53807 5.818 7.59407 5.19399C8.66607 4.57 9.84207 4.258 11.1221 4.258C12.4021 4.258 13.5861 4.57 14.6741 5.19399C15.7301 5.818 16.5701 6.662 17.1941 7.726C17.8181 8.79 18.1301 9.962 18.1301 11.242C18.1301 12.17 17.9501 13.066 17.5901 13.93C17.2301 14.794 16.7461 15.53 16.1381 16.138C15.4981 16.794 14.7581 17.294 13.9181 17.638C13.0781 17.982 12.1861 18.154 11.2421 18.154C9.93007 18.186 8.72207 17.89 7.61807 17.266C6.54607 16.674 5.69807 15.842 5.07407 14.77C4.45007 13.698 4.13807 12.522 4.13807 11.242Z"
+                      fill="#3E445A"
+                    />
+                  </svg>
+                </div>
+              </form>
             </div>
 
             <div className="order-2 md:order-3 flex gap-4 items-center">
@@ -333,12 +371,13 @@ export default function Header() {
               </div>
               <div className="flex gap-1 items-center">
                 <h1 className="font-[600] text-[16px] text-[#3E445A] dosis">
-                  ${toltal.toFixed(2)}
+                  ${totalPrice}
                 </h1>
                 <div className="relative">
                   <div className="absolute top-0 right-0 bg-[#EA2B0F] text-white text-[10px] font-[400] w-4 h-4 rounded-full text-center">
-                    {items}
+                    {productsCount}
                   </div>
+
                   <Link className="cursor-pointer" to="cart">
                     <svg
                       width="42"
@@ -377,7 +416,6 @@ export default function Header() {
             </div>
           </div>
         </div>
-
         {/* Main Navigation */}
         <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
           <div

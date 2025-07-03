@@ -5,7 +5,7 @@ export default function AboutUs() {
 
   return (
     <>
-    <section id='About-Us' className='About-Us pt-8 top-[89px] '>
+    <section id='About-Us' className='About-Us pt-8 pb-10 top-[89px] '>
         <div className="Main top-[257.5px] gap-[55px]">
             <div className="Header flex flex-col relative"> 
                 <div className='bg-neutral-900'>
@@ -41,12 +41,10 @@ export default function AboutUs() {
                                 </p>
                             </div>
                             <div className=' lg:flex '>
-                                <div className=' pt-[40px]'>
-                                    <div className='  '>
+                                <div className=' pt-[40px] max-w-[592.5px] '>
                                         <img src={AboutUs2} alt="" />
-                                    </div>
                                 </div>
-                                <div className=' max-w-[592.5px] gap-[38.8px] pt-[70px] pr-[15px] lg:pb-[216.56px] pb-10 pl-[15px] lg:pl-10'>
+                                <div className=' max-w-[592.5px]  pt-[60px] pr-[15px] lg:pb-[216.56px] pb-10 pl-[15px] lg:pl-10'>
                                     <div className=' pl-[40px]'>
                                         <p className='font-normal text-[16px] leading-[24px] tracking-[-0.1px] align-middle text-[#202435]'>
                                             Rachel Leonard - Bacola CEO
@@ -60,13 +58,13 @@ export default function AboutUs() {
                                     </div>
                                     <div className=' gap-[16px] pt-5 pl-[40px]'>
                                         <div>
-                                            <p className='font-normal text-[14px] leading-[22px] tracking-[0%] align-middle text-[#202435] md:pr-14'>
+                                            <p className='font-normal text-[14px]  tracking-[0%] align-middle text-[#202435] md:pr-14'>
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisseultrices gravida. 
                                                 Risus commodo viverra maecenas accumsan lacus velfacilisis.
                                             </p>
                                         </div>
                                         <div  className='md:pt-1 pt-3'>
-                                            <p className='font-[Inter] font-normal leading-[22px] text-[14px] tracking-[0%] align-middle text-[#202435] md:pr-12'>
+                                            <p className=' font-normal  text-[14px] tracking-[-0.4px] align-middle text-[#202435] md:pr-12'>
                                                 In fermentum mi ut sapien semper, a sagittis lorem vulputate. Integer gravida,
                                                 dui eget aliquet tempus, turpis orci vehicula ipsum, eget porttitor sapien tortor
                                                 at neque. Cras id pulvinar lacus, ac volutpat neque. Ut at magna id justo
@@ -89,7 +87,7 @@ export default function AboutUs() {
                                    rutrum ex. Aliquam a lectus id lacus rhoncus dapibus non ac justo. Vivamus lacinia vestibulum metus in dapibus. Vestibulum sit amet sollicitudin enim. Ut id interdum turpis.
                                    Curabitur porta auctor quam, pretium facilisis nisl. Pellentesque efficitur elit ante, vel vulputate tortor blandit nec.</p>
                             </div>
-                            <div className=' lg:bottom-24 lg:left-[200px] rounded-[7px] bg-[#FFFFFF] lg:absolute md:p-10 pt-5 '>
+                            <div className=' lg:bottom-35 lg:left-[200px] rounded-[7px] bg-[#FFFFFF] lg:absolute md:p-10 pt-5 '>
                                     <p className=' font-normal text-[14px] leading-[24px] tracking-[0%] align-middle text-[#202435] lg:pr-40 '>
                                         In nec purus eget neque accumsan finibus. Duis condimentum elit ut libero commodo iaculis. Donec augue diam, 
                                         tristique et ultricies nec,consectetur quis enim. Nullam id rutrum ex. Aliquam a lectus id lacus rhoncus dapibus non ac justo.

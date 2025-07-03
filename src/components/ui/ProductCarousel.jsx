@@ -54,6 +54,8 @@ const ProductCarousel = ({ title, products }) => {
                 size="medium"
                 showAddButton={true}
                 addQuantity={false}
+                product={product}
+                
               />
             </SwiperSlide>
           ))}

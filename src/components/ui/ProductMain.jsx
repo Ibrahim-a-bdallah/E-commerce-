@@ -2,6 +2,7 @@ import { Star } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { openPopup } from "../../store/popBob/popBobSlice";
 import ButtonQuantityCounter from "./ButtonQuantityCounter";
+import { addCart } from "@/store/cart/cartSlice";
 
 const ProductMain = ({
   id,
@@ -16,6 +17,8 @@ const ProductMain = ({
   size = "medium",
   showAddButton = Boolean,
   addQuantity = Boolean,
+  selectedProductId,
+  product
 }) => {
   const sizeClasses = {
     small: "w-32",
@@ -24,8 +27,14 @@ const ProductMain = ({
   };
   const dispatch = useDispatch();
   const handleOpenPopup = () => {
-    dispatch(openPopup(id));
-  };
+    dispatch(openPopup(id))
+  }
+
+    const addToCart = () => {
+      console.log({product})
+      dispatch(addCart(product));
+    };
+
   return (
     <div
       className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden cursor-pointer`}
@@ -94,7 +103,9 @@ const ProductMain = ({
           </div>
           {/*Buttons */}
           {showAddButton && (
-            <button className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg mt-4 transition-colors">
+            <button
+            onClick={addToCart}
+             className="w-full cursor-pointer bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg mt-4 transition-colors">
               Add to Cart
             </button>
           )}
