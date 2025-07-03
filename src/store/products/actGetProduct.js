@@ -9,7 +9,6 @@ const actGetProducts = createAsyncThunk(
     const URL = category ? `https://dummyjson.com/products/category/${category}` : "https://dummyjson.com/products";
     try {
       const response = await axios.get(URL);
-      console.log("API response:", response.data);
       return response.data.products || response.data;
     } catch (error) {
       return rejectWithValue(
