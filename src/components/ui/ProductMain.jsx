@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
-import { useDispatch , useSelector} from "react-redux"
-import { openPopup } from "../../store/popBob/popBobSlice"
+import { useDispatch } from "react-redux";
+import { openPopup } from "../../store/popBob/popBobSlice";
 import ButtonQuantityCounter from "./ButtonQuantityCounter";
 import { addCart } from "@/store/cart/cartSlice";
 
@@ -25,7 +25,7 @@ const ProductMain = ({
     medium: "w-48",
     large: "w-56",
   };
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleOpenPopup = () => {
     dispatch(openPopup(id))
   }
@@ -34,6 +34,8 @@ const ProductMain = ({
       console.log({product})
       dispatch(addCart(product));
     };
+    dispatch(openPopup(id));
+  };
   return (
     <div
       className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden cursor-pointer`}

@@ -28,6 +28,7 @@ export function Products({ featuredProducts }) {
               className="p-4 sm:p-3 border-r border-b border-[#EDEEF5] last:border-r-0  hover:bg-gray-50 transition-colors"
             >
               <ProductMain
+                id= {product.id}
                 image={product?.images[0]}
                 title={product?.title}
                 price={product?.price}

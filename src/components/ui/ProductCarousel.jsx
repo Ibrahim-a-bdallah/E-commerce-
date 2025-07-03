@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import ProductCard from "./ProductMain";
+import ProductMain from "./ProductMain";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 const ProductCarousel = ({ title, products }) => {
   return (
-    <div className="mb-12">
+    <div className="mb-12" >
       <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
       <div className="relative w-full">
         <Swiper
@@ -41,7 +41,8 @@ const ProductCarousel = ({ title, products }) => {
         >
           {products.map((product) => (
             <SwiperSlide className="py-2" key={product.id}>
-              <ProductCard
+              <ProductMain
+                id = {product.id}
                 image={product?.images[0]}
                 title={product?.title}
                 price={product?.price}
