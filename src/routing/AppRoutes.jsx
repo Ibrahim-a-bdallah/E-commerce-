@@ -10,6 +10,7 @@ const Blog = lazy(() => import("../pages/Blog/BlogPage"))
 const CheckOut = lazy(() => import("../pages/Checkout"))
 const Contect = lazy(() => import("../pages/contact/Contact"))
 const About = lazy(() => import("../pages/About/AboutUs"))
+const Cart = lazy(() => import("../pages/cart/Cart"))
 const Shop = lazy(() => import("../pages/Shop"))
 const Category = lazy(() => import("../pages/catogaries/[catogary]/index"))
 
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
         path: "shop",
         element:
           <Shop />
+      },
+      {
+        path: "cart",
+        element:
+          <Cart />
       },
       {
         path: "category/:category",

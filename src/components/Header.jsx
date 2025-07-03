@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { BiHome } from "react-icons/bi";
@@ -6,12 +6,11 @@ import logo from "../assets/img/nav/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../store/categories/actGetCategories";
 
-import { getCategories } from "../utils";
+// import { getCategories } from "../utils";
 import axios from "axios";
 // import Search from "../pages/Search/Search";
-import PopBob from "@/components/popbob"
-import { closePopup } from "@/store/popBob/popBobSlice"
-
+// import PopBob from "@/components/popbob"
+// import { closePopup } from "@/store/popBob/popBobSlice"
 
 export default function Header() {
   const [language, setlanguage] = useState("English");
@@ -20,12 +19,12 @@ export default function Header() {
   const [toltal, setTotal] = useState(0.0);
   const [activeroute, setActiveroute] = useState("home");
   const [products, setProducts] = useState(50);
-  const [showCategories, setShowCategories,] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [search,setSearch] = useState('');
-  const {open,selectedProductId} = useSelector((state) => state.popup)
-  let {id} = useParams();
-  
+  const [search, setSearch] = useState("");
+  const [Filter, setFilter] = useState("");
+  // const {open,selectedProductId} = useSelector((state) => state.popup)
+  let { id } = useParams();
 
   const routes = [
     {
@@ -129,31 +128,36 @@ export default function Header() {
       icon: null,
     },
   ];
-  {/* fetch Categoriesr data*/ }
+  {
+    /* fetch Categoriesr data*/
+  }
   const dispatch = useDispatch();
-  const { categories, loading, error } = useSelector((state) => state.categories);
-  useEffect(() => {
 
+  const x = useSelector((state) => state.cartSlice);
+
+  const productsCount = useMemo(() => {
+    let totalNumbers = 0;
+    x.forEach((object) => {
+      totalNumbers += object.count;
+    });
+    return totalNumbers;
+  }, [x]);
+  const totalPrice = useMemo(() => {
+    let totalNumbers = 0;
+    x.forEach((object) => {
+      totalNumbers += object.totalPrice;
+    });
+    return totalNumbers;
+  }, [x]);
+  const { categories, loading, error } = useSelector(
+    (state) => state.categories
+  );
+  useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
-
-
-{/* search*/}
-  // async function searchProducts() {
-  //   try {
-  //     const resp = await axios.get(
-  //       `https://dummyjson.com/products/search?${id}`
-  //     );
-  //     setSearch(resp.products);
-  //     setSearch(
-  //       products.filter((product) =>
-  //         product.title.toLowerCase().includes(value.toLowerCase())
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   } 
-  // }
+  useEffect(() => {
+    console.log(x);
+  }, [x]);
 
   return (
     <div className="flex flex-col justify-center items-center w-full">
@@ -295,35 +299,37 @@ export default function Header() {
               />
             </a>
 
-            <div className="order-3 md:order-2 w-full" 
-             >
-            <form>
-              <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full" >
-                <input
-                onChange={(e) => searchProducts(e.target.value)}
-                  id="search"
-                  type="text"
-                  placeholder="Search for Products, fruit, meat, eggs .etc..."
-                  className="font-[400] text-[#9595A9] text-sm w-full"
+            <div className="order-3 md:order-2 w-full">
+              <form onSubmit={"/"}>
+                <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full">
+                  <input
+                    onChange={(e) => searchProducts(e.target.value)}
+                    id="search"
+                    type="text"
+                    placeholder="Search for Products, fruit, meat, eggs .etc..."
+                    className="font-[400] text-[#9595A9] text-sm w-full"
                   />
-                <svg
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                  <path
-                    d="M21.8261 20.554L18.1301 16.858C18.7541 16.074 19.2341 15.21 19.5701 14.266C19.9381 13.274 20.1221 12.266 20.1221 11.242C20.1221 9.61 19.7141 8.09 18.8981 6.682C18.1141 5.32199 17.0421 4.25 15.6821 3.466C14.2901 2.65 12.7741 2.24199 11.1341 2.24199C9.49407 2.24199 7.97007 2.65 6.56207 3.466C5.21807 4.266 4.14607 5.338 3.34607 6.682C2.53007 8.09 2.12207 9.614 2.12207 11.254C2.12207 12.894 2.53007 14.41 3.34607 15.802C4.13007 17.162 5.20207 18.234 6.56207 19.018C7.97007 19.834 9.49007 20.242 11.1221 20.242C12.1781 20.242 13.1901 20.07 14.1581 19.726C15.1261 19.382 15.9861 18.89 16.7381 18.25L20.4341 21.946C20.5301 22.042 20.6421 22.118 20.7701 22.174C20.8981 22.23 21.0181 22.258 21.1301 22.258C21.2421 22.258 21.3621 22.23 21.4901 22.174C21.6181 22.118 21.7301 22.042 21.8261 21.946C22.0341 21.754 22.1381 21.526 22.1381 21.262C22.1381 20.998 22.0341 20.762 21.8261 20.554ZM4.13807 11.242C4.13807 9.962 4.45007 8.786 5.07407 7.714C5.69807 6.658 6.53807 5.818 7.59407 5.19399C8.66607 4.57 9.84207 4.258 11.1221 4.258C12.4021 4.258 13.5861 4.57 14.6741 5.19399C15.7301 5.818 16.5701 6.662 17.1941 7.726C17.8181 8.79 18.1301 9.962 18.1301 11.242C18.1301 12.17 17.9501 13.066 17.5901 13.93C17.2301 14.794 16.7461 15.53 16.1381 16.138C15.4981 16.794 14.7581 17.294 13.9181 17.638C13.0781 17.982 12.1861 18.154 11.2421 18.154C9.93007 18.186 8.72207 17.89 7.61807 17.266C6.54607 16.674 5.69807 15.842 5.07407 14.77C4.45007 13.698 4.13807 12.522 4.13807 11.242Z"
-                    fill="#3E445A"
+                    <path
+                      d="M21.8261 20.554L18.1301 16.858C18.7541 16.074 19.2341 15.21 19.5701 14.266C19.9381 13.274 20.1221 12.266 20.1221 11.242C20.1221 9.61 19.7141 8.09 18.8981 6.682C18.1141 5.32199 17.0421 4.25 15.6821 3.466C14.2901 2.65 12.7741 2.24199 11.1341 2.24199C9.49407 2.24199 7.97007 2.65 6.56207 3.466C5.21807 4.266 4.14607 5.338 3.34607 6.682C2.53007 8.09 2.12207 9.614 2.12207 11.254C2.12207 12.894 2.53007 14.41 3.34607 15.802C4.13007 17.162 5.20207 18.234 6.56207 19.018C7.97007 19.834 9.49007 20.242 11.1221 20.242C12.1781 20.242 13.1901 20.07 14.1581 19.726C15.1261 19.382 15.9861 18.89 16.7381 18.25L20.4341 21.946C20.5301 22.042 20.6421 22.118 20.7701 22.174C20.8981 22.23 21.0181 22.258 21.1301 22.258C21.2421 22.258 21.3621 22.23 21.4901 22.174C21.6181 22.118 21.7301 22.042 21.8261 21.946C22.0341 21.754 22.1381 21.526 22.1381 21.262C22.1381 20.998 22.0341 20.762 21.8261 20.554ZM4.13807 11.242C4.13807 9.962 4.45007 8.786 5.07407 7.714C5.69807 6.658 6.53807 5.818 7.59407 5.19399C8.66607 4.57 9.84207 4.258 11.1221 4.258C12.4021 4.258 13.5861 4.57 14.6741 5.19399C15.7301 5.818 16.5701 6.662 17.1941 7.726C17.8181 8.79 18.1301 9.962 18.1301 11.242C18.1301 12.17 17.9501 13.066 17.5901 13.93C17.2301 14.794 16.7461 15.53 16.1381 16.138C15.4981 16.794 14.7581 17.294 13.9181 17.638C13.0781 17.982 12.1861 18.154 11.2421 18.154C9.93007 18.186 8.72207 17.89 7.61807 17.266C6.54607 16.674 5.69807 15.842 5.07407 14.77C4.45007 13.698 4.13807 12.522 4.13807 11.242Z"
+                      fill="#3E445A"
                     />
-                </svg>
-              </div>
+                  </svg>
+                </div>
               </form>
             </div>
 
             <div className="order-2 md:order-3 flex gap-4 items-center">
-              <div className="cursor-pointer relative" onClick={() => setShowUserMenu((prev) => !prev)} >
+              <div
+                className="cursor-pointer relative"
+                onClick={() => setShowUserMenu((prev) => !prev)}
+              >
                 <svg
                   width="43"
                   height="43"
@@ -356,59 +362,71 @@ export default function Header() {
                     </clipPath>
                   </defs>
                 </svg>
-                <div className={`absolute top-full left-0 bg-[#F3F4F7] text-black text-[10px] font-[400] w-40 h-20 text-center flex flex-col gap-2 align-center justify-center rounded-md ${showUserMenu ? 'block' : 'hidden'}`}>
-                  <Link to={'./login'} className="text-base font-medium pb-2">Log In</Link>
-                  <Link to={'./signup'} className="text-base font-medium pb-2">Sign Up</Link>
+                <div
+                  className={`absolute top-full left-0 bg-[#F3F4F7] text-black text-[10px] font-[400] w-40 h-20 text-center flex flex-col gap-2 align-center justify-center rounded-md ${
+                    showUserMenu ? "block" : "hidden"
+                  }`}
+                >
+                  <Link to={"./login"} className="text-base font-medium pb-2">
+                    Log In
+                  </Link>
+                  <Link to={"./signup"} className="text-base font-medium pb-2">
+                    Sign Up
+                  </Link>
                 </div>
               </div>
               <div className="flex gap-1 items-center">
                 <h1 className="font-[600] text-[16px] text-[#3E445A] dosis">
-                  ${toltal.toFixed(2)}
+                  ${totalPrice}
                 </h1>
                 <div className="relative">
                   <div className="absolute top-0 right-0 bg-[#EA2B0F] text-white text-[10px] font-[400] w-4 h-4 rounded-full text-center">
-                    {items}
+                    {productsCount}
                   </div>
-                  <svg
-                    width="42"
-                    height="43"
-                    viewBox="0 0 42 43"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      y="0.25"
+                  <Link to={'cart'}>
+                    <svg
                       width="42"
-                      height="42"
-                      rx="21"
-                      fill="#FFF1EE"
-                    />
-                    <g clipPath="url(#clip0_1_3013)">
-                      <path
-                        d="M21.0342 14.161C20.5242 14.161 20.0511 14.2885 19.6147 14.5435C19.1784 14.7985 18.8327 15.1442 18.5777 15.5805C18.3227 16.0168 18.1952 16.49 18.1952 17H16.7502C16.7502 16.2293 16.9401 15.5182 17.3197 14.8665C17.6994 14.2148 18.2151 13.6992 18.8667 13.3195C19.5184 12.9398 20.2296 12.75 21.0002 12.75C21.7709 12.75 22.4821 12.9398 23.1337 13.3195C23.7854 13.6992 24.3011 14.2148 24.6807 14.8665C25.0604 15.5182 25.2502 16.2293 25.2502 17H28.0382C28.4462 17 28.7919 17.1445 29.0752 17.4335C29.3586 17.7225 29.5002 18.0767 29.5002 18.496C29.5002 18.5867 29.4946 18.6717 29.4832 18.751L27.9022 27.897C27.8116 28.4297 27.5622 28.8717 27.1542 29.223C26.7462 29.5743 26.2759 29.75 25.7432 29.75H16.2572C15.7246 29.75 15.2542 29.5743 14.8462 29.223C14.4382 28.8717 14.1889 28.4297 14.0982 27.897L12.5172 18.768C12.4492 18.36 12.5314 17.986 12.7637 17.646C12.9961 17.306 13.3106 17.0963 13.7072 17.017C13.7866 17.0057 13.8716 17 13.9622 17H23.8732C23.8732 16.49 23.7457 16.0168 23.4907 15.5805C23.2357 15.1442 22.8901 14.7985 22.4537 14.5435C22.0174 14.2885 21.5442 14.161 21.0342 14.161ZM28.0382 18.411H13.9622C13.9509 18.411 13.9339 18.4337 13.9112 18.479V18.513L15.4922 27.659C15.5262 27.8403 15.6056 27.9933 15.7302 28.118C15.8549 28.2427 16.0022 28.3107 16.1722 28.322L16.2572 28.339H25.7432C25.9132 28.339 26.0691 28.2852 26.2107 28.1775C26.3524 28.0698 26.4459 27.9253 26.4912 27.744L28.0892 18.496C28.0892 18.4507 28.0779 18.428 28.0552 18.428L28.0382 18.411Z"
-                        fill="#EA2B0F"
+                      height="43"
+                      viewBox="0 0 42 43"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        y="0.25"
+                        width="42"
+                        height="42"
+                        rx="21"
+                        fill="#FFF1EE"
                       />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_1_3013">
-                        <rect
-                          width="17"
-                          height="17"
-                          fill="white"
-                          transform="matrix(1 0 0 -1 12.5 29.75)"
+                      <g clipPath="url(#clip0_1_3013)">
+                        <path
+                          d="M21.0342 14.161C20.5242 14.161 20.0511 14.2885 19.6147 14.5435C19.1784 14.7985 18.8327 15.1442 18.5777 15.5805C18.3227 16.0168 18.1952 16.49 18.1952 17H16.7502C16.7502 16.2293 16.9401 15.5182 17.3197 14.8665C17.6994 14.2148 18.2151 13.6992 18.8667 13.3195C19.5184 12.9398 20.2296 12.75 21.0002 12.75C21.7709 12.75 22.4821 12.9398 23.1337 13.3195C23.7854 13.6992 24.3011 14.2148 24.6807 14.8665C25.0604 15.5182 25.2502 16.2293 25.2502 17H28.0382C28.4462 17 28.7919 17.1445 29.0752 17.4335C29.3586 17.7225 29.5002 18.0767 29.5002 18.496C29.5002 18.5867 29.4946 18.6717 29.4832 18.751L27.9022 27.897C27.8116 28.4297 27.5622 28.8717 27.1542 29.223C26.7462 29.5743 26.2759 29.75 25.7432 29.75H16.2572C15.7246 29.75 15.2542 29.5743 14.8462 29.223C14.4382 28.8717 14.1889 28.4297 14.0982 27.897L12.5172 18.768C12.4492 18.36 12.5314 17.986 12.7637 17.646C12.9961 17.306 13.3106 17.0963 13.7072 17.017C13.7866 17.0057 13.8716 17 13.9622 17H23.8732C23.8732 16.49 23.7457 16.0168 23.4907 15.5805C23.2357 15.1442 22.8901 14.7985 22.4537 14.5435C22.0174 14.2885 21.5442 14.161 21.0342 14.161ZM28.0382 18.411H13.9622C13.9509 18.411 13.9339 18.4337 13.9112 18.479V18.513L15.4922 27.659C15.5262 27.8403 15.6056 27.9933 15.7302 28.118C15.8549 28.2427 16.0022 28.3107 16.1722 28.322L16.2572 28.339H25.7432C25.9132 28.339 26.0691 28.2852 26.2107 28.1775C26.3524 28.0698 26.4459 27.9253 26.4912 27.744L28.0892 18.496C28.0892 18.4507 28.0779 18.428 28.0552 18.428L28.0382 18.411Z"
+                          fill="#EA2B0F"
                         />
-                      </clipPath>
-                    </defs>
-                  </svg>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_1_3013">
+                          <rect
+                            width="17"
+                            height="17"
+                            fill="white"
+                            transform="matrix(1 0 0 -1 12.5 29.75)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
         {/* Main Navigation */}
         <div className="px-4 py-4 md:py-7 flex flex-col md:flex-row w-full justify-between items-center gap-4  xl:px-[150px]">
-          <div className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto" onClick={() => setShowCategories((prev) => !prev)}>
+          <div
+            className="relative bg-[#35AFA0] flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto"
+            onClick={() => setShowCategories((prev) => !prev)}
+          >
             <div className="flex gap-2 md:gap-4 items-center ">
               <svg
                 width="13"
@@ -456,12 +474,30 @@ export default function Header() {
                 </defs>
               </svg>
             </div>
-            <loading loading={loading} error={error} >
-              <ul className={`mt-4 space-y-2 absolute left-0 top-full bg-white shadow-lg rounded-lg py-4 h-[400px] overflow-y-auto z-8 ${showCategories ? 'opacity-100 block' : 'opacity-0  hidden'}`} >
+            <loading loading={loading} error={error}>
+              <ul
+                className={`mt-4 space-y-2 absolute left-0 top-full bg-white shadow-lg rounded-lg py-4 h-[400px] overflow-y-auto z-8 ${
+                  showCategories ? "opacity-100 block" : "opacity-0  hidden"
+                }`}
+              >
                 {categories.map((category) => (
-                  <li key={category.slug} className="p-2 border-b border-[#E3E4E6] flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"  className="w-3 h-3 size-6 text-[#35AFA0] " >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                  <li
+                    key={category.slug}
+                    className="p-2 border-b border-[#E3E4E6] flex items-center gap-2"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-3 h-3 size-6 text-[#35AFA0] "
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                      />
                     </svg>
 
                     <Link
@@ -481,10 +517,11 @@ export default function Header() {
               {routes.map((item, index) => (
                 <li
                   key={index}
-                  className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${activeroute == item.link
-                    ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF]"
-                    : ""
-                    }`}
+                  className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${
+                    activeroute == item.link
+                      ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF]"
+                      : ""
+                  }`}
                 >
                   {item.icon}
                   <Link to={item.link}>
@@ -526,40 +563,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-           {/* <div>
-//         {search.map((product) => (
-                <div
-                  key={product.id}
-                  className="product relative duration-500 cursor-pointer flex flex-col justify-between"
-                >
-                  
-                    <div>
-                      <img
-                        loading="lazy"
-                        src={product.images}
-                        className="w-full block"
-                        alt={product.title}
-                      />
-                    </div>
-                    <div className="p-2">
-                      <h2 className="text-green-600">
-                        {product.category}
-                      </h2>
-                      <p className="text-sm text-gray-500">
-                        {product.description.split(" ").slice(0, 3).join(" ")}
-                      </p>
-                      <div className="rating flex justify-between items-center my-2 ">
-                        <span>{product.price}EGP</span>
-                        <span>
-                          <i className="fa-solid fa-star rating-color"></i>
-                          {product.rating}
-                        </span>
-                      </div>
-                    </div>
-      
-                </div>
-              ))}
-    </div> */}
     </div>
   );
 }
