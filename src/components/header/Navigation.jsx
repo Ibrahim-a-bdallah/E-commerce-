@@ -13,13 +13,13 @@ export default function Navigation() {
       icon: null,
     },
     {
-      name: "shope",
-      link: "shope",
+      name: "shop",
+      link: "shop",
       icon: null,
     },
     {
       name: "meats & seafood",
-      link: "meats",
+      link: "/category/meats",
       icon: (
         <svg
           width="23"
@@ -39,7 +39,7 @@ export default function Navigation() {
     },
     {
       name: "Bakery",
-      link: "bakery",
+      link: "/category/bakery",
       icon: (
         <svg
           width="23"
@@ -69,7 +69,7 @@ export default function Navigation() {
     },
     {
       name: "Beverages",
-      link: "beverages",
+      link: "/category/beverages",
       icon: (
         <svg
           width="23"
@@ -125,7 +125,7 @@ export default function Navigation() {
               }`}
             >
               {item.icon}
-              <a href={item.link}>
+              <Link to={item.link}>
                 {item.name == "home" ? (
                   <div className="flex items-center gap-2">
                     {item.name}
@@ -157,7 +157,7 @@ export default function Navigation() {
                 ) : (
                   item.name
                 )}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

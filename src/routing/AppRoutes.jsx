@@ -1,24 +1,22 @@
-import { RouterProvider,createBrowserRouter } from "react-router-dom"
-
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { lazy } from "react";
 
-// mainLayout 
-const MainLayout = lazy(()=> import ("../layout/MainLayout"))
-// pages 
-const Home = lazy(() => import("../pages/home/Home"))
-const Blog = lazy(() => import("../pages/Blog/BlogPage"))
-const CheckOut = lazy(() => import("../pages/Checkout"))
-const Contect = lazy(() => import("../pages/contact/Contact"))
-const About = lazy(() => import("../pages/About/AboutUs"))
-const Shop = lazy(() => import("../pages/Shop"))
-const Cart = lazy(() => import("../pages/Cart/Cart"))
-const Category = lazy(() => import("../pages/catogaries/[catogary]/index"))
+// mainLayout
+const MainLayout = lazy(() => import("../layout/MainLayout"));
+// pages
+const Home = lazy(() => import("../pages/home/Home"));
+const Blog = lazy(() => import("../pages/Blog/BlogPage"));
+const CheckOut = lazy(() => import("../pages/Checkout"));
+const Contect = lazy(() => import("../pages/contact/Contact"));
+const About = lazy(() => import("../pages/About/AboutUs"));
+const Shop = lazy(() => import("../pages/Shop"));
+const Cart = lazy(() => import("../pages/Cart/Cart"));
+const Login = lazy(() => import("../pages/Login/Login"));
 const Pay = lazy(()=>import("../pages/pay/Pay"))
 
 import Error from "../pages/Error";
 import LoadingSpinner from "../components/feedback/lottieHandler/SuspenseHandler";
-
-
 
 const router = createBrowserRouter([
   {
@@ -27,64 +25,61 @@ const router = createBrowserRouter([
       <LoadingSpinner type="loading">
         <MainLayout />
       </LoadingSpinner>
-    
-    )
-    ,
+    ),
     errorElement: <Error />,
     children: [
       {
         index: true,
-        element:
-        <LoadingSpinner>
-          <Home />
-        </LoadingSpinner>
-        ,
+        element: (
+          <LoadingSpinner>
+            <Home />
+          </LoadingSpinner>
+        ),
       },
       {
         path: "blog",
-        element:
-        <Blog/>
+        element: <Blog />,
       },
       {
         path: "about",
-        element:
-          <About />
+        element: <About />,
       },
       {
         path: "contact",
-        element:
-            <Contect />
+        element: <Contect />,
       },
       {
         path: "checkout",
-        element:
-          <CheckOut />
+        element: <CheckOut />,
       },
       {
         path: "shop",
-        element:
-          <Shop />
+        element: <Shop />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "category/:category",
-        element:
-          <Category />
-      },    
-      {
-        path: "cart",
-        element:
-          <Cart />
-      },    
+        element: <Shop />,
+      },  
       {
         path: "pay",
         element:
           <Pay />
       },    
+        path: "login",
+        element: <Login />,
+      },
     ],
   },
-])
-  ;
-
+]);
 export const AppRoutes = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+  );
 };
