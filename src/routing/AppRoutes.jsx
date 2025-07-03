@@ -2,20 +2,17 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { lazy } from "react";
 
-
-// mainLayout 
-const MainLayout = lazy(()=> import ("../layout/MainLayout"))
-// pages 
-const Home = lazy(() => import("../pages/home/Home"))
-const Blog = lazy(() => import("../pages/Blog/BlogPage"))
-const CheckOut = lazy(() => import("../pages/Checkout"))
-const Contect = lazy(() => import("../pages/contact/Contact"))
-const About = lazy(() => import("../pages/About/AboutUs"))
-const Shop = lazy(() => import("../pages/Shop"))
-const Category = lazy(() => import("../pages/catogaries/[catogary]/index"))
+// mainLayout
+const MainLayout = lazy(() => import("../layout/MainLayout"));
+// pages
+const Home = lazy(() => import("../pages/home/Home"));
+const Blog = lazy(() => import("../pages/Blog/BlogPage"));
+const CheckOut = lazy(() => import("../pages/Checkout"));
+const Contect = lazy(() => import("../pages/contact/Contact"));
+const About = lazy(() => import("../pages/About/AboutUs"));
+const Shop = lazy(() => import("../pages/Shop"));
 const Cart = lazy(() => import("../pages/Cart/Cart"));
 const Login = lazy(() => import("../pages/Login/Login"));
-
 
 import Error from "../pages/Error";
 import LoadingSpinner from "../components/feedback/lottieHandler/SuspenseHandler";
@@ -60,8 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element:
-          <Cart />
+        element: <Cart />,
       },
       {
         path: "category/:category",

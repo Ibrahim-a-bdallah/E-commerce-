@@ -2,10 +2,18 @@ import { useState } from "react";
 import heart from "@/assets/heart.svg";
 // import share from "@/assets/share.svg";
 import ShareDialog from "../share/ShareDialog";
+import { addCart } from "@/store/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 const ProductDetails = ({ product }) => {
+  const dispatch = useDispatch();
   const [size, setSize] = useState("medium");
   const [quantity, setQuantity] = useState(1);
+
+  const addToCart = () => {
+    console.log({ product });
+    dispatch(addCart(product));
+  };
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -56,7 +64,10 @@ const ProductDetails = ({ product }) => {
         </button>
       </div>
 
-      <button className="bg-[#35AFA0] text-white py-2 rounded-lg cursor-pointer ">
+      <button
+        onClick={addToCart}
+        className="bg-[#35AFA0] text-white py-2 rounded-lg cursor-pointer "
+      >
         Add to Cart
       </button>
 

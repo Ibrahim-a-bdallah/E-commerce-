@@ -133,7 +133,8 @@ export default function Header() {
   }
   const dispatch = useDispatch();
 
-  const x = useSelector((state) => state.cartSlice);
+  const x = useSelector((state) => state.cart);
+  console.log(x);
 
   const productsCount = useMemo(() => {
     let totalNumbers = 0;
@@ -297,7 +298,7 @@ export default function Header() {
               <form onSubmit={"/"}>
                 <div className="bg-[#F3F4F7] py-3 md:py-5 flex gap-3 md:gap-5 px-4 rounded-lg w-full">
                   <input
-                    onChange={(e) => searchProducts(e.target.value)}
+                    // onChange={(e) => searchProduct(e.target.value)}
                     id="search"
                     type="text"
                     placeholder="Search for Products, fruit, meat, eggs .etc..."
@@ -371,7 +372,7 @@ export default function Header() {
               </div>
               <div className="flex gap-1 items-center">
                 <h1 className="font-[600] text-[16px] text-[#3E445A] dosis">
-                  ${totalPrice}
+                  ${totalPrice.toFixed(2)}
                 </h1>
                 <div className="relative">
                   <div className="absolute top-0 right-0 bg-[#EA2B0F] text-white text-[10px] font-[400] w-4 h-4 rounded-full text-center">
@@ -494,7 +495,7 @@ export default function Header() {
                       />
                     </svg>
                     <Link
-                      to={`/shop?category=${category.slug}`}
+                      to={`/category/${category.slug}`}
                       className="block text-sm hover:text-[#1773B0] cursor-pointer"
                     >
                       {category.name}
