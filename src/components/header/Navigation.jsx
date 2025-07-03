@@ -13,17 +13,17 @@ export default function Navigation() {
   const routes = [
     {
       name: "home",
-      link: "/",
+      link: "/  ",
       icon: null,
     },
     {
-      name: "shop",
-      link: "shop",
+      name: "shope",
+      link: "shope",
       icon: null,
     },
     {
       name: "meats & seafood",
-      link: "/category/meats",
+      link: "meats",
       icon: (
         <svg
           width="23"
@@ -43,7 +43,7 @@ export default function Navigation() {
     },
     {
       name: "Bakery",
-      link: "/category/bakery",
+      link: "bakery",
       icon: (
         <svg
           width="23"
@@ -73,7 +73,7 @@ export default function Navigation() {
     },
     {
       name: "Beverages",
-      link: "/category/beverages",
+      link: "beverages",
       icon: (
         <svg
           width="23"
@@ -226,7 +226,7 @@ export default function Navigation() {
               }`}
             >
               {item.icon}
-              <Link to={item.link}>
+              <a href={item.link}>
                 {item.name == "home" ? (
                   <div className="flex items-center gap-2">
                     {item.name}
@@ -258,7 +258,7 @@ export default function Navigation() {
                 ) : (
                   item.name
                 )}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
