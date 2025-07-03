@@ -17,7 +17,8 @@ export default function Cart() {
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       {items < 1 ? (
         <div className="items-center text-mainColor ">
-          <h1 className="text-center py-10 text-3xl"> Cart Is Empty </h1>{" "}
+          <h1 className="text-center py-40
+           text-3xl"> Cart Is Empty </h1>{" "}
         </div>
       ) : (
         <div className="w-5/6 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
