@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchCategoriesProducts } from "../../Store/categoryProducts/actGetCategoryProducts";
 
-function ProductsShop({ setCountProducts, selectedCategories, selectedBrands }) {
+function ProductsShop({ setCountProducts, selectedCategories, selectedBrands , priceRange , selectedAvailability }) {
   const dispatch = useDispatch();
   const { category } = useParams();   /* Get the search query from the URL */
   console.log(category);
@@ -13,18 +13,23 @@ function ProductsShop({ setCountProducts, selectedCategories, selectedBrands }) 
 
   /* Filter products based on the selected categories and brands */
   const filteredProducts = categoriesProducts.filter(product => {
-    if (!product) return false;
+  if (!product) return false;
 
-    const matchCategory = selectedCategories.length > 0
-      ? selectedCategories.includes(product.category?.trim())
-      : true;
+  const matchCategory = selectedCategories.length > 0
+    ? selectedCategories.includes(product.category?.trim())
+    : true;
 
-    const matchBrand = selectedBrands.length > 0
-      ? selectedBrands.includes(product.brand?.trim())
-      : true;
+  const matchBrand = selectedBrands.length > 0
+    ? selectedBrands.includes(product.brand?.trim())
+    : true;
 
-    return matchCategory && matchBrand;
-  });
+  const matchPrice = product.price >= priceRange.from && product.price <= priceRange.to;
+    const matchAvailability = selectedAvailability.length > 0
+    ? selectedAvailability.includes(product.availabilityStatus)
+    : true;
+  return matchCategory && matchBrand && matchPrice && matchAvailability;
+});
+
   /* Update the count of products whenever the filtered products change */
   useEffect(() => {
     if (Array.isArray(filteredProducts)) {
