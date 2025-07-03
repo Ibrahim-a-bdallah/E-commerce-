@@ -1,21 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import imgShop from "../../assets/img/shop/aeb9763b1145b3dd6e2fadd6c2b27941d3d7b0fa.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "@/store/categories/actGetCategories";
 import { fetchCategoriesProducts } from "@/Store/categoryProducts/actGetCategoryProducts";
 import { Link, useParams } from "react-router-dom";
 
-function Sidebar({ onCategoryChange, onBrandChange }) {
+function Sidebar({ onCategoryChange, onBrandChange, onPriceChange, selectedCategories, selectedAvailability ,onAvailabilityChange }) {
+  const [priceFrom, setPriceFrom] = useState('');
+  const [priceTo, setPriceTo] = useState('');
   const dispatch = useDispatch();
   const categoryName = useParams();
-  console.log(categoryName.category);
-  const { categories } = useSelector((state) => state.categories);
-  const categoriesProducts = useSelector((state) => state.categoriesProducts);
-
+  // console.log(categoryName.category);
+  const { categories } = useSelector((state) => state.categories || []);
+  const categoriesProducts = useSelector((state) => state.categoriesProducts || []);
+  const allProducts = useSelector((state) => state.categoriesProducts.categories || []);
   const allBrands = Array.isArray(categoriesProducts.categories)
     ? categoriesProducts.categories
-        .map((brand) => brand.brand)
-        .filter((brand) => brand && brand.trim() !== "")
+      .map((brand) => brand.brand)
+      .filter((brand) => brand && brand.trim() !== "")
     : [];
 
   // console.log('Aside', allBrands);
@@ -26,7 +28,13 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
       uniqueBrands.push(brand);
     }
   });
-
+  const uniqueAvailabilityStatuses = [];
+  allProducts.forEach((product) => {
+    const status = product.availabilityStatus;
+    if (status && !uniqueAvailabilityStatuses.includes(status)) {
+      uniqueAvailabilityStatuses.push(status);
+    }
+  });
   const brandCounts = {}; // Object to hold the count of each brand
   // Count the occurrences of each brand
   if (Array.isArray(categoriesProducts.categories)) {
@@ -42,13 +50,34 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
     });
   }
   // console.log('Brand Counts', brandCounts);
+/*************************************************************************/
+const statusCounts = {}; // Object to hold the count of each availabilityStatus
+  // Count the occurrences of each availabilityStatus
+  if (Array.isArray(allProducts)) {
+    allProducts.forEach((product) => {
+      const status = product.availabilityStatus?.trim();
+      if (status) {
+        if (statusCounts[status]) {
+          statusCounts[status]++; // increment the count if the availabilityStatus already exists
+        } else {
+          statusCounts[status] = 1; // if the availabilityStatus does not exist initialize it with 1
+        }
+      }
+    });
+  }
+  console.log('statue Counts', statusCounts);
 
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchCategoriesProducts());
   }, [dispatch]);
+  useEffect(() => {
+    onPriceChange(priceFrom, priceTo);
+  }, [priceFrom, priceTo, onPriceChange]);
+
+
   return (
-    <aside className="w-full lg:w-1/4  ">
+    <aside>
       <div>
         <h2 className="text-[#202435] font-semibold text-[15px] uppercase dosis pb-4">
           Product Categories
@@ -60,19 +89,17 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
               <li className="py-2 px-2" key={category.slug}>
                 <div className="relative">
                   {console.log(category.slug == categoryName.category)}
-                  <Link to={`/category/${category.slug}`}>
-                    <input
-                      type="checkbox"
-                      id={inputId}
-                      name={category.slug} // to selected more than one category
-                      value=""
-                      className="peer hidden"
-                      checked={category.slug == categoryName.category}
-                      onChange={(e) =>
-                        onCategoryChange(category.slug, e.target.checked)
-                      }
-                    />
-                  </Link>
+                  <input
+                    type="checkbox"
+                    id={inputId}
+                    name={category.slug} // to selected more than one category
+                    value=""
+                    className="peer hidden"
+                    checked={selectedCategories.includes(category.slug)}
+                    onChange={(e) =>
+                      onCategoryChange(category.slug, e.target.checked)
+                    }
+                  />
                   <label
                     htmlFor={inputId}
                     className="pl-6 text-[15px] cursor-pointer text-[#71778E]"
@@ -134,6 +161,8 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
               id="priceFrom"
               placeholder="0"
               className="w-full border border-[#ccc] rounded px-4 py-4 text-sm focus:outline-none bg-[#F3F4F7] "
+              value={priceFrom}
+              onChange={(e) => setPriceFrom(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-center">
@@ -148,6 +177,8 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
               id="priceFrom"
               placeholder="0"
               className="w-full border border-[#ccc] rounded px-4 py-4 text-sm focus:outline-none bg-[#F3F4F7]"
+              value={priceTo}
+              onChange={(e) => setPriceTo(e.target.value)}
             />
           </div>
         </div>
@@ -156,45 +187,37 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
         <h2 className="text-[#202435] font-semibold text-[15px] uppercase dosis pb-4">
           Availability
         </h2>
-        <ul>
-          <li className="py-2 px-2 flex items-center justify-between">
-            <div className="relative">
-              <input
-                type="radio"
-                id="Instock"
-                name="category"
-                value=""
-                className="peer hidden"
-              />
-              <label
-                htmlFor="Instock"
-                className="pl-6 text-[15px] cursor-pointer text-[#71778E]"
-              >
-                In stock
-              </label>
-              <span className="absolute w-4 h-4 left-0 top-1/2 -translate-y-1/2 bg-[#f2f3f4] border-1 border-[#71778ec5] peer-checked:bg-[#35AFA0] pointer-events-none"></span>
-            </div>
-            <span className="text-[#71778E] text-[14px]"> (62)</span>
-          </li>
-          <li className="py-2 px-2 flex items-center justify-between">
-            <div className="relative">
-              <input
-                type="radio"
-                id="Outofstock"
-                name="category"
-                value=""
-                className="peer hidden"
-              />
-              <label
-                htmlFor="Outofstock"
-                className="pl-6 text-[15px] cursor-pointer text-[#71778E]"
-              >
-                Out of stock
-              </label>
-              <span className="absolute w-4 h-4 left-0 top-1/2 -translate-y-1/2 bg-[#f2f3f4] border-1 border-[#71778ec5] peer-checked:bg-[#35AFA0] pointer-events-none"></span>
-            </div>
-            <span className="text-[#71778E] text-[14px]"> (0)</span>
-          </li>
+        <ul className="list-none p-0  ">
+          {uniqueAvailabilityStatuses.map((status, index) => {
+            const inputId = `availabilityStatus-${index}`; // Unique ID for each category input
+            console.log('ca', uniqueAvailabilityStatuses);
+            return (
+              <li className="py-2 px-2" key={index}>
+                <div className="relative flex items-center justify-between">
+                  {console.log(status)}
+                  <input
+                    type="checkbox"
+                    id={inputId}
+                    name={status} // to selected more than one category
+                    value=""
+                    className="peer hidden"
+                    checked={selectedAvailability?.includes(status) || false}
+                    onChange={(e) => onAvailabilityChange(status, e.target.checked)}
+                  />
+                  <label
+                    htmlFor={inputId}
+                    className="pl-6 text-[15px] cursor-pointer text-[#71778E]"
+                  >
+                    {status}
+                  </label>
+                  <span className="absolute w-4 h-4 left-0 top-1/2 -translate-y-1/2 bg-[#f2f3f4] border-1 border-[#71778ec5] peer-checked:bg-[#35AFA0] pointer-events-none"></span>
+                  <span className="text-[#71778E] text-[14px]">
+                    ({statusCounts[status] || 0})
+                  </span>
+                  </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div>
@@ -209,3 +232,14 @@ function Sidebar({ onCategoryChange, onBrandChange }) {
 }
 
 export default Sidebar;
+
+
+
+
+
+
+
+
+
+
+
