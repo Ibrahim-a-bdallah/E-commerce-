@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 
 export default function Cart() {
-  const items = useSelector((state) => state.cartSlice);
+  const items = useSelector((state) => state.cart);
 
   const totalPrice = useMemo(() => {
       let totalNumbers = 0;
