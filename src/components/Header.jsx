@@ -128,28 +128,30 @@ export default function Header() {
       icon: null,
     },
   ];
-  {
-    /* fetch Categoriesr data*/
-  }
+
+  /* fetch Categoriesr data*/
+
   const dispatch = useDispatch();
 
-  const x = useSelector((state) => state.cart);
-  console.log(x);
+  const cartItems = useSelector((state) => state.cart.products);
+
+  console.log(`cart: ${cartItems}`);
 
   const productsCount = useMemo(() => {
     let totalNumbers = 0;
-    x.forEach((object) => {
+    cartItems.forEach((object) => {
       totalNumbers += object.count;
     });
     return totalNumbers;
-  }, [x]);
+  }, [cartItems]);
+
   const totalPrice = useMemo(() => {
     let totalNumbers = 0;
-    x.forEach((object) => {
+    cartItems.forEach((object) => {
       totalNumbers += object.totalPrice;
     });
     return totalNumbers;
-  }, [x]);
+  }, [cartItems]);
 
   const { categories, loading, error } = useSelector(
     (state) => state.categories
@@ -157,9 +159,6 @@ export default function Header() {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
-  useEffect(() => {
-    console.log(x);
-  }, [x]);
 
   return (
     <div className="flex flex-col justify-center items-center w-full">

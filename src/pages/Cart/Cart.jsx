@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const items = useSelector((state) => state.cart);
+  const items = useSelector((state) => state.cart.products);
 
   const totalPrice = useMemo(() => {
     let totalNumbers = 0;
