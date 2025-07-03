@@ -34,8 +34,7 @@ const ProductMain = ({
       console.log({product})
       dispatch(addCart(product));
     };
-    dispatch(openPopup(id));
-  };
+
   return (
     <div
       className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden cursor-pointer`}
