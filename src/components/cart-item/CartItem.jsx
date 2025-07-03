@@ -1,4 +1,4 @@
-import { decrease, increase ,removeItem} from "@/store/cart/cartSlice";
+import { decrease, increase, removeItem } from "@/store/cart/cartSlice";
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -90,7 +90,7 @@ export default function CartItem({ data }) {
           </div>
         </div>
         <div className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-          {data.totalPrice} EGP
+          ${data.totalPrice.toFixed(2)}
         </div>
         <div className="px-6 py-4">
           <button

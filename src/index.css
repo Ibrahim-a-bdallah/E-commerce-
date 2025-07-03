@@ -23,7 +23,6 @@
   font-family: "Dosis", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  <<<<<<< Updated upstream
 }
 
 @theme inline {
@@ -142,8 +141,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-=======
-}
-
->>>>>>>Stashed changes

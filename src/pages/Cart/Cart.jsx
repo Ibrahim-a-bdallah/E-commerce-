@@ -2,8 +2,8 @@ import CartItem from "@/components/cart-item/CartItem";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
-export default function Cart() {
-  const items = useSelector((state) => state.cartSlice);
+const Cart = () => {
+  const items = useSelector((state) => state.cart);
 
   const totalPrice = useMemo(() => {
     let totalNumbers = 0;
@@ -32,11 +32,13 @@ export default function Cart() {
           <div className=" justify-end">
             <div className="py-4 text-2xl text-end">Total Prise</div>
             <div className="py-4 text-2xl text-end text-mainColor">
-              {totalPrice} EGP
+              ${totalPrice.toFixed(2)}
             </div>
           </div>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default Cart;
