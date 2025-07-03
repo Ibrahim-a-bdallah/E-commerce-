@@ -20,7 +20,7 @@ const CarouselSpacing = (categoryName) => {
   const categoryProducts = useSelector((state) => state.carousel.products);
 
   return (
-    <Carousel className="w-[550px] lg:w-[700px]  hidden md:block">
+    <Carousel className="w-full md:max-w-[500px] lg:max-w-[700px] hidden md:block">
       <CarouselContent className="">
         {categoryProducts.map((product, index) => (
           <CarouselItem key={index} className="pl-1 basis-1/3 lg:basis-1/4">
