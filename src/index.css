@@ -25,6 +25,10 @@
   font-style: normal;
 }
 
+.popupContent {
+  @apply max-w-none w-[300px] md:w-[650px] lg:w-[900px]
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

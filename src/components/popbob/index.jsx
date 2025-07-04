@@ -9,17 +9,16 @@ const PopBob = ({ open, onOpenChange, selectedProductId }) => {
   const product = products.find((p) => p.id === selectedProductId);
 
   if (!product) return null;
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="md:max-w-[700px] lg:max-w-[900px] w-full select-none">
+      <DialogContent className="popupContent max-h-[92vh] overflow-y-auto gap-0  p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ProductImageCarousel images={product.images} />
-
           <ProductDetails product={product} />
         </div>
-        <div className="w-full flex flex-col justify-center items-center gap-2 mt-4 ">
-          <h2 className="self-start font-bold text-xl ">Related products</h2>
+
+        <div className="hidden md:flex w-full flex-col justify-center items-center gap-2 mt-4">
+          <h2 className="self-start font-bold text-xl">Related products</h2>
           <CarouselSpacing categoryName={product.category} />
         </div>
       </DialogContent>

@@ -13,7 +13,7 @@ const ProductImageCarousel = ({ images = [] }) => {
   };
 
   return (
-    <div className="flex gap-4 w-full max-w-4xl mx-auto">
+    <div className="flex gap-4 w-full max-w-4xl mx-auto md:h-[300px]">
       <div className="flex flex-col gap-2">
         {images.map((img, index) => (
           <img
@@ -22,7 +22,7 @@ const ProductImageCarousel = ({ images = [] }) => {
             onClick={() => handleThumbClick(index)}
             alt={`Thumb ${index}`}
             className={cn(
-              "w-16 h-16 rounded-lg border cursor-pointer object-cover transition-all",
+              "w-10 h-10 rounded-lg border cursor-pointer object-cover transition-all",
               selected === index
                 ? "border-2 border-green-500 scale-105"
                 : "border border-gray-300 opacity-80 hover:opacity-100"
@@ -31,11 +31,11 @@ const ProductImageCarousel = ({ images = [] }) => {
         ))}
       </div>
 
-      <div className="relative flex-1 border rounded-xl h-80 flex items-center justify-center overflow-hidden">
+      <div className="relative flex-1 border rounded-xl flex items-center justify-center overflow-hidden">
         <img
           src={images[selected]}
           alt={`Product ${selected}`}
-          className="h-full object-contain"
+          className="max-h-[280px] object-contain"
         />
 
         <button
