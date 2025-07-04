@@ -19,7 +19,7 @@ app.post('/create-payment-intent', async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: 'usd',
-      payment_method_types: ['card', 'paypal'],
+       payment_method_types: ['card', 'paypal'],
     });
 
     res.send({ clientSecret: paymentIntent.client_secret });

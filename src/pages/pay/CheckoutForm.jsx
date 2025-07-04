@@ -2,6 +2,8 @@ import { useStripe, useElements, CardElement, PaymentRequestButtonElement } from
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ToastNotification from "@/components/toastify";
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 export default function CheckoutForm() {
   const [notification, setNotification] = useState({
@@ -12,7 +14,6 @@ export default function CheckoutForm() {
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
-  const [amount, setAmount] = useState(1000);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,18 +24,28 @@ export default function CheckoutForm() {
       country: "US"
     }
   });
-  const [activePaymentMethod, setActivePaymentMethod] = useState("card"); // 'card' or 'paypal'
+  const [activePaymentMethod, setActivePaymentMethod] = useState("card"); 
 
   const showToast = (type, message) => {
     setNotification({ type, message });
   };
+
+  const cartItems = useSelector((state) => state.cart.products);
+
+  const total = useMemo(() => {
+    let totalNumbers = 0;
+    cartItems.forEach((object) => {
+      totalNumbers += object.totalPrice;
+    });
+    return totalNumbers;
+  }, [cartItems]);
 
   useEffect(() => {
     let mounted = true;
 
     axios
       .post("http://localhost:4242/create-payment-intent", {
-        amount: 1000,
+        amount: total*100,
       })
       .then((res) => {
         if (mounted) {
@@ -185,7 +196,7 @@ export default function CheckoutForm() {
         <div className="p-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900">Checkout</h2>
-            <p className="mt-2 text-gray-600">Total: $10.00</p>
+            <p className="mt-2 text-gray-600">Total: ${total}</p>
           </div>
 
           <ToastNotification {...notification} />
@@ -340,7 +351,7 @@ export default function CheckoutForm() {
                     Processing...
                   </>
                 ) : (
-                  `Pay $${amount / 100}`
+                  `Pay $${total}`
                 )}
               </button>
             )}

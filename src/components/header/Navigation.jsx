@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Category from "./Category";
+import { Route } from "react-router-dom";
 
 export default function Navigation() {
   const [activeroute, setActiveroute] = useState("/");
+
 
   const routes = [
     {
