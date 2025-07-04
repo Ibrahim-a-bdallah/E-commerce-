@@ -60,10 +60,10 @@ const ProductDetails = ({ product }) => {
           >
             −
           </button>
-          {cartItems?.map((item) =>(
+          
 
-          <span>{item.count}</span>
-          ))}
+          <span>0</span>
+      
           <button
             onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
             className="w-8 h-8 text-lg rounded cursor-pointer"
