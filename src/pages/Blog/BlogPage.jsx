@@ -89,6 +89,7 @@ const BlogPage = () => {
                   >
                     <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                       <img
+                        loading="lazy"
                         src={post.image}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
@@ -127,7 +128,7 @@ const BlogPage = () => {
                 <h3 className="text-lg font-bold text-gray-900 mb-4">
                   Widget Banner
                 </h3>
-                <img width={"100%"} src={happyHour} alt="" />
+                <img loading="lazy" width={"100%"} src={happyHour} alt="" />
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6">

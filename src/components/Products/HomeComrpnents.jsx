@@ -5,6 +5,7 @@ import poster3 from "../../assets/img/product/3.png";
 import poster4 from "../../assets/img/product/4.png";
 import poster5 from "../../assets/img/product/5.png";
 import poster6 from "../../assets/img/product/6.png";
+import { useNavigate } from "react-router-dom";
 
 export function Top() {
   return (
@@ -28,7 +29,7 @@ export function Products({ featuredProducts }) {
               className="p-4 sm:p-3 border-r border-b border-[#EDEEF5] last:border-r-0  hover:bg-gray-50 transition-colors"
             >
               <ProductMain
-                id= {product.id}
+                id={product.id}
                 image={product?.images[0]}
                 title={product?.title}
                 price={product?.price}
@@ -61,10 +62,16 @@ export function Posters() {
   );
 }
 export function Poster({ posterImg }) {
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
-        <img className="w-full h-full" src={posterImg} alt="poster image" />
+        <img
+          loading="lazy"
+          className="w-full h-full"
+          src={posterImg}
+          alt="poster image"
+        />
         <div className="absolute top-[20px] lg:top-[28px] left-0  p-[20px] ">
           <p className="text-[#00B853] md:font-[500] md:text-[14px] ">
             Weekend Discount 40%
@@ -73,7 +80,10 @@ export function Poster({ posterImg }) {
           <p className="text-[#9B9BB4] font-[400] text-[12px]">
             Eat one every day
           </p>
-          <button className="rounded-2xl my-[10px] bg-[#C2C2D3] px-[15px] py-[10px] text-white cursor-pointer">
+          <button
+            onClick={() => navigate("/shop")}
+            className="rounded-2xl my-[10px] bg-[#C2C2D3] px-[15px] py-[10px] text-white cursor-pointer"
+          >
             Shop Now
           </button>
         </div>
@@ -98,7 +108,12 @@ export function Mistake({ mistageImg }) {
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
         <div className="mb-[10px] rounded-b-2xl overflow-hidden">
-          <img className="w-full h-full" src={mistageImg} alt="water photo" />
+          <img
+            loading="lazy"
+            className="w-full h-full"
+            src={mistageImg}
+            alt="water photo"
+          />
         </div>
         <div>
           <p className="text-[#9B9BB4] text-[13px] font-[300] uppercase my-[10px]">

@@ -117,6 +117,7 @@ export default function Footer() {
           </div>
           <div className="w-full flex justify-center h-full -mb-9 lg:-mb-40  ">
             <img
+              loading="lazy"
               src={coupon}
               alt="Coupon"
               className=" w-full h-full md:min-w-[200px] md:h-[277px]  "
@@ -124,7 +125,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
       {/* Features Section */}
       <div className="bg-[#F7F8FD] py-[35px] w-full">
         <div className=" mx-auto px-4 md:px-[180px]">
@@ -264,9 +264,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
       {/* Categories Section */}
-      <div className="bg-[#F7F8FD] w-full">
+      <div className="bg-[#F7F8FD] w-full hidden md:block">
         <div className="mx-auto px-4 md:px-[150px] py-[50px] md:py-[100px] border-t border-[#E4E5EE]">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {categories.map((category, index) => (
@@ -289,7 +288,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
       {/* Contact & Info Section */}
       <div className="bg-[#ffffff] w-full">
         <div className=" mx-auto px-4 md:px-[150px]">
@@ -348,11 +346,13 @@ export default function Footer() {
               </div>
               <div className="flex gap-2">
                 <img
+                  loading="lazy"
                   src={goggle}
                   alt="Google Play"
                   className="w-28 h-10 object-contain"
                 />
                 <img
+                  loading="lazy"
                   src={app}
                   alt="App Store"
                   className="w-28 h-10 object-contain"
@@ -398,6 +398,7 @@ export default function Footer() {
                 ))}
               </div>
               <img
+                loading="lazy"
                 src={payments}
                 alt="Payment Methods"
                 className="w-full md:w-[320px] h-auto"

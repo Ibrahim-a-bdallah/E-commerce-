@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom"; // <-- Import this
 import Logo from "./Logo";
 import { CiMenuFries } from "react-icons/ci";
 import { IoCloseSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 import Search from "./Search";
 import Navigation from "./Navigation";
+
 export default function Mobile_Header() {
   const [showMenu, setShowMenu] = useState(false);
   const lastScrollY = useRef(0);
+  const location = useLocation(); 
+
 
   useEffect(() => {
     if (!showMenu) return;
@@ -33,6 +37,11 @@ export default function Mobile_Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [showMenu]);
+
+
+  useEffect(() => {
+    setShowMenu(false);
+  }, [location.pathname]);
 
   return (
     <div className="w-full py-3">
