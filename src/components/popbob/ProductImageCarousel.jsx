@@ -17,6 +17,7 @@ const ProductImageCarousel = ({ images = [] }) => {
       <div className="flex flex-col gap-2">
         {images.map((img, index) => (
           <img
+            loading="lazy"
             key={index}
             src={img}
             onClick={() => handleThumbClick(index)}
@@ -33,6 +34,7 @@ const ProductImageCarousel = ({ images = [] }) => {
 
       <div className="relative flex-1 border rounded-xl flex items-center justify-center overflow-hidden">
         <img
+          loading="lazy"
           src={images[selected]}
           alt={`Product ${selected}`}
           className="max-h-[280px] object-contain"

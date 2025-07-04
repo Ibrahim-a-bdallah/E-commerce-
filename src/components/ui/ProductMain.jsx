@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { openPopup } from "../../store/popBob/popBobSlice";
 import ButtonQuantityCounter from "./ButtonQuantityCounter";
 import { addCart } from "@/store/cart/cartSlice";
+import actGetProductById from "@/store/popBob/actGetProductById";
 
 const ProductMain = ({
   id,
@@ -17,6 +18,8 @@ const ProductMain = ({
   size = "medium",
   showAddButton = Boolean,
   addQuantity = Boolean,
+
+  selectedProductId,
   product,
 }) => {
   const sizeClasses = {
@@ -29,8 +32,8 @@ const ProductMain = ({
     dispatch(openPopup(id));
   };
 
+
   const addToCart = () => {
-    console.log({ product });
     dispatch(addCart(product));
   };
 
@@ -58,6 +61,7 @@ const ProductMain = ({
         <div className="p-4 pb-0">
           <div className="aspect-square  rounded-lg mb-3 overflow-hidden flex items-center justify-center">
             <img
+              loading="lazy"
               src={image}
               alt={title}
               className="w-full h-full object-contain max-h-[180px] "
@@ -116,7 +120,7 @@ const ProductMain = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

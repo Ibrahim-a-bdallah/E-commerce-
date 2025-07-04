@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import heart from "@/assets/heart.svg";
 import heartFill from "@/assets/heart-svgrepo-com.svg";
 
 import ShareDialog from "../share/ShareDialog";
 import { addCart } from "@/store/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const ProductDetails = ({ product }) => {
   const dispatch = useDispatch();
@@ -12,9 +13,9 @@ const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const [readmore, setreadmore] = useState(true);
   const [hearticon, setheart] = useState(true);
+  const cartItems = useSelector((state) => state.cart.products);
 
   const addToCart = () => {
-    console.log({ product });
     dispatch(addCart(product));
   };
 
@@ -58,7 +59,10 @@ const ProductDetails = ({ product }) => {
           >
             −
           </button>
-          <span>{quantity}</span>
+          
+
+          <span>0</span>
+      
           <button
             onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
             className="w-8 h-8 text-lg rounded cursor-pointer"
@@ -81,9 +85,21 @@ const ProductDetails = ({ product }) => {
           className="flex w-[50%] justify-center items-center gap-2 hover:bg-[#f5f5f5] border px-4 py-1 rounded-lg cursor-pointer"
         >
           {hearticon ? (
-            <img src={heart} alt="heart" width={20} height={20} />
+            <img
+              loading="lazy"
+              src={heart}
+              alt="heart"
+              width={20}
+              height={20}
+            />
           ) : (
-            <img src={heartFill} alt="heartFill" width={20} height={20} />
+            <img
+              loading="lazy"
+              src={heartFill}
+              alt="heartFill"
+              width={20}
+              height={20}
+            />
           )}
           <span>Wishlist</span>
         </button>
