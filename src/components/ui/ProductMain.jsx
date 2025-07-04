@@ -29,10 +29,10 @@ const ProductMain = ({
     dispatch(openPopup(id));
   };
 
-  const addToCart = () => {
-    console.log({ product });
-    dispatch(addCart(product));
-  };
+
+    const addToCart = () => {
+      dispatch(addCart(product));
+    };
 
   return (
     <div className="flex justify-center ">

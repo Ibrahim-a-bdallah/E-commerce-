@@ -76,7 +76,6 @@ function Sidebar({
       }
     });
   }
-  console.log("statue Counts", statusCounts);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -98,7 +97,7 @@ function Sidebar({
             return (
               <li className="py-2 px-2" key={category.slug}>
                 <div className="relative">
-                  {console.log(category.slug == categoryName.category)}
+                
                   <input
                     type="checkbox"
                     id={inputId}
@@ -200,11 +199,10 @@ function Sidebar({
         <ul className="list-none p-0  ">
           {uniqueAvailabilityStatuses.map((status, index) => {
             const inputId = `availabilityStatus-${index}`; // Unique ID for each category input
-            console.log("ca", uniqueAvailabilityStatuses);
             return (
               <li className="py-2 px-2" key={index}>
                 <div className="relative flex items-center justify-between">
-                  {console.log(status)}
+                
                   <input
                     type="checkbox"
                     id={inputId}

@@ -26,7 +26,7 @@ const Logo = () => {
   }, [cartItems]);
 
   return (
-    <div className="pt-0 lg:pt-8 w-full px-4 xl:px-[150px] flex justify-between items-center">
+    <div className="pt-0 lg:pt-8 w-full px-4 xl:px-[150px] flex justify-between items-center overflow-hidden md:overflow-visible">
       <div className="flex justify-center items-center w-full gap-0 lg:gap-6 ">
         <a href="/" className="mx-auto">
           <img
