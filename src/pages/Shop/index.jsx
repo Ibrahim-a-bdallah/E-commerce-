@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import bgShop from "../../assets/img/shop/bgShop.png";
 import PaginationControls from "@/components/pagination/PaginationControls";
 import ProductsShop from "@/components/ui/productsShop";
+import Loading from "@/components/feedback/Loading/Loading";
 
 function Shop() {
   const [countProducts, setCountProducts] = useState(0);
@@ -13,11 +14,8 @@ function Shop() {
   const [selectedAvailability, setSelectedAvailability] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const PRODUCTS_PER_PAGE = 25;
-
-  const allProducts = useSelector(
-    (state) => state.categoriesProducts.categories || []
-  );
+  const PRODUCTS_PER_PAGE = 30;
+  const {loading , error , categories: allProducts =[] } = useSelector((state) => state.categoriesProducts );
 
   const filteredProducts = allProducts.filter((product) => {
     if (!product) return false;
@@ -177,17 +175,19 @@ function Shop() {
                 <span className="text-[#202435]">Alphabetically, A-Z</span>
               </p>
             </div>
+            <Loading loading={loading} error={error}>
+              <ProductsShop
+                setCountProducts={setCountProducts}
+                products={paginatedProducts}
+              />
 
-            <ProductsShop
-              setCountProducts={setCountProducts}
-              products={paginatedProducts}
-            />
+              <PaginationControls
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </Loading>
 
-            <PaginationControls
-              totalPages={totalPages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
           </div>
         </div>
       </div>
