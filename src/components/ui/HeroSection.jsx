@@ -8,8 +8,10 @@ import Hero2 from "../../assets/img/Hero2.png";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative bg-gradient-to-r from-teal-400 to-teal-300 overflow-hidden">
       <div className="w-screen h-1/2 mx-auto ">
@@ -31,6 +33,7 @@ const HeroSection = () => {
           <SwiperSlide className="relative">
             <div className="absolute inset-0 overflow-hidden">
               <img
+                loading="lazy"
                 src={Hero1}
                 alt="Grocery Products"
                 className="w-screen h-full object-cover min-h-full min-w-full"
@@ -59,7 +62,10 @@ const HeroSection = () => {
                   <span className="text-white/80 mr-2">from</span>
                   <span className="text-3xl font-bold text-white">$7.99</span>
                 </div>
-                <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                <button
+                  onClick={() => navigate("/shop")}
+                  className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                >
                   Shop Now →
                 </button>
               </div>
@@ -68,6 +74,7 @@ const HeroSection = () => {
           <SwiperSlide className="relative">
             <div className="absolute inset-0 overflow-hidden">
               <img
+                loading="lazy"
                 src={Hero2}
                 alt="Grocery Products"
                 className="w-full h-full object-cover min-h-full min-w-full"
@@ -98,7 +105,10 @@ const HeroSection = () => {
                   <span className="text-white/80 mr-2">from</span>
                   <span className="text-3xl font-bold text-white">$7.99</span>
                 </div>
-                <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                <button
+                  onClick={() => navigate("/shop")}
+                  className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                >
                   Shop Now →
                 </button>
               </div>

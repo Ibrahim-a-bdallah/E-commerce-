@@ -58,6 +58,7 @@ function Sidebar({
       }
     });
   }
+  // console.log('Brand Counts', brandCounts);
   /*************************************************************************/
   const statusCounts = {}; // Object to hold the count of each availabilityStatus
   // Count the occurrences of each availabilityStatus
@@ -194,7 +195,8 @@ function Sidebar({
         </h2>
         <ul className="list-none p-0  ">
           {uniqueAvailabilityStatuses.map((status, index) => {
-            const inputId = `availabilityStatus-${index}`;
+            const inputId = `availabilityStatus-${index}`; // Unique ID for each category input
+
             return (
               <li className="py-2 px-2" key={index}>
                 <div className="relative flex items-center justify-between">
@@ -227,6 +229,7 @@ function Sidebar({
       </div>
       <div>
         <img
+          loading="lazy"
           src={imgShop}
           alt="Shop Banner"
           className="w-[270px] h-[368.69px] mt-6"

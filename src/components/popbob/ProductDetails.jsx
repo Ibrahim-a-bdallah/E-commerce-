@@ -80,9 +80,21 @@ const ProductDetails = ({ product }) => {
           className="flex w-[50%] justify-center items-center gap-2 hover:bg-[#f5f5f5] border px-4 py-1 rounded-lg cursor-pointer"
         >
           {hearticon ? (
-            <img src={heart} alt="heart" width={20} height={20} />
+            <img
+              loading="lazy"
+              src={heart}
+              alt="heart"
+              width={20}
+              height={20}
+            />
           ) : (
-            <img src={heartFill} alt="heartFill" width={20} height={20} />
+            <img
+              loading="lazy"
+              src={heartFill}
+              alt="heartFill"
+              width={20}
+              height={20}
+            />
           )}
           <span>Wishlist</span>
         </button>
