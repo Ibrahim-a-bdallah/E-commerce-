@@ -15,12 +15,7 @@ function Shop() {
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const PRODUCTS_PER_PAGE = 30;
-
-  const allProducts = useSelector(
-    (state) => state.categoriesProducts.categories || []
-  );
-  const loading = useSelector((state) => state.categoriesProducts.loading);
-  const error = useSelector((state) => state.categoriesProducts.error);
+  const {loading , error , categories: allProducts =[] } = useSelector((state) => state.categoriesProducts );
   const filteredProducts = allProducts.filter((product) => {
     if (!product) return false;
 
