@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import products from "./products/productSlice";
 import categories from "./categories/categoriesSlice";
-import popup from "./popBob/popBobSlice";
+import popup from "./popBob/popBobSlice.js";
 import cart from "./cart/cartSlice";
 import carousel from "./carouselProducts/carouselProductsSlice";
 import categoriesProducts from "./categoryProducts/categoryProductsSlice";
