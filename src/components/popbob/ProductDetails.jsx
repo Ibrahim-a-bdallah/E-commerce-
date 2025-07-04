@@ -13,11 +13,19 @@ const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const [readmore, setreadmore] = useState(true);
   const [hearticon, setheart] = useState(true);
+  const [IsLoding, setIsLoding] = useState(false)
   const cartItems = useSelector((state) => state.cart.products);
 
+  const Loding = () => {
+    setIsLoding (true) ;
+    setTimeout(() => {
+      setIsLoding (false)
+    }, 500);
+  }
   const addToCart = () => {
     console.log({ product });
     dispatch(addCart(product));
+    Loding();
   };
 
   return (
@@ -76,7 +84,7 @@ const ProductDetails = ({ product }) => {
           onClick={addToCart}
           className="bg-[#35AFA0] text-white py-2 rounded-lg cursor-pointer w-full"
         >
-          Add to Cart
+          {IsLoding? 'Loding...' : 'Add to Cart'}
         </button>
       </div>
 

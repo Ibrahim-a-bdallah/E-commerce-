@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { openPopup } from "../../store/popBob/popBobSlice";
 import ButtonQuantityCounter from "./ButtonQuantityCounter";
 import { addCart } from "@/store/cart/cartSlice";
+import { useState } from "react";
 
 const ProductMain = ({
   id,
@@ -20,6 +21,7 @@ const ProductMain = ({
   selectedProductId,
   product,
 }) => {
+  const [IsLoding, setIsLoding] = useState(false)
   const sizeClasses = {
     small: "w-32",
     medium: "w-48",
@@ -29,10 +31,16 @@ const ProductMain = ({
   const handleOpenPopup = () => {
     dispatch(openPopup(id));
   };
-
+  const Loding = () => {
+    setIsLoding (true) ;
+    setTimeout(() => {
+      setIsLoding (false)
+    }, 500);
+  }
   const addToCart = () => {
     console.log({ product });
     dispatch(addCart(product));
+    Loding();
   };
 
   return (
@@ -115,7 +123,8 @@ const ProductMain = ({
               onClick={addToCart}
               className="w-full cursor-pointer bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg transition-colors bottom-2 relative"
             >
-              Add to Cart
+              {IsLoding? 'Loding...' : 'Add to Cart'}
+              
             </button>
           )}
           {addQuantity && <ButtonQuantityCounter />}
