@@ -36,8 +36,7 @@ const ProductMain = ({
   return (
     <div className="flex justify-center ">
       <div
-        className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden cursor-pointer w-full`}
-        onClick={() => handleOpenPopup()}
+        className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden  w-full`}
       >
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col space-y-1 z-10">
@@ -54,7 +53,10 @@ const ProductMain = ({
         </div>
 
         {/* Product Image - Fixed Aspect Ratio */}
-        <div className="p-4 pb-0">
+        <div
+          className="p-4 pb-0 cursor-pointer"
+          onClick={() => handleOpenPopup()}
+        >
           <div className="aspect-square  rounded-lg mb-3 overflow-hidden flex items-center justify-center">
             <img
               loading="lazy"

@@ -17,7 +17,7 @@ export default function Navigation() {
     },
     {
       name: "meats & seafood",
-      link: "/category/meats",
+      link: "/category/Groceries",
       icon: (
         <svg
           width="23"
