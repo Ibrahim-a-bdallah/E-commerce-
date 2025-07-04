@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
 import Category from "./Category";
-import { Route } from "react-router-dom";
 
 export default function Navigation() {
-  const [activeroute, setActiveroute] = useState("/");
-
+  const location = useLocation();
 
   const routes = [
     {
@@ -16,7 +12,7 @@ export default function Navigation() {
     },
     {
       name: "shop",
-      link: "shop",
+      link: "/shop",
       icon: null,
     },
     {
@@ -101,12 +97,12 @@ export default function Navigation() {
     },
     {
       name: "Blog",
-      link: "blog",
+      link: "/blog",
       icon: null,
     },
     {
       name: "Contact",
-      link: "contact",
+      link: "/contact",
       icon: null,
     },
   ];
@@ -121,7 +117,7 @@ export default function Navigation() {
             <li
               key={index}
               className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${
-                activeroute == item.link
+                location.pathname == item.link
                   ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF] "
                   : ""
               }`}

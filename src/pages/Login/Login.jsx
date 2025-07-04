@@ -21,9 +21,9 @@ const Login = () => {
       );
       toast.success("Login successful!");
       navigate("/");
-      console.log("Login successful:", response.data);
+     
     } catch (error) {
-      console.error("Error during login:", error);
+    
       toast.error("Login failed.");
     }
   };

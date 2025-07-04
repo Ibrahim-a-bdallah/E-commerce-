@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import imgShop from "../../assets/img/shop/aeb9763b1145b3dd6e2fadd6c2b27941d3d7b0fa.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "@/store/categories/actGetCategories";
-import { fetchCategoriesProducts } from "@/Store/categoryProducts/actGetCategoryProducts";
+import { fetchCategoriesProducts } from "@/store/categoryProducts/actGetCategoryProducts";
 import { Link, useParams } from "react-router-dom";
 
 function Sidebar({ onCategoryChange, onBrandChange, onPriceChange, selectedCategories, selectedAvailability ,onAvailabilityChange }) {
@@ -65,7 +65,7 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
       }
     });
   }
-  console.log('statue Counts', statusCounts);
+
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -88,7 +88,7 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
             return (
               <li className="py-2 px-2" key={category.slug}>
                 <div className="relative">
-                  {console.log(category.slug == categoryName.category)}
+                
                   <input
                     type="checkbox"
                     id={inputId}
@@ -190,11 +190,11 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
         <ul className="list-none p-0  ">
           {uniqueAvailabilityStatuses.map((status, index) => {
             const inputId = `availabilityStatus-${index}`; // Unique ID for each category input
-            console.log('ca', uniqueAvailabilityStatuses);
+            
             return (
               <li className="py-2 px-2" key={index}>
                 <div className="relative flex items-center justify-between">
-                  {console.log(status)}
+                
                   <input
                     type="checkbox"
                     id={inputId}
