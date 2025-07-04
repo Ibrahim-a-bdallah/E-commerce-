@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import actGetProductById from "./actGetProductById";
 
 const initialState = {
+  product: [],
   open: false,
   selectedProductId: null,
+  loading: "idle",
+  error: null,
 };
 
 const popupSlice = createSlice({
@@ -17,6 +21,19 @@ const popupSlice = createSlice({
       state.open = false;
       state.selectedProductId = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(actGetProductById.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(actGetProductById.fulfilled, (state, action) => {
+      state.loading = "success";
+      state.product = action.payload;
+    });
+    builder.addCase(actGetProductById.rejected, (state, action) => {
+      state.loading = "failed";
+      state.error = action.payload;
+    });
   },
 });
 
