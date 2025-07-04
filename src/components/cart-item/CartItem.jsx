@@ -25,6 +25,7 @@ export default function CartItem({ data }) {
       >
         <div className="p-4">
           <img
+            loading="lazy"
             src={data.product.images[0]}
             className="w-16 md:w-32 max-w-full max-h-full"
             alt={data.brand}

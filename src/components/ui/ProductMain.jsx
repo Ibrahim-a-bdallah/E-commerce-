@@ -58,6 +58,7 @@ const ProductMain = ({
         <div className="p-4 pb-0">
           <div className="aspect-square  rounded-lg mb-3 overflow-hidden flex items-center justify-center">
             <img
+              loading="lazy"
               src={image}
               alt={title}
               className="w-full h-full object-contain max-h-[180px] "

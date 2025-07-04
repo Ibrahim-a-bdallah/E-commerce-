@@ -5,19 +5,30 @@ import { fetchCategories } from "@/store/categories/actGetCategories";
 import { fetchCategoriesProducts } from "@/store/categoryProducts/actGetCategoryProducts";
 import { Link, useParams } from "react-router-dom";
 
-function Sidebar({ onCategoryChange, onBrandChange, onPriceChange, selectedCategories, selectedAvailability ,onAvailabilityChange }) {
-  const [priceFrom, setPriceFrom] = useState('');
-  const [priceTo, setPriceTo] = useState('');
+function Sidebar({
+  onCategoryChange,
+  onBrandChange,
+  onPriceChange,
+  selectedCategories,
+  selectedAvailability,
+  onAvailabilityChange,
+}) {
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
   const dispatch = useDispatch();
   const categoryName = useParams();
   // console.log(categoryName.category);
   const { categories } = useSelector((state) => state.categories || []);
-  const categoriesProducts = useSelector((state) => state.categoriesProducts || []);
-  const allProducts = useSelector((state) => state.categoriesProducts.categories || []);
+  const categoriesProducts = useSelector(
+    (state) => state.categoriesProducts || []
+  );
+  const allProducts = useSelector(
+    (state) => state.categoriesProducts.categories || []
+  );
   const allBrands = Array.isArray(categoriesProducts.categories)
     ? categoriesProducts.categories
-      .map((brand) => brand.brand)
-      .filter((brand) => brand && brand.trim() !== "")
+        .map((brand) => brand.brand)
+        .filter((brand) => brand && brand.trim() !== "")
     : [];
 
   // console.log('Aside', allBrands);
@@ -50,8 +61,8 @@ function Sidebar({ onCategoryChange, onBrandChange, onPriceChange, selectedCateg
     });
   }
   // console.log('Brand Counts', brandCounts);
-/*************************************************************************/
-const statusCounts = {}; // Object to hold the count of each availabilityStatus
+  /*************************************************************************/
+  const statusCounts = {}; // Object to hold the count of each availabilityStatus
   // Count the occurrences of each availabilityStatus
   if (Array.isArray(allProducts)) {
     allProducts.forEach((product) => {
@@ -66,7 +77,6 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
     });
   }
 
-
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchCategoriesProducts());
@@ -74,7 +84,6 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
   useEffect(() => {
     onPriceChange(priceFrom, priceTo);
   }, [priceFrom, priceTo, onPriceChange]);
-
 
   return (
     <aside>
@@ -190,7 +199,6 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
         <ul className="list-none p-0  ">
           {uniqueAvailabilityStatuses.map((status, index) => {
             const inputId = `availabilityStatus-${index}`; // Unique ID for each category input
-            
             return (
               <li className="py-2 px-2" key={index}>
                 <div className="relative flex items-center justify-between">
@@ -202,7 +210,9 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
                     value=""
                     className="peer hidden"
                     checked={selectedAvailability?.includes(status) || false}
-                    onChange={(e) => onAvailabilityChange(status, e.target.checked)}
+                    onChange={(e) =>
+                      onAvailabilityChange(status, e.target.checked)
+                    }
                   />
                   <label
                     htmlFor={inputId}
@@ -214,7 +224,7 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
                   <span className="text-[#71778E] text-[14px]">
                     ({statusCounts[status] || 0})
                   </span>
-                  </div>
+                </div>
               </li>
             );
           })}
@@ -222,6 +232,7 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
       </div>
       <div>
         <img
+          loading="lazy"
           src={imgShop}
           alt="Shop Banner"
           className="w-[270px] h-[368.69px] mt-6"
@@ -232,14 +243,3 @@ const statusCounts = {}; // Object to hold the count of each availabilityStatus
 }
 
 export default Sidebar;
-
-
-
-
-
-
-
-
-
-
-

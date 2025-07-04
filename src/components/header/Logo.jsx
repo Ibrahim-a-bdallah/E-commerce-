@@ -30,6 +30,7 @@ const Logo = () => {
       <div className="flex justify-center items-center w-full gap-0 lg:gap-6 ">
         <a href="/" className="mx-auto">
           <img
+            loading="lazy"
             src={logo}
             alt="Logo"
             className=" min-w-[120px] md:min-w-[165px] h-auto w-full"

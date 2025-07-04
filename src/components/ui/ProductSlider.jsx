@@ -17,12 +17,18 @@ const ProductSlider = ({ featuredProducts }) => {
               <h5 className="font-medium p-3 text-3xl">
                 Deals of the <b>week!</b>
               </h5>
-              <img className="p-3" src={countdown} alt="countdown" />
+              <img
+                loading="lazy"
+                className="p-3"
+                src={countdown}
+                alt="countdown"
+              />
               <h5 className="text-xs text-gray-400 p-3">
                 Remains until the end of the offer
               </h5>
             </div>
             <img
+              loading="lazy"
               src={featuredProducts[14]?.images[0]}
               alt="Featured Product "
               className="w-full h-full object-cover rounded-lg mx-auto m-5"
@@ -57,7 +63,7 @@ const ProductSlider = ({ featuredProducts }) => {
                 {featuredProducts[14]?.stock}
               </span>
             </h4>
-            <img className="p-3" src={img} alt="" />
+            <img loading="lazy" className="p-3" src={img} alt="" />
           </div>
         </div>
         {/*All Products */}
@@ -66,7 +72,7 @@ const ProductSlider = ({ featuredProducts }) => {
             <ProductMain
               key={product?.id}
               categoryName={product?.category}
-              id ={product?.id}
+              id={product?.id}
               image={product?.images[0]}
               title={product?.title}
               price={product?.price}
