@@ -5,6 +5,7 @@ import poster3 from "../../assets/img/product/3.png";
 import poster4 from "../../assets/img/product/4.png";
 import poster5 from "../../assets/img/product/5.png";
 import poster6 from "../../assets/img/product/6.png";
+import { useNavigate } from "react-router-dom";
 
 export function Top() {
   return (
@@ -61,6 +62,7 @@ export function Posters() {
   );
 }
 export function Poster({ posterImg }) {
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
@@ -78,7 +80,10 @@ export function Poster({ posterImg }) {
           <p className="text-[#9B9BB4] font-[400] text-[12px]">
             Eat one every day
           </p>
-          <button className="rounded-2xl my-[10px] bg-[#C2C2D3] px-[15px] py-[10px] text-white cursor-pointer">
+          <button
+            onClick={() => navigate("/shop")}
+            className="rounded-2xl my-[10px] bg-[#C2C2D3] px-[15px] py-[10px] text-white cursor-pointer"
+          >
             Shop Now
           </button>
         </div>

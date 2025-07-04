@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const PromoBanner = ({
   title,
   subtitle,
@@ -5,6 +7,7 @@ const PromoBanner = ({
   image,
   size = "large",
 }) => {
+  const navigate = useNavigate();
   const sizeClasses = size === "large" ? "h-40" : "h-32";
 
   return (
@@ -26,7 +29,10 @@ const PromoBanner = ({
         <h3 className="text-white text-xl font-bold mb-2">{title}</h3>
         {subtitle && <p className="text-white/90 text-sm mb-4">{subtitle}</p>}
         {buttonText && (
-          <button className="bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
+          <button
+            onClick={() => navigate("/shop")}
+            className="bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+          >
             {buttonText}
           </button>
         )}
