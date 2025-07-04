@@ -9,13 +9,14 @@ import "swiper/css/pagination";
 
 const ProductCarousel = ({ title, products }) => {
   return (
-    <div className="mb-12" >
+    <div className="mb-12">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
       <div className="relative w-full">
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
           slidesPerView={1}
+          centeredSlides={products.length === 1}
           navigation={{
             nextEl: ".custom-next",
             prevEl: ".custom-prev",
@@ -40,9 +41,9 @@ const ProductCarousel = ({ title, products }) => {
           className="product-carousel "
         >
           {products.map((product) => (
-            <SwiperSlide className="py-2" key={product.id}>
+            <SwiperSlide className="py-2 " key={product.id}>
               <ProductMain
-                id = {product.id}
+                id={product.id}
                 image={product?.images[0]}
                 title={product?.title}
                 price={product?.price}
@@ -55,7 +56,6 @@ const ProductCarousel = ({ title, products }) => {
                 showAddButton={true}
                 addQuantity={false}
                 product={product}
-                
               />
             </SwiperSlide>
           ))}

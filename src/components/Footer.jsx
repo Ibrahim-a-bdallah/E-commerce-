@@ -124,7 +124,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
       {/* Features Section */}
       <div className="bg-[#F7F8FD] py-[35px] w-full">
         <div className=" mx-auto px-4 md:px-[180px]">
@@ -264,9 +263,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
       {/* Categories Section */}
-      <div className="bg-[#F7F8FD] w-full">
+      <div className="bg-[#F7F8FD] w-full hidden md:block">
         <div className="mx-auto px-4 md:px-[150px] py-[50px] md:py-[100px] border-t border-[#E4E5EE]">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {categories.map((category, index) => (
@@ -289,7 +287,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
       {/* Contact & Info Section */}
       <div className="bg-[#ffffff] w-full">
         <div className=" mx-auto px-4 md:px-[150px]">
