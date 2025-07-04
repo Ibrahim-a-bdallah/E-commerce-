@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../store/categories/actGetCategories";
+import CategoryLink from "../CategoryLink";
 export default function Category() {
   // const [categories, setCategories] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
@@ -93,12 +94,7 @@ export default function Category() {
               />
             </svg>
 
-            <Link
-              to={`/category/${category.slug}`}
-              className="block text-sm hover:text-[#1773B0] cursor-pointer"
-            >
-              {category.name}
-            </Link>
+            <CategoryLink category={category} />
           </li>
         ))}
       </ul>

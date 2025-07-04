@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import bgShop from "../../assets/img/shop/bgShop.png";
 import PaginationControls from "@/components/pagination/PaginationControls";
@@ -8,14 +9,22 @@ import Loading from "@/components/feedback/Loading/Loading";
 
 function Shop() {
   const [countProducts, setCountProducts] = useState(0);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [priceRange, setPriceRange] = useState({ from: 0, to: Infinity });
-  const [selectedAvailability, setSelectedAvailability] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const PRODUCTS_PER_PAGE = 30;
-  const {loading , error , categories: allProducts =[] } = useSelector((state) => state.categoriesProducts );
+
+  const {
+    loading,
+    error,
+    categories: allProducts = [],
+  } = useSelector((state) => state.categoriesProducts);
+
+  const selectedCategories = searchParams.getAll("category");
+  const selectedBrands = searchParams.getAll("brand");
+  const selectedAvailability = searchParams.getAll("availability");
+  const priceFrom = Number(searchParams.get("priceFrom") || 0);
+  const priceTo = Number(searchParams.get("priceTo") || Infinity);
 
   const filteredProducts = allProducts.filter((product) => {
     if (!product) return false;
@@ -28,8 +37,7 @@ function Shop() {
       selectedBrands.length === 0 ||
       selectedBrands.includes(product.brand?.trim());
 
-    const matchPrice =
-      product.price >= priceRange.from && product.price <= priceRange.to;
+    const matchPrice = product.price >= priceFrom && product.price <= priceTo;
 
     const matchAvailability =
       selectedAvailability.length === 0 ||
@@ -47,44 +55,41 @@ function Shop() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategories, selectedBrands, priceRange, selectedAvailability]);
+  }, [searchParams.toString()]);
+
+  const updateParamsArray = (key, value, isChecked) => {
+    const currentValues = new Set(searchParams.getAll(key));
+    isChecked ? currentValues.add(value) : currentValues.delete(value);
+    searchParams.delete(key);
+    [...currentValues].forEach((val) => searchParams.append(key, val));
+    setSearchParams(searchParams);
+  };
 
   const handleCategoryChange = (categorySlug, isChecked) => {
-    setSelectedCategories((prev) =>
-      isChecked
-        ? [...new Set([...prev, categorySlug])]
-        : prev.filter((cat) => cat !== categorySlug)
-    );
+    updateParamsArray("category", categorySlug, isChecked);
   };
 
   const handleBrandChange = (brand, isChecked) => {
-    setSelectedBrands((prev) =>
-      isChecked
-        ? [...new Set([...prev, brand])]
-        : prev.filter((b) => b !== brand)
-    );
+    updateParamsArray("brand", brand, isChecked);
   };
 
-  const handlePriceChange = useCallback((from, to) => {
-    setPriceRange({
-      from: Number(from) || 0,
-      to: Number(to) || Infinity,
-    });
-  }, []);
+  const handlePriceChange = useCallback(
+    (from, to) => {
+      if (from !== undefined) searchParams.set("priceFrom", from);
+      if (to !== undefined) searchParams.set("priceTo", to);
+      setSearchParams(searchParams);
+    },
+    [searchParams, setSearchParams]
+  );
 
   const handleAvailabilityChange = (status, isChecked) => {
-    setSelectedAvailability((prev) =>
-      isChecked
-        ? [...new Set([...prev, status])]
-        : prev.filter((s) => s !== status)
-    );
+    updateParamsArray("availability", status, isChecked);
   };
 
   return (
     <section className="my-20">
       <div className="container mx-auto px-10">
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Button for mobile filters */}
           <button
             className="lg:hidden flex items-center gap-2 mb-4 bg-[#F3F4F7] px-4 py-2 rounded cursor-pointer"
             onClick={() => setShowFilters(true)}
@@ -103,7 +108,6 @@ function Shop() {
             </svg>
           </button>
 
-          {/* Sidebar Filters */}
           {showFilters && (
             <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-start">
               <div className="w-full max-w-sm bg-white p-4 overflow-y-auto">
@@ -175,19 +179,18 @@ function Shop() {
                 <span className="text-[#202435]">Alphabetically, A-Z</span>
               </p>
             </div>
+
             <Loading loading={loading} error={error}>
               <ProductsShop
                 setCountProducts={setCountProducts}
                 products={paginatedProducts}
               />
-
               <PaginationControls
                 totalPages={totalPages}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
               />
             </Loading>
-
           </div>
         </div>
       </div>
