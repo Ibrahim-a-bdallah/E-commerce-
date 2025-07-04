@@ -25,7 +25,7 @@ export const fetchCategoriesProducts = createAsyncThunk(
 
         allProducts.push(...products);
       }
-      console.log('All products:', allProducts);
+     
       return allProducts;
       }
     } catch (error) {

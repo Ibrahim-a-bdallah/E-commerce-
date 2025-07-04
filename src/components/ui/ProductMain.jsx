@@ -31,7 +31,7 @@ const ProductMain = ({
   }
 
     const addToCart = () => {
-      console.log({product})
+  
       dispatch(addCart(product));
     };
 

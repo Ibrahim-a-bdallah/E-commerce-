@@ -54,7 +54,7 @@ export default function CheckoutForm() {
         }
       })
       .catch((err) => {
-        console.error("[Axios Error]", err.response?.data || err.message);
+    
         showToast("error", "Failed to initialize payment");
       });
 
