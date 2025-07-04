@@ -29,7 +29,6 @@ const ProductMain = ({
   const handleOpenPopup = () => {
     dispatch(openPopup(id));
   };
-
   const addToCart = () => {
     dispatch(addCart(product));
   };

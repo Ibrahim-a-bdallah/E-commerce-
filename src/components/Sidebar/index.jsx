@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import imgShop from "../../assets/img/shop/aeb9763b1145b3dd6e2fadd6c2b27941d3d7b0fa.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "@/store/categories/actGetCategories";
-import { fetchCategoriesProducts } from "@/Store/categoryProducts/actGetCategoryProducts";
+import { fetchCategoriesProducts } from "@/store/categoryProducts/actGetCategoryProducts";
 import { Link, useParams } from "react-router-dom";
 
 function Sidebar({
@@ -194,7 +194,7 @@ function Sidebar({
         </h2>
         <ul className="list-none p-0  ">
           {uniqueAvailabilityStatuses.map((status, index) => {
-            const inputId = `availabilityStatus-${index}`; // Unique ID for each category input
+            const inputId = `availabilityStatus-${index}`;
             return (
               <li className="py-2 px-2" key={index}>
                 <div className="relative flex items-center justify-between">

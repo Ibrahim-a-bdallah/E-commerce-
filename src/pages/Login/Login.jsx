@@ -22,7 +22,6 @@ const Login = () => {
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
-      console.error("Error during login:", error);
       toast.error("Login failed.");
     }
   };
