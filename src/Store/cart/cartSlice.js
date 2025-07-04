@@ -25,7 +25,7 @@ const cartSlice = createSlice({
         });
       }
     },
-
+ 
     increase(state, action) {
       const exItem = state.products.find(
         (item) => item.product.id === action.payload.product.id
