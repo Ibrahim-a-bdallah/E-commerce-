@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useDispatch, useSelector } from "react-redux";
-import CarouselSpacing from "./carousel";
+import CarouselSpacing from "./Carousel";
 import ProductImageCarousel from "./ProductImageCarousel";
 import ProductDetails from "./ProductDetails";
 import { useEffect } from "react";
