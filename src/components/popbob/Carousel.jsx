@@ -14,7 +14,9 @@ import actGetcarouselProducts from "@/store/carouselProducts/actGetcarouselProdu
 const CarouselSpacing = (categoryName) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(actGetcarouselProducts(categoryName.categoryName));
+    if (categoryName.categoryName) {
+      dispatch(actGetcarouselProducts(categoryName.categoryName));
+    }
   }, [dispatch, categoryName]);
 
   const categoryProducts = useSelector((state) => state.carousel.products);

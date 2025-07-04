@@ -14,7 +14,6 @@ const ProductDetails = ({ product }) => {
   const [hearticon, setheart] = useState(true);
 
   const addToCart = () => {
-    console.log({ product });
     dispatch(addCart(product));
   };
 

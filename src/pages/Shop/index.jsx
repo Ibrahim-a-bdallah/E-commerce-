@@ -13,7 +13,7 @@ function Shop() {
   const [selectedAvailability, setSelectedAvailability] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const PRODUCTS_PER_PAGE = 30;
+  const PRODUCTS_PER_PAGE = 25;
 
   const allProducts = useSelector(
     (state) => state.categoriesProducts.categories || []
