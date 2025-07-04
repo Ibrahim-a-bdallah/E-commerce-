@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import heart from "@/assets/heart.svg";
 import heartFill from "@/assets/heart-svgrepo-com.svg";
 
 import ShareDialog from "../share/ShareDialog";
 import { addCart } from "@/store/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const ProductDetails = ({ product }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const [readmore, setreadmore] = useState(true);
   const [hearticon, setheart] = useState(true);
+  const cartItems = useSelector((state) => state.cart.products);
 
   const addToCart = () => {
     console.log({ product });
@@ -58,7 +60,10 @@ const ProductDetails = ({ product }) => {
           >
             −
           </button>
-          <span>{quantity}</span>
+          {cartItems?.map((item) =>(
+
+          <span>{item.count}</span>
+          ))}
           <button
             onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
             className="w-8 h-8 text-lg rounded cursor-pointer"
