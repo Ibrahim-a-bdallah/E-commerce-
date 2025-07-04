@@ -28,7 +28,7 @@ export function Products({ featuredProducts }) {
               className="p-4 sm:p-3 border-r border-b border-[#EDEEF5] last:border-r-0  hover:bg-gray-50 transition-colors"
             >
               <ProductMain
-                id= {product.id}
+                id={product.id}
                 image={product?.images[0]}
                 title={product?.title}
                 price={product?.price}
@@ -64,7 +64,12 @@ export function Poster({ posterImg }) {
   return (
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
-        <img className="w-full h-full" src={posterImg} alt="poster image" />
+        <img
+          loading="lazy"
+          className="w-full h-full"
+          src={posterImg}
+          alt="poster image"
+        />
         <div className="absolute top-[20px] lg:top-[28px] left-0  p-[20px] ">
           <p className="text-[#00B853] md:font-[500] md:text-[14px] ">
             Weekend Discount 40%
@@ -98,7 +103,12 @@ export function Mistake({ mistageImg }) {
     <>
       <div className="relative rounded-2xl overflow-hidden md:flex-1/3  lg:flex-1/4 lg:max-w-[400px] ">
         <div className="mb-[10px] rounded-b-2xl overflow-hidden">
-          <img className="w-full h-full" src={mistageImg} alt="water photo" />
+          <img
+            loading="lazy"
+            className="w-full h-full"
+            src={mistageImg}
+            alt="water photo"
+          />
         </div>
         <div>
           <p className="text-[#9B9BB4] text-[13px] font-[300] uppercase my-[10px]">

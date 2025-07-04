@@ -31,6 +31,7 @@ const HeroSection = () => {
           <SwiperSlide className="relative">
             <div className="absolute inset-0 overflow-hidden">
               <img
+                loading="lazy"
                 src={Hero1}
                 alt="Grocery Products"
                 className="w-screen h-full object-cover min-h-full min-w-full"
@@ -68,6 +69,7 @@ const HeroSection = () => {
           <SwiperSlide className="relative">
             <div className="absolute inset-0 overflow-hidden">
               <img
+                loading="lazy"
                 src={Hero2}
                 alt="Grocery Products"
                 className="w-full h-full object-cover min-h-full min-w-full"

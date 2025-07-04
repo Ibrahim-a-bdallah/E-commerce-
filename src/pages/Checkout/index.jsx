@@ -146,6 +146,7 @@ function Checkout() {
                 <div className="my-4 p-4 bg-[#F5F5F5] flex justify-center flex-col items-center text-center rounded">
                   <div className="mb-2">
                     <img
+                      loading="lazy"
                       src={iconPayment}
                       alt="Payment Icon"
                       className="w-20 h-20 "
@@ -158,13 +159,10 @@ function Checkout() {
               </div>
               <div className="my-7">
                 <button
-                  
                   type="submit"
                   className="w-full bg-[#F5F5F5] text-gray-700 text-sm font-bold py-4 px-6 rounded cursor-pointer border border-[#DEDEDE] hover:bg-[#e0e0e0] transition duration-200"
                 >
-                
-                    Pay Now
-                
+                  Pay Now
                 </button>
               </div>
             </form>
@@ -177,7 +175,12 @@ function Checkout() {
                     <div
                       className={`w-16 h-16 border border-[#DEDEDE] rounded shadow-md ${styles["product-image"]}`}
                     >
-                      <img src={item.product.thumbnail} alt={item.product.title} className="w-full h-full object-cover" />
+                      <img
+                        loading="lazy"
+                        src={item.product.thumbnail}
+                        alt={item.product.title}
+                        className="w-full h-full object-cover"
+                      />
                       <span
                         className={`bg-[#4B4B4B] text-white flex justify-center items-center ${styles["product-count"]}`}
                       >

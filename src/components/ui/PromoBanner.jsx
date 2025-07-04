@@ -13,7 +13,12 @@ const PromoBanner = ({
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img src={image} alt={title} className="w-full h-full object-cover" />
+        <img
+          loading="lazy"
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* Content */}
