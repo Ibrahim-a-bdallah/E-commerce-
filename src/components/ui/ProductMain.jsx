@@ -18,6 +18,8 @@ const ProductMain = ({
   size = "medium",
   showAddButton = Boolean,
   addQuantity = Boolean,
+
+  selectedProductId,
   product,
 }) => {
   const sizeClasses = {
@@ -29,6 +31,8 @@ const ProductMain = ({
   const handleOpenPopup = () => {
     dispatch(openPopup(id));
   };
+
+
   const addToCart = () => {
     dispatch(addCart(product));
   };
@@ -116,7 +120,7 @@ const ProductMain = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
