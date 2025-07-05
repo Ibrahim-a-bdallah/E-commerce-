@@ -1,33 +1,55 @@
 import express from "express";
-import Stripe from "stripe";
 import cors from "cors";
 import dotenv from "dotenv";
+import Stripe from "stripe";
 
 dotenv.config();
 
 const app = express();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
-app.post("/create-payment-intent", async (req, res) => {
-  const { amount } = req.body;
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://e-commerce-dusky-mu-65.vercel.app/",
+];
 
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
+app.post("/create-payment-intent", async (req, res) => {
   try {
+    const { amount } = req.body;
+
+    if (!amount || typeof amount !== "number") {
+      return res.status(400).json({ error: "Invalid amount" });
+    }
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
+      amount: Math.round(amount),
       currency: "usd",
-      automatic_payment_methods: { enabled: true }, // ✅ الحل الصحيح
+      payment_method_types: ["card"],
     });
 
-    res.send({ clientSecret: paymentIntent.client_secret });
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
   } catch (err) {
-    console.error("[Stripe Error]", err.message);
-    res.status(500).json({ error: err.message });
+    console.error("[Stripe Error]", err);
+    res.status(500).json({ error: "Something went wrong" });
   }
 });
 
-app.listen(4242, () => {
-  console.log("🚀 Server running on http://localhost:4242");
-});
+// ✅ Start
+const PORT = process.env.PORT || 4242;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

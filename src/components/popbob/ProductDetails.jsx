@@ -6,17 +6,29 @@ import ShareDialog from "../share/ShareDialog";
 import { addCart } from "@/store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-
-const ProductDetails = ({ product }) => {
+const ProductDetails = ({ product, loading, onClosePopup }) => {
   const dispatch = useDispatch();
   const [size, setSize] = useState("medium");
   const [quantity, setQuantity] = useState(0);
   const [readmore, setreadmore] = useState(true);
   const [hearticon, setheart] = useState(true);
-  const cartItems = useSelector((state) => state.cart.products);
 
   const addToCart = () => {
-    dispatch(addCart(product));
+    if (quantity > 0) {
+      loading(true);
+      dispatch(
+        addCart({
+          ...product,
+          quantity,
+          size,
+        })
+      );
+
+      setTimeout(() => {
+        loading(false);
+        onClosePopup();
+      }, 1000);
+    }
   };
 
   return (
@@ -59,10 +71,9 @@ const ProductDetails = ({ product }) => {
           >
             −
           </button>
-          
 
-          <span>0</span>
-      
+          <span>{quantity}</span>
+
           <button
             onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
             className="w-8 h-8 text-lg rounded cursor-pointer"
@@ -73,7 +84,8 @@ const ProductDetails = ({ product }) => {
 
         <button
           onClick={addToCart}
-          className="bg-[#35AFA0] text-white py-2 rounded-lg cursor-pointer w-full"
+          className="bg-[#35AFA0] text-white py-2 rounded-lg cursor-pointer w-full disabled:opacity-50"
+          disabled={quantity === 0}
         >
           Add to Cart
         </button>

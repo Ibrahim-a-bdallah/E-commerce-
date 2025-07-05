@@ -49,9 +49,13 @@ export default function CheckoutForm() {
     let mounted = true;
 
     axios
-      .post("http://localhost:5173/create-payment-intent", {
-        amount: total * 100,
-      })
+      .post(
+        "http://localhost:4242/create-payment-intent" ||
+          "/api/create-payment-intent",
+        {
+          amount: total * 100,
+        }
+      )
       .then((res) => {
         if (mounted) {
           setClientSecret(res.data.clientSecret);
