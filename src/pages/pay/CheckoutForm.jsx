@@ -1,4 +1,9 @@
-import { useStripe, useElements, CardElement, PaymentRequestButtonElement } from "@stripe/react-stripe-js";
+import {
+  useStripe,
+  useElements,
+  CardElement,
+  PaymentRequestButtonElement,
+} from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ToastNotification from "@/components/toastify";
@@ -21,10 +26,10 @@ export default function CheckoutForm() {
       line1: "",
       city: "",
       postal_code: "",
-      country: "US"
-    }
+      country: "US",
+    },
   });
-  const [activePaymentMethod, setActivePaymentMethod] = useState("card"); 
+  const [activePaymentMethod, setActivePaymentMethod] = useState("card");
 
   const showToast = (type, message) => {
     setNotification({ type, message });
@@ -44,9 +49,13 @@ export default function CheckoutForm() {
     let mounted = true;
 
     axios
-      .post("http://localhost:4242/create-payment-intent", {
-        amount: total*100,
-      })
+      .post(
+        "http://localhost:4242/create-payment-intent" ||
+          "/api/create-payment-intent",
+        {
+          amount: total * 100,
+        }
+      )
       .then((res) => {
         if (mounted) {
           setClientSecret(res.data.clientSecret);
@@ -54,7 +63,6 @@ export default function CheckoutForm() {
         }
       })
       .catch((err) => {
-    
         showToast("error", "Failed to initialize payment");
       });
 
@@ -67,10 +75,10 @@ export default function CheckoutForm() {
     if (!stripe) return;
 
     const pr = stripe.paymentRequest({
-      country: 'US',
-      currency: 'usd',
+      country: "US",
+      currency: "usd",
       total: {
-        label: 'Total',
+        label: "Total",
         amount: 1000,
       },
       requestPayerName: true,
@@ -78,22 +86,22 @@ export default function CheckoutForm() {
       requestShipping: true,
       shippingOptions: [
         {
-          id: 'free-shipping',
-          label: 'Free shipping',
-          detail: 'Arrives in 5 to 7 days',
+          id: "free-shipping",
+          label: "Free shipping",
+          detail: "Arrives in 5 to 7 days",
           amount: 0,
         },
       ],
     });
 
-    pr.canMakePayment().then(result => {
+    pr.canMakePayment().then((result) => {
       if (result) {
         setPaymentRequest(pr);
       }
     });
 
-    pr.on('paymentmethod', async (ev) => {
-      const {error: confirmError} = await stripe.confirmPayment({
+    pr.on("paymentmethod", async (ev) => {
+      const { error: confirmError } = await stripe.confirmPayment({
         clientSecret,
         paymentMethod: ev.paymentMethod,
         confirmParams: {
@@ -106,17 +114,17 @@ export default function CheckoutForm() {
               city: ev.shippingAddress.city,
               postal_code: ev.shippingAddress.postalCode,
               country: ev.shippingAddress.country,
-            }
-          }
+            },
+          },
         },
       });
 
       if (confirmError) {
-        showToast('error', confirmError.message);
-        ev.complete('fail');
+        showToast("error", confirmError.message);
+        ev.complete("fail");
       } else {
-        showToast('success', 'Payment succeeded!');
-        ev.complete('success');
+        showToast("success", "Payment succeeded!");
+        ev.complete("success");
         setTimeout(() => {
           window.location.href = "/success";
         }, 3000);
@@ -128,24 +136,24 @@ export default function CheckoutForm() {
     const { name, value } = e.target;
     if (name.includes("address.")) {
       const field = name.split(".")[1];
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         address: {
           ...prev.address,
-          [field]: value
-        }
+          [field]: value,
+        },
       }));
     } else {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!stripe || !elements || !clientSecret || loading) return;
 
     // Basic validation
@@ -158,20 +166,23 @@ export default function CheckoutForm() {
 
     try {
       if (activePaymentMethod === "card") {
-        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: elements.getElement(CardElement),
-            billing_details: {
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          clientSecret,
+          {
+            payment_method: {
+              card: elements.getElement(CardElement),
+              billing_details: {
+                name: formData.name,
+                email: formData.email,
+                address: formData.address,
+              },
+            },
+            shipping: {
               name: formData.name,
-              email: formData.email,
-              address: formData.address
-            }
-          },
-          shipping: {
-            name: formData.name,
-            address: formData.address
+              address: formData.address,
+            },
           }
-        });
+        );
 
         if (error) {
           showToast("error", error.message);
@@ -205,20 +216,27 @@ export default function CheckoutForm() {
             <div className="flex border-b">
               <button
                 type="button"
-                className={`py-2 px-4 font-medium ${activePaymentMethod === "card" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
+                className={`py-2 px-4 font-medium ${
+                  activePaymentMethod === "card"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-500"
+                }`}
                 onClick={() => setActivePaymentMethod("card")}
               >
                 Credit Card
               </button>
-              
-                <button
-                  type="button"
-                  className={`py-2 px-4 font-medium ${activePaymentMethod === "paypal" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
-                  onClick={() => setActivePaymentMethod("paypal")}
-                >
-                  PayPal
-                </button>
-            
+
+              <button
+                type="button"
+                className={`py-2 px-4 font-medium ${
+                  activePaymentMethod === "paypal"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-500"
+                }`}
+                onClick={() => setActivePaymentMethod("paypal")}
+              >
+                PayPal
+              </button>
             </div>
           </div>
 
@@ -226,7 +244,10 @@ export default function CheckoutForm() {
             {activePaymentMethod === "card" ? (
               <>
                 <div className="mb-6">
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -241,7 +262,10 @@ export default function CheckoutForm() {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -260,25 +284,30 @@ export default function CheckoutForm() {
                     Card Details <span className="text-red-500">*</span>
                   </label>
                   <div className="p-3 border border-gray-300 rounded-md">
-                    <CardElement options={{
-                      style: {
-                        base: {
-                          fontSize: '16px',
-                          color: '#424770',
-                          '::placeholder': {
-                            color: '#aab7c4',
+                    <CardElement
+                      options={{
+                        style: {
+                          base: {
+                            fontSize: "16px",
+                            color: "#424770",
+                            "::placeholder": {
+                              color: "#aab7c4",
+                            },
+                          },
+                          invalid: {
+                            color: "#9e2146",
                           },
                         },
-                        invalid: {
-                          color: '#9e2146',
-                        },
-                      },
-                    }} />
+                      }}
+                    />
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="address.line1" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="address.line1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Street Address <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -294,7 +323,10 @@ export default function CheckoutForm() {
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div>
-                    <label htmlFor="address.city" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="address.city"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       City <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -308,7 +340,10 @@ export default function CheckoutForm() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="address.postal_code" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor="address.postal_code"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       ZIP Code <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -325,14 +360,9 @@ export default function CheckoutForm() {
               </>
             ) : (
               <div className="mb-6">
-                
-                  <div className="p-4 border border-gray-300 rounded-md">
-                    <PaymentRequestButtonElement
-                     
-                      className="w-full"
-                    />
-                  </div>
-               
+                <div className="p-4 border border-gray-300 rounded-md">
+                  <PaymentRequestButtonElement className="w-full" />
+                </div>
               </div>
             )}
 
@@ -344,9 +374,25 @@ export default function CheckoutForm() {
               >
                 {loading ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Processing...
                   </>
