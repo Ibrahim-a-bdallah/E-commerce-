@@ -5,7 +5,7 @@ import img from "./../../assets/img/product/Background.png";
 import ProductMain from "./ProductMain";
 import img1 from "./../../assets/img/product/bacola-banner-11.jpg (1).png";
 import img2 from "./../../assets/img/product/bacola-banner-12.jpg (1).png";
-
+import CountdownTimer from "@/components/ui/CountdownTimer";
 const ProductSlider = ({ featuredProducts }) => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -17,12 +17,7 @@ const ProductSlider = ({ featuredProducts }) => {
               <h5 className="font-medium p-3 text-3xl">
                 Deals of the <b>week!</b>
               </h5>
-              <img
-                loading="lazy"
-                className="p-3"
-                src={countdown}
-                alt="countdown"
-              />
+              <CountdownTimer targetDate="2025-07-10T23:59:59" />
               <h5 className="text-xs text-gray-400 p-3">
                 Remains until the end of the offer
               </h5>
