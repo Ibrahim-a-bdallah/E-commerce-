@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../../store/categories/actGetCategories";
+import { fetchCategories } from "@/store/categories/actGetCategories";
 import CategoryLink from "../CategoryLink";
 export default function Category() {
   // const [categories, setCategories] = useState([]);
@@ -94,7 +94,9 @@ export default function Category() {
               />
             </svg>
 
-            <CategoryLink category={category} />
+            <CategoryLink category={category.slug}>
+              {category.name}
+            </CategoryLink>
           </li>
         ))}
       </ul>

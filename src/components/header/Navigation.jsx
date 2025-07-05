@@ -67,7 +67,7 @@ export default function Navigation() {
     },
     {
       name: "Beverages",
-      link: "/category/beverages",
+      link: "beverages",
       icon: (
         <svg
           width="23"
@@ -116,7 +116,7 @@ export default function Navigation() {
           {routes.map((item, index) => (
             <li
               key={index}
-              className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm md:text-[15px] px-3 md:px-4 py-2 md:py-3 dosis ${
+              className={`flex justify-center items-center gap-2 uppercase font-[600] text-[#3E445A] text-sm lg:text-[15px] px-3  py-2 md:py-3 dosis ${
                 location.pathname == item.link
                   ? "rounded-[40px] text-[#35AFA0] bg-[#F0FAFF] "
                   : ""
