@@ -54,7 +54,7 @@ export default function Search() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for Products, fruit, meat, eggs .etc..."
-          className="font-[400]   w-full text-xl text-black "
+          className="font-[400]   w-full text-xl text-black outline-none "
         />
         <svg
           width="25"

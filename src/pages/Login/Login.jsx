@@ -24,21 +24,7 @@ const Login = () => {
       <h2 className="text-center mb-7 text-2xl font-semibold text-gray-800">
         Login
       </h2>
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            const response = await axios.post(
-              "https://dummyjson.com/auth/login",
-              data
-            );
-            dispatch(setToken(response.data.accessToken));
-            toast.success("Login successful!");
-            navigate("/");
-          } catch (error) {
-            toast.error(error.response?.data?.message || "Login failed.");
-          }
-        })}
-      >
+      <form onSubmit={handleSubmit()}>
         <div className="mb-5">
           <label className="block mb-1.5 font-medium text-gray-700">
             Username

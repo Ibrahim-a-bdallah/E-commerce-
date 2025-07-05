@@ -4,6 +4,7 @@ import products from "./products/productSlice";
 import categories from "./categories/categoriesSlice";
 import popup from "./popBob/popBobSlice";
 import cart from "./cart/cartSlice";
+import auth from "./authSlice/authSlice";
 import carousel from "./carouselProducts/carouselProductsSlice";
 import categoriesProducts from "./categoryProducts/categoryProductsSlice";
 import {
@@ -29,9 +30,13 @@ const cartPersistConfig = {
   storage,
 };
 
+const authPersistConfig = {
+  key: "cart",
+  storage,
+};
+
 const rootReducer = combineReducers({
-  // auth: persistReducer(authPersistConfig, auth),
-  // Add your reducers here
+  auth: persistReducer(authPersistConfig, auth),
   products,
   categories,
   popup,

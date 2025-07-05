@@ -6,8 +6,9 @@ import { useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 function Checkout() {
   const cartItems = useSelector((state) => state.cart.products);
-  // const user = useSelector((state) => state.user);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.token);
+  console.log(user);
   const items = useMemo(() => {
     let totalNumbers = 0;
     cartItems.forEach((object) => {
@@ -26,10 +27,10 @@ function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  //   if (!user) {
-  //   navigate("/login");
-  //   return;
-  // }
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     window.location.href = "/pay";
   };
 
@@ -196,7 +197,9 @@ function Checkout() {
                       {item.product.title}
                     </p>
                   </div>
-                  <span className="font-medium">${item.totalPrice.toFixed(2)}</span>
+                  <span className="font-medium">
+                    ${item.totalPrice.toFixed(2)}
+                  </span>
                 </li>
               ))}
             </ul>
