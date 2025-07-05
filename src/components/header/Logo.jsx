@@ -69,7 +69,7 @@ const Logo = () => {
           <CustomDropdownMenu trigger={trigger} items={menuItems} />
           <div className="flex gap-1 items-center">
             <h1 className="font-[600] text-[16px] text-[#3E445A] dosis">
-              ${totalPrice.toFixed(2)}
+              ${Number(totalPrice).toFixed(2)}
             </h1>
             <Link to={"./cart"}>
               <div className="relative">

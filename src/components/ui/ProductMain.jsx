@@ -24,6 +24,20 @@ const ProductMain = ({
     medium: "w-48",
     large: "w-56",
   };
+
+  const productData = {
+    id,
+    title,
+    image,
+    price: Number(originalPrice),
+    originalPrice: price,
+    availabilityStatus,
+    rating,
+    discount,
+    isNew,
+    size,
+  };
+
   const dispatch = useDispatch();
   const handleOpenPopup = () => {
     dispatch(openPopup(id));
@@ -114,7 +128,7 @@ const ProductMain = ({
                 Add to Cart
               </button>
             )}
-            {addQuantity && <ButtonQuantityCounter />}
+            {addQuantity && <ButtonQuantityCounter product={productData} />}
           </div>
         </div>
       </div>
