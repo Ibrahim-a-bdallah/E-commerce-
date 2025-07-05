@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import heart from "@/assets/heart.svg";
 import heartFill from "@/assets/heart-svgrepo-com.svg";
-
+import { FaCircleCheck } from "react-icons/fa6";
 import ShareDialog from "../share/ShareDialog";
 import { addCart } from "@/store/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,15 @@ const ProductDetails = ({ product, loading, onClosePopup }) => {
   const [quantity, setQuantity] = useState(0);
   const [readmore, setreadmore] = useState(true);
   const [hearticon, setheart] = useState(true);
+
+  const cartItems = useSelector((state) => state.cart.products);
+
+  const isInCart = useMemo(() => {
+    return cartItems.some((item) => {
+      const match = item.product.id === product.id;
+      return match;
+    });
+  }, [cartItems, product.id]);
 
   const addToCart = () => {
     if (quantity > 0) {
@@ -46,20 +55,28 @@ const ProductDetails = ({ product, loading, onClosePopup }) => {
 
       <div>
         <p className="font-semibold mb-1">Available in:</p>
-        <div className="flex gap-2">
-          {["small", "medium", "large"].map((s) => (
-            <button
-              key={s}
-              onClick={() => setSize(s)}
-              className={`px-3 py-1 border rounded-full text-sm cursor-pointer ${
-                size === s
-                  ? "bg-[#35AFA0] text-white"
-                  : "border-gray-300 text-gray-600"
-              }`}
-            >
-              {s}
-            </button>
-          ))}
+        <div className="flex w-full justify-between items-center">
+          <div className="flex gap-2">
+            {["small", "medium", "large"].map((s) => (
+              <button
+                key={s}
+                onClick={() => setSize(s)}
+                className={`px-3 py-1 border rounded-full text-sm cursor-pointer ${
+                  size === s
+                    ? "bg-[#35AFA0] text-white"
+                    : "border-gray-300 text-gray-600"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+          {isInCart && (
+          <div className="flex gap-1 justify-center items-center text-[#35afa0] font-[600]">
+            <FaCircleCheck />
+            <p> Add to your cart </p>
+          </div>
+        )}
         </div>
       </div>
 

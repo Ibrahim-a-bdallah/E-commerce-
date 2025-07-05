@@ -23,7 +23,7 @@ const cartSlice = createSlice({
         state.products.push({
           product,
           count: quantity,
-          totalPrice: product.price * quantity,
+          totalPrice: Number(product.price * quantity),
         });
       }
     }
