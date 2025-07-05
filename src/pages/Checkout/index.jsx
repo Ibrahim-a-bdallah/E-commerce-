@@ -3,10 +3,11 @@ import styles from "./Checkout.module.css";
 import iconPayment from "../../assets/checkout-img/Container.png";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Checkout() {
   const cartItems = useSelector((state) => state.cart.products);
-
+  // const user = useSelector((state) => state.user);
+  // const navigate = useNavigate();
   const items = useMemo(() => {
     let totalNumbers = 0;
     cartItems.forEach((object) => {
@@ -25,6 +26,10 @@ function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  //   if (!user) {
+  //   navigate("/login");
+  //   return;
+  // }
     window.location.href = "/pay";
   };
 
@@ -191,7 +196,7 @@ function Checkout() {
                       {item.product.title}
                     </p>
                   </div>
-                  <span className="font-medium">${item.totalPrice}</span>
+                  <span className="font-medium">${item.totalPrice.toFixed(2)}</span>
                 </li>
               ))}
             </ul>
