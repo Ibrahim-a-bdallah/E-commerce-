@@ -22,7 +22,7 @@ import storage from "redux-persist/lib/storage";
 const rootPersistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["cart"],
+  whitelist: ["cart", "auth"],
 };
 
 const cartPersistConfig = {
@@ -31,7 +31,7 @@ const cartPersistConfig = {
 };
 
 const authPersistConfig = {
-  key: "cart",
+  key: "auth",
   storage,
 };
 

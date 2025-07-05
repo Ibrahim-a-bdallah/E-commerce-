@@ -50,6 +50,7 @@ export default function CheckoutForm() {
 
     axios
       .post(
+        // eslint-disable-next-line no-constant-binary-expression
         "http://localhost:4242/create-payment-intent" ||
           "/api/create-payment-intent",
         {
@@ -62,14 +63,14 @@ export default function CheckoutForm() {
           initializePaymentRequest(res.data.clientSecret);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         showToast("error", "Failed to initialize payment");
       });
 
     return () => {
       mounted = false;
     };
-  }, []);
+  });
 
   const initializePaymentRequest = (clientSecret) => {
     if (!stripe) return;
@@ -207,7 +208,7 @@ export default function CheckoutForm() {
         <div className="p-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900">Checkout</h2>
-            <p className="mt-2 text-gray-600">Total: ${total}</p>
+            <p className="mt-2 text-gray-600">Total: ${total.toFixed(2)}</p>
           </div>
 
           <ToastNotification {...notification} />
@@ -397,7 +398,7 @@ export default function CheckoutForm() {
                     Processing...
                   </>
                 ) : (
-                  `Pay $${total}`
+                  `Pay $${total.toFixed(2)}`
                 )}
               </button>
             )}

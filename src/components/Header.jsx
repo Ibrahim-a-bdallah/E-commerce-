@@ -29,8 +29,8 @@ export default function Header() {
               <ul className="flex  justify-center md:justify-start gap-4">
                 {[
                   { name: "About Us", link: "about" },
-                  { name: "Compare", link: "/" },
-                  { name: "Wishlist", link: "/" },
+                  { name: "Compare", link: "/Compare" },
+                  { name: "Wishlist", link: "/Wishlist" },
                 ].map((item, index) => (
                   <li
                     key={index}
