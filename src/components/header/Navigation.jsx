@@ -67,7 +67,7 @@ export default function Navigation() {
     },
     {
       name: "Beverages",
-      link: "beverages",
+      link: "/category/beverages",
       icon: (
         <svg
           width="23"

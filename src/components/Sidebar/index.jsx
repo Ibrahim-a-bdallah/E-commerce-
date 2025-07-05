@@ -5,6 +5,8 @@ import { fetchCategories } from "@/store/categories/actGetCategories";
 import { fetchCategoriesProducts } from "@/store/categoryProducts/actGetCategoryProducts";
 import { useSearchParams } from "react-router-dom";
 
+import Brands from "./Brands";
+
 function Sidebar({
   onPriceChange,
   selectedAvailability,
@@ -109,42 +111,12 @@ function Sidebar({
           })}
         </ul>
       </div>
-
-      <div className="pt-6">
-        <h2 className="text-[#202435] font-semibold text-[15px] uppercase dosis pb-4">
-          Brands
-        </h2>
-        <ul>
-          {uniqueBrands.map((brand, index) => {
-            const inputId = `brand-${index}`;
-            return (
-              <li className="py-2 px-2" key={index}>
-                <div className="relative flex items-center justify-between">
-                  <input
-                    type="checkbox"
-                    id={inputId}
-                    className="peer hidden"
-                    checked={selectedBrands.includes(brand)}
-                    onChange={(e) =>
-                      toggleParam("brand", brand, e.target.checked)
-                    }
-                  />
-                  <label
-                    htmlFor={inputId}
-                    className="pl-6 text-[15px] cursor-pointer text-[#71778E]"
-                  >
-                    {brand}
-                  </label>
-                  <span className="absolute w-4 h-4 left-0 top-1/2 -translate-y-1/2 bg-[#f2f3f4] border border-[#71778ec5] peer-checked:bg-[#35AFA0] pointer-events-none"></span>
-                  <span className="text-[#71778E] text-[14px]">
-                    ({brandCounts[brand] || 0})
-                  </span>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <Brands
+        uniqueBrands={uniqueBrands}
+        selectedBrands={selectedBrands}
+        toggleParam={toggleParam}
+        brandCounts={brandCounts}
+      />
 
       <div className="pt-6">
         <h2 className="text-[#202435] font-semibold text-[15px] uppercase dosis pb-4">

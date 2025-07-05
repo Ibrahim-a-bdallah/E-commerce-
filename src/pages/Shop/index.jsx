@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import bgShop from "../../assets/img/shop/bgShop.png";
 import PaginationControls from "@/components/pagination/PaginationControls";
@@ -12,7 +12,8 @@ function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const PRODUCTS_PER_PAGE = 30;
+  const PRODUCTS_PER_PAGE = 20;
+  const navigate = useNavigate();
 
   const {
     loading,
@@ -62,7 +63,7 @@ function Shop() {
     isChecked ? currentValues.add(value) : currentValues.delete(value);
     searchParams.delete(key);
     [...currentValues].forEach((val) => searchParams.append(key, val));
-    setSearchParams(searchParams);
+    navigate({ search: searchParams.toString() }, { replace: false });
   };
 
   const handleCategoryChange = (categorySlug, isChecked) => {
@@ -77,7 +78,7 @@ function Shop() {
     (from, to) => {
       if (from !== undefined) searchParams.set("priceFrom", from);
       if (to !== undefined) searchParams.set("priceTo", to);
-      setSearchParams(searchParams);
+      navigate({ search: searchParams.toString() }, { replace: false });
     },
     [searchParams, setSearchParams]
   );
