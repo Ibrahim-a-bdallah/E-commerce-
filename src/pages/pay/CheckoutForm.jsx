@@ -49,17 +49,14 @@ export default function CheckoutForm() {
   }, [cartItems]);
 
   useEffect(() => {
+    if (total <= 0) return;
+
     let mounted = true;
 
     axios
-      .post(
-        // eslint-disable-next-line no-constant-binary-expression
-        "http://localhost:4242/create-payment-intent" ||
-          "/api/create-payment-intent",
-        {
-          amount: total * 100,
-        }
-      )
+      .post("http://localhost:4242/create-payment-intent", {
+        amount: total * 100,
+      })
       .then((res) => {
         if (mounted) {
           setClientSecret(res.data.clientSecret);
@@ -73,7 +70,7 @@ export default function CheckoutForm() {
     return () => {
       mounted = false;
     };
-  });
+  }, [total]);
 
   const initializePaymentRequest = (clientSecret) => {
     if (!stripe) return;
