@@ -33,10 +33,9 @@ export function Products({ featuredProducts }) {
                 image={product?.images[0]}
                 title={product?.title}
                 price={product?.price}
+                discount={product?.discountPercentage}
                 availabilityStatus={product?.availabilityStatus}
-                originalPrice={product?.discountPercentage}
                 rating={product?.rating}
-                discount={product?.discount}
                 isNew={product?.isNew}
                 size="medium"
                 showAddButton={false}

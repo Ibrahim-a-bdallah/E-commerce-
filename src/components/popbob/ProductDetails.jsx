@@ -55,7 +55,7 @@ const ProductDetails = ({ product, loading, onClosePopup }) => {
 
       <div>
         <p className="font-semibold mb-1">Available in:</p>
-        <div className="flex w-full justify-between items-center">
+        <div className="flex w-full justify-between items-start flex-col">
           <div className="flex gap-2">
             {["small", "medium", "large"].map((s) => (
               <button
@@ -72,11 +72,11 @@ const ProductDetails = ({ product, loading, onClosePopup }) => {
             ))}
           </div>
           {isInCart && (
-          <div className="flex gap-1 justify-center items-center text-[#35afa0] font-[600]">
-            <FaCircleCheck />
-            <p> Add to your cart </p>
-          </div>
-        )}
+            <div className="flex gap-1 justify-center items-center text-[#35afa0] font-[600]">
+              <FaCircleCheck />
+              <p>This product is in the cart</p>
+            </div>
+          )}
         </div>
       </div>
 

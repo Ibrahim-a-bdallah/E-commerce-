@@ -21,13 +21,9 @@ function ProductsShop({ setCountProducts, products }) {
           }
           title={product.title}
           price={product.price}
-          originalPrice={(
-            product.price -
-            (product.price * product.discountPercentage) / 100
-          ).toFixed(2)}
           availabilityStatus={product.availabilityStatus}
           rating={product.rating}
-          discount={product.discount}
+          discount={product.discountPercentage}
           size="medium"
           showAddButton={false}
           addQuantity={true}

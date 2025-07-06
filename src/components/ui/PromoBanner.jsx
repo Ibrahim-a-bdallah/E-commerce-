@@ -31,7 +31,7 @@ const PromoBanner = ({
         {buttonText && (
           <button
             onClick={() => navigate("/shop")}
-            className="bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+            className="bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors cursor-pointer"
           >
             {buttonText}
           </button>

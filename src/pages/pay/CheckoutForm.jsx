@@ -7,10 +7,13 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ToastNotification from "@/components/toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
+import { cleanUpCart } from "@/store/cart/cartSlice";
 
 export default function CheckoutForm() {
+  const dispatch = useDispatch();
+
   const [notification, setNotification] = useState({
     type: "",
     message: "",
@@ -128,7 +131,7 @@ export default function CheckoutForm() {
         ev.complete("success");
         setTimeout(() => {
           window.location.href = "/success";
-        }, 3000);
+        }, 1000);
       }
     });
   };
@@ -191,7 +194,8 @@ export default function CheckoutForm() {
           showToast("success", "Payment succeeded!");
           setTimeout(() => {
             window.location.href = "/";
-          }, 3000);
+          }, 500);
+          dispatch(cleanUpCart());
         }
       }
     } catch (err) {
@@ -227,7 +231,7 @@ export default function CheckoutForm() {
                 Credit Card
               </button>
 
-              <button
+              {/* <button
                 type="button"
                 className={`py-2 px-4 font-medium ${
                   activePaymentMethod === "paypal"
@@ -237,7 +241,7 @@ export default function CheckoutForm() {
                 onClick={() => setActivePaymentMethod("paypal")}
               >
                 PayPal
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -371,7 +375,7 @@ export default function CheckoutForm() {
               <button
                 type="submit"
                 disabled={!stripe || loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {loading ? (
                   <>

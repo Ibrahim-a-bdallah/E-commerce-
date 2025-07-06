@@ -15,32 +15,31 @@ import {
 const Home = () => {
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(actGetProducts());
   }, [dispatch]);
 
-
-  const products = useSelector((state) => state.products);
-  const featuredProducts = products.products;
+  const { products, loading, error } = useSelector((state) => state.products);
 
   return (
     <>
       <div className="min-h-screen bg-gray-50">
         <HeroSection />
         <CategoriesSection />
-        <ProductSlider featuredProducts={featuredProducts} />
+        <ProductSlider
+          featuredProducts={products}
+          loading={loading}
+          error={error}
+        />
       </div>
       <div className=" lg:px-[150px] m-auto md:px-[80px] px-[30px]">
         <Top />
-        <Products featuredProducts={featuredProducts} />
+        <Products featuredProducts={products} />
         <Posters />
         <Mistakes />
-      </div> 
+      </div>
     </>
   );
 };
 
-
 export default Home;
-

@@ -12,7 +12,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://e-commerce-dusky-mu-65.vercel.app/",
+  "https://e-commerce-dusky-mu-65.vercel.app",
 ];
 
 app.use(

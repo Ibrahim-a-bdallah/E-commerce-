@@ -4,11 +4,14 @@ import iconPayment from "../../assets/checkout-img/Container.png";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 function Checkout() {
-  const cartItems = useSelector((state) => state.cart.products);
   const navigate = useNavigate();
+
+  const cartItems = useSelector((state) => state.cart.products);
+
   const user = useSelector((state) => state.auth.token);
-  console.log(user);
+
   const items = useMemo(() => {
     let totalNumbers = 0;
     cartItems.forEach((object) => {
@@ -35,15 +38,17 @@ function Checkout() {
   };
 
   return (
-    <section className="my-20">
+    <section className="my-20 ">
       <div className="container mx-auto px-10">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-1/2 border-r border-[#DEDEDE] pr-6">
             <div className="flex justify-between items-center ">
               <h2 className="font-semibold text-xl pb-2 text-black">Contact</h2>
-              <p className={styles.editLink}>
-                <a href="#">Login</a>
-              </p>
+              {!user && (
+                <p className={styles.editLink}>
+                  <Link to="/login">Login</Link>
+                </p>
+              )}
             </div>
             <form onSubmit={handleSubmit}>
               <div className="my-4">
@@ -52,6 +57,7 @@ function Checkout() {
                   id="email"
                   type="email"
                   placeholder="Email or mobile phone number"
+                  required
                 />
               </div>
               <div className="my-4">

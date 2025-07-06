@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import ProductMain from "./ProductMain";
 
 // Import Swiper styles
@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const ProductCarousel = ({ title, products }) => {
+const ProductCarousel = ({ title, products, loading, error }) => {
   return (
     <div className="mb-12">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
@@ -56,6 +56,8 @@ const ProductCarousel = ({ title, products }) => {
                 showAddButton={true}
                 addQuantity={false}
                 product={product}
+                loading={loading}
+                error={error}
               />
             </SwiperSlide>
           ))}

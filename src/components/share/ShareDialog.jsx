@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 
 const ShareDialog = ({ product }) => {
-  const shareUrl = `https://e-commerce-websit.vercel.app/category/${product.category}`;
+  const shareUrl = `https://e-commerce-dusky-mu-65.vercel.app/category/${product.category}`;
   const shareTitle = `View this product: ${product.title}`;
   const [copied, setCopied] = useState(false);
 
@@ -52,7 +52,11 @@ const ShareDialog = ({ product }) => {
           <WhatsappShareButton url={shareUrl} title={shareTitle}>
             <WhatsappIcon size={40} round />
           </WhatsappShareButton>
-          <TelegramShareButton url={shareUrl} title={shareTitle}>
+          <TelegramShareButton
+            url={shareUrl}
+            title={shareTitle}
+            hashtags={["product", "share"]}
+          >
             <TelegramIcon size={40} round />
           </TelegramShareButton>
         </div>

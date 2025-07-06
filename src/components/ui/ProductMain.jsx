@@ -1,15 +1,17 @@
-import { Star } from "lucide-react";
+import { Loader2, Star } from "lucide-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { openPopup } from "../../store/popBob/popBobSlice";
 import ButtonQuantityCounter from "./ButtonQuantityCounter";
 import { addCart } from "@/store/cart/cartSlice";
+import { useEffect, useState } from "react";
 
 const ProductMain = ({
   id,
   image,
   title,
   price,
-  originalPrice,
   availabilityStatus,
   rating,
   discount,
@@ -29,29 +31,43 @@ const ProductMain = ({
     id,
     title,
     image,
-    price: Number(originalPrice),
-    originalPrice: price,
+    price,
+    discount,
     availabilityStatus,
     rating,
-    discount,
     isNew,
     size,
   };
-
+  const priceAfterDiscount = discount
+    ? price - (price * discount) / 100
+    : price;
   const dispatch = useDispatch();
   const handleOpenPopup = () => {
     dispatch(openPopup(id));
   };
+  const [disableBtn, setdisableBtn] = useState(false);
 
   const addToCart = () => {
+    setdisableBtn(true);
+    toast.success("Login successful!");
     dispatch(addCart(product));
   };
 
+  useEffect(() => {
+    if (!disableBtn) {
+      return;
+    }
+    const debounc = setTimeout(() => {
+      setdisableBtn(false);
+    }, 300);
+    return () => clearTimeout(debounc);
+  }, [disableBtn]);
   return (
-    <div className="flex justify-center ">
-      <div
-        className={`${sizeClasses[size]} bg-white rounded-lg shadow-sm border border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden  w-full`}
-      >
+    <div
+      className={`${sizeClasses[size]} 
+      flex flex-col justify-center rounded-lg shadow-sm border  bg-white  border-gray-100 hover:scale-95 transition-all duration-200 relative overflow-hidden  w-full cursor-pointer`}
+    >
+      <div onClick={() => handleOpenPopup()}>
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col space-y-1 z-10">
           {discount && (
@@ -67,10 +83,7 @@ const ProductMain = ({
         </div>
 
         {/* Product Image - Fixed Aspect Ratio */}
-        <div
-          className="p-4 pb-0 cursor-pointer"
-          onClick={() => handleOpenPopup()}
-        >
+        <div className="p-4 pb-0 ">
           <div className="aspect-square  rounded-lg mb-3 overflow-hidden flex items-center justify-center">
             <img
               loading="lazy"
@@ -108,29 +121,42 @@ const ProductMain = ({
           </div>
 
           {/* Price and Add Button */}
-          <div className="flex flex-col items-center justify-between">
+          <div className="flex flex-col ">
             <div className="flex items-center space-x-2">
-              <span className="text-lg font-bold text-gray-900">
-                {originalPrice}
+              <span className="text-lg font-bold text-[#D51243]">
+                ${priceAfterDiscount.toFixed(2)}
               </span>
               {price && (
-                <span className="text-sm text-gray-500 line-through">
-                  {price}
+                <span className="text-lg font-bold text-[#C2C2D3] line-through ">
+                  ${price}
                 </span>
               )}
             </div>
-            {/*Buttons */}
-            {showAddButton && (
-              <button
-                onClick={addToCart}
-                className="w-full cursor-pointer bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg mt-4 transition-colors"
-              >
-                Add to Cart
-              </button>
-            )}
-            {addQuantity && <ButtonQuantityCounter product={productData} />}
           </div>
         </div>
+      </div>
+      <div className=" p-4 pt-0 flex flex-col gap-2 justify-center items-center">
+        {showAddButton && (
+          <button
+            onClick={addToCart}
+            className=" cursor-pointer bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg transition-colors w-full"
+          >
+            {disableBtn ? (
+              <div className="flex items-center justify-center ">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Loading...
+              </div>
+            ) : (
+              "Add to Cart"
+            )}
+          </button>
+        )}
+
+        {addQuantity && (
+          <div className="w-full">
+            <ButtonQuantityCounter product={productData} />
+          </div>
+        )}
       </div>
     </div>
   );

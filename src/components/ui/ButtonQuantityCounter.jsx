@@ -10,7 +10,6 @@ import {
 function ButtonQuantityCounter({ product }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.products);
-  console.log(product);
   const cartItem = cartItems.find((item) => item.product.id === product.id);
 
   const quantity = cartItem?.count || 0;
@@ -34,7 +33,7 @@ function ButtonQuantityCounter({ product }) {
   };
 
   return (
-    <div className="flex items-center rounded-5xl py-2">
+    <div className="flex justify-center items-center rounded-5xl py-2">
       <button
         className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-l-lg cursor-pointer disabled:opacity-50"
         onClick={handleDecrement}

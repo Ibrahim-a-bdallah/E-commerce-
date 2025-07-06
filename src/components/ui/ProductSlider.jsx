@@ -1,17 +1,27 @@
 import ProductCarousel from "./ProductCarousel";
 import PromoBanner from "./PromoBanner";
-import countdown from "./../../assets/img/product/countdown-timer.png";
 import img from "./../../assets/img/product/Background.png";
 import ProductMain from "./ProductMain";
 import img1 from "./../../assets/img/product/bacola-banner-11.jpg (1).png";
 import img2 from "./../../assets/img/product/bacola-banner-12.jpg (1).png";
 import CountdownTimer from "@/components/ui/CountdownTimer";
-const ProductSlider = ({ featuredProducts }) => {
+import { useDispatch } from "react-redux";
+import { openPopup } from "@/store/popBob/popBobSlice";
+
+const ProductSlider = ({ featuredProducts, loading, error }) => {
+  const dispatch = useDispatch();
+  const handleOpenPopup = () => {
+    dispatch(openPopup(15));
+  };
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-4  mb-12">
         {/*Deals of the day */}
-        <div className="lg:col-span-1 h-full ">
+        <div
+          className="lg:col-span-1 h-full "
+          onClick={() => handleOpenPopup()}
+        >
           <div className="bg-white border-2 border-pink-200 rounded-xl p-6 pb-20 h-fit flex flex-col cursor-pointer hover:scale-95 transition-all duration-200">
             <div className="  mb-4  text-blue-950">
               <h5 className="font-medium p-3 text-3xl">
@@ -33,10 +43,15 @@ const ProductSlider = ({ featuredProducts }) => {
             </h3>
             <div className="flex items-center space-x-2">
               <span className="text-lg text-pink-600 font-bold  ">
-                {featuredProducts[14]?.price}
+                {(
+                  featuredProducts[14]?.price -
+                  (featuredProducts[14]?.price *
+                    featuredProducts[14]?.discountPercentage) /
+                    100
+                ).toFixed(2)}
               </span>
               <span className="text-sm text-gray-500 line-through">
-                {featuredProducts[14]?.discountPercentage}
+                {featuredProducts[14]?.price.toFixed(2)}
               </span>
             </div>
             <h3 className="uppercase font-[500] text-[15px] p-3 text-[#00B853]">
@@ -71,14 +86,15 @@ const ProductSlider = ({ featuredProducts }) => {
               image={product?.images[0]}
               title={product?.title}
               price={product?.price}
+              discount={product?.discountPercentage}
               availabilityStatus={product?.availabilityStatus}
-              originalPrice={product?.discountPercentage}
               rating={product?.rating}
-              discount={product?.discount}
               isNew={product?.isNew}
               size="larg"
               showAddButton={false}
               addQuantity={false}
+              loading={loading}
+              error={error}
             />
           ))}
         </div>
@@ -101,7 +117,12 @@ const ProductSlider = ({ featuredProducts }) => {
       </div>
 
       {/* Product Carousel */}
-      <ProductCarousel title="Hot Deals" products={featuredProducts} />
+      <ProductCarousel
+        title="Hot Deals"
+        products={featuredProducts}
+        loading={loading}
+        error={error}
+      />
     </main>
   );
 };

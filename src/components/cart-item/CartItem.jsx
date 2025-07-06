@@ -45,7 +45,7 @@ export default function CartItem({ data }) {
       <div className="w-full sm:w-1/4 text-center sm:text-right">
         <button
           onClick={remooveItem}
-          className="text-red-500 text-sm hover:underline"
+          className="text-red-500 text-sm hover:underline cursor-pointer"
         >
           Remove
         </button>
