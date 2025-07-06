@@ -80,7 +80,10 @@ export function Poster({ posterImg }) {
             Eat one every day
           </p>
           <button
-            onClick={() => navigate("/shop")}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate("/shop");
+            }}
             className="rounded-2xl my-[10px] bg-[#C2C2D3] px-[15px] py-[10px] text-white cursor-pointer"
           >
             Shop Now

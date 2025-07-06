@@ -30,7 +30,10 @@ const PromoBanner = ({
         {subtitle && <p className="text-white/90 text-sm mb-4">{subtitle}</p>}
         {buttonText && (
           <button
-            onClick={() => navigate("/shop")}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate("/shop");
+            }}
             className="bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors cursor-pointer"
           >
             {buttonText}
