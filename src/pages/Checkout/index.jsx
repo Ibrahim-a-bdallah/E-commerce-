@@ -190,7 +190,7 @@ function Checkout() {
                     >
                       <img
                         loading="lazy"
-                        src={item.product.image}
+                        src={item.product.image || item.product.images[0]}
                         alt={item.product.title}
                         className="w-full h-full object-cover"
                       />

@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "@/store/categories/actGetCategories";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import CustomDropdownMenu from "./CustomDropdownMenu";
 
 export default function Category() {
@@ -8,10 +9,27 @@ export default function Category() {
   const { categories } = useSelector((state) => state.categories);
   const products = useSelector((state) => state.products.products.length);
 
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
+  const handleCategoryClick = (slug) => {
+    // تحديث searchParams
+    const current = searchParams.getAll("category");
+    const updated = [...new Set([...current, slug])];
+
+    searchParams.delete("category");
+    updated.forEach((v) => searchParams.append("category", v));
+
+    // توجيه لصفحة shop مع البارامز المحدثة
+    navigate({
+      pathname: "/shop",
+      search: searchParams.toString(),
+    });
+  };
   const trigger = (
     <div className="relative bg-[#35AFA0] cursor-pointer flex gap-4 md:gap-9 px-4 md:px-5 py-3 md:py-4 rounded-[50px] justify-between items-center dosis w-full md:w-auto">
       <div className="flex gap-2 md:gap-4 items-center">
@@ -47,7 +65,7 @@ export default function Category() {
 
   const items = categories.map((category) => ({
     label: category.name,
-    to: `/categories/${category.slug}`,
+    onClick: () => handleCategoryClick(category.slug),
   }));
 
   return <CustomDropdownMenu trigger={trigger} items={items} />;

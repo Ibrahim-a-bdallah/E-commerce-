@@ -36,20 +36,44 @@ export default function CustomDropdownMenu({
         align={align}
       >
         {items.map((item, index) => (
-          <DropdownMenuItem asChild key={index}>
-            <Link
-              onClick={handelLogOut}
-              to={item.to}
-              className={cn(
-                "flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer",
-                withDivider &&
-                  index < items.length - 1 &&
-                  "border-b border-gray-200"
-              )}
-            >
-              {item.icon && <span className="text-[#35AFA0]">{item.icon}</span>}
-              <span>{item.label}</span>
-            </Link>
+          <DropdownMenuItem
+            asChild
+            key={index}
+            onClick={() => {
+              if (item.onClick) item.onClick(); // تشغيل الدالة لو موجودة
+              if (item.label === "Log out") handelLogOut();
+            }}
+          >
+            {item.to ? (
+              <Link
+                to={item.to}
+                className={cn(
+                  "flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer",
+                  withDivider &&
+                    index < items.length - 1 &&
+                    "border-b border-gray-200"
+                )}
+              >
+                {item.icon && (
+                  <span className="text-[#35AFA0]">{item.icon}</span>
+                )}
+                <span>{item.label}</span>
+              </Link>
+            ) : (
+              <div
+                className={cn(
+                  "flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer",
+                  withDivider &&
+                    index < items.length - 1 &&
+                    "border-b border-gray-200"
+                )}
+              >
+                {item.icon && (
+                  <span className="text-[#35AFA0]">{item.icon}</span>
+                )}
+                <span>{item.label}</span>
+              </div>
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
