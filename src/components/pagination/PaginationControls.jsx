@@ -47,25 +47,39 @@ export default function PaginationControls({
 
   const pageNumbers = generatePageNumbers();
 
+  const PaginationPreviousHandler = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    window.scrollTo(0, 0);
+  };
+  const PaginationNextHandler = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="mt-6 flex justify-center">
       <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              onClick={PaginationPreviousHandler}
               className={
-                currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                currentPage === 1
+                  ? "pointer-events-none opacity-50"
+                  : "cursor-pointer"
               }
             />
           </PaginationItem>
 
           {pageNumbers.map((page, index) => (
-            <PaginationItem key={index}>
+            <PaginationItem key={index} className="cursor-pointer">
               {typeof page === "number" ? (
                 <PaginationLink
                   isActive={page === currentPage}
-                  onClick={() => setCurrentPage(page)}
+                  onClick={() => {
+                    setCurrentPage(page);
+                    window.scrollTo(0, 0);
+                  }}
                 >
                   {page}
                 </PaginationLink>
@@ -77,13 +91,11 @@ export default function PaginationControls({
 
           <PaginationItem>
             <PaginationNext
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
+              onClick={PaginationNextHandler}
               className={
                 currentPage === totalPages
                   ? "pointer-events-none opacity-50"
-                  : ""
+                  : "cursor-pointer"
               }
             />
           </PaginationItem>

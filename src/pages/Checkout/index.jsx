@@ -35,6 +35,7 @@ function Checkout() {
       return;
     }
     window.location.href = "/pay";
+    window.scrollTo(0, 0);
   };
 
   return (
