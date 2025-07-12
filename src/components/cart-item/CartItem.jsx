@@ -13,7 +13,7 @@ export default function CartItem({ data }) {
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b">
       <div className="flex items-center gap-4 w-full sm:w-1/4">
         <img
-          src={data.product.images[0]}
+          src={data.product.image || data.product.images[0]}
           alt={data.product.brand}
           className="w-16 h-16 object-cover rounded"
         />

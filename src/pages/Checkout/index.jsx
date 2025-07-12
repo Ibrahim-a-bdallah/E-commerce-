@@ -189,7 +189,7 @@ function Checkout() {
                     >
                       <img
                         loading="lazy"
-                        src={item.product.thumbnail}
+                        src={item.product.image}
                         alt={item.product.title}
                         className="w-full h-full object-cover"
                       />
@@ -209,7 +209,7 @@ function Checkout() {
                 </li>
               ))}
             </ul>
-            .
+
             <div>
               <div className="flex justify-between items-center pt-4">
                 <p className="text-base">
